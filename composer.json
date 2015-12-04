@@ -1,0 +1,11 @@
+{
+    "name": "vendor/projet-systeme-i4",
+    "description": "Description of project ProjetSystemeI4.",
+    "authors": [
+        {
+            "name": "MouradB",
+            "email": "mourad_bzd@hotmail.fr"
+        }
+    ],
+    "require": {}
+}
