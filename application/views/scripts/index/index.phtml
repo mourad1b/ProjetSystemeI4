@@ -1,3 +1,38 @@
+<p>The README file can be found <a href="<?php //echo $this->url(array('controller' => 'index', 'action' => 'readme'), null, true); ?>" target="_blank">here</a>.</p>
+    
+    
+<nav>
+    <ul>
+        <li><a href="http://localhost/newsletter/newsletter/application/views/scripts/index/index.phtml">Accueil</a></li>
+        <li><a href="config/index.php?p=contact">Contact</a></li>
+        <?php 
+            if(isset($_SESSION['identifiant_utilisateur']) && $_SESSION['identifiant_utilisateur'] > 0) {
+        ?>
+        <li><a href="index.php?p=compte">Mon compte</a></li>
+        <li><a href="index.php?p=livres">Mes livres</a></li>
+        <li><a href="index.php?p=commander">Commander</a></li>
+        <li><a href="index.php?p=fermer_session">Fermer session</a></li>
+	<?php 
+            }
+	?>
+            
+    </ul>
+        
+</nav>
+        
+<div>
+    <form action="#"
+          enctype="multipart/form-data" method="post">
+        <br>
+        <p>Charger un fichier CSV :<br>
+            <input type="file" name="datafile" size="40">
+        </p>
+        <div>
+            <input type="submit" value="Send">
+        </div>
+    </form>			
+        
+</div>
 <?php
 ?>
 <h1>About the Project</h1>
