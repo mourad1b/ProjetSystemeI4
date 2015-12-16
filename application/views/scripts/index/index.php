@@ -9,7 +9,7 @@
             if(isset($_SESSION['identifiant_utilisateur']) && $_SESSION['identifiant_utilisateur'] > 0) {
         ?>
         <li><a href="index.php?p=compte">Mon compte</a></li>
-        <li><a href="index.php?p=livres">Mes livres</a></li>
+        <li><a href="index.php?p=livres">books</a></li>
         <li><a href="index.php?p=commander">Commander</a></li>
         <li><a href="index.php?p=fermer_session">Fermer session</a></li>
 	<?php 
