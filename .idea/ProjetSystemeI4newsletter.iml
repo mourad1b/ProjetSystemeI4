@@ -15,7 +15,6 @@
           <root url="phar://$MODULE_DIR$/composer.phar" />
           <root url="phar://$MODULE_DIR$/phpunit.phar" />
           <root url="phar://$MODULE_DIR$/phpunit-old.phar" />
-          <root url="phar://$MODULE_DIR$/composer_2.phar" />
         </CLASSES>
         <SOURCES>
           <root url="phar://$MODULE_DIR$/ZendFramework-1.12.17/library/Zend/Service/WindowsAzure/CommandLine/Scaffolders/DefaultScaffolder.phar" />
@@ -24,7 +23,6 @@
           <root url="phar://$MODULE_DIR$/composer.phar" />
           <root url="phar://$MODULE_DIR$/phpunit.phar" />
           <root url="phar://$MODULE_DIR$/phpunit-old.phar" />
-          <root url="phar://$MODULE_DIR$/composer_2.phar" />
         </SOURCES>
       </library>
     </orderEntry>

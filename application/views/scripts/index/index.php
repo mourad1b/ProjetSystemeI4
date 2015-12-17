@@ -1,4 +1,4 @@
-<p>Le fichier README se trouve <a href="<?php //$this->url(array('controller' => 'index', 'action' => 'readme'), null, true); ?>" target="_blank">ici</a>.</p>
+<p>Le fichier README se trouve <a href="<?php $this->url(array('controller' => 'index', 'action' => 'readme'), null, true); ?>" target="_blank">ici</a>.</p>
     
     
 <nav>
