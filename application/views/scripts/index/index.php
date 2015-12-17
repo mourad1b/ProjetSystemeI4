@@ -3,7 +3,7 @@
     
 <nav>
     <ul>
-        <li><a href="http://localhost/newsletter/newsletter/application/views/scripts/index/index.php">Accueil</a></li>
+        <li><a href="http://localhost/ProjetSystemeI4_newsletter/ProjetSystemeI4_newsletter/application/views/scripts/index/index.php">Accueil</a></li>
         <li><a href="config/index.php?p=contact">Contact </a></li>
         <?php 
             if(isset($_SESSION['identifiant_utilisateur']) && $_SESSION['identifiant_utilisateur'] > 0) {

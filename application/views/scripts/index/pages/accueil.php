@@ -12,7 +12,7 @@ require_once 'config/configuration.php';
                 
 		if(isset($utilisateur['IDUSER']) && $utilisateur['IDUSER'] > 0) {
 			$_SESSION['identifiant_utilisateur'] = $utilisateur['IDUSER'];
-			echo "Merci de cliquer sur ce lien <a href=\"http://localhost/newsletter/newsletter/application/views/scripts/index/index.php\">accueil</a> pour mettre à jour le menu de navigation.<br/><br/>";
+			echo "Merci de cliquer sur ce lien <a href=\"http://localhost/ProjetSystemeI4_newsletter/ProjetSystemeI4_newsletter/application/views/scripts/index/index.php\">accueil</a> pour mettre à jour le menu de navigation.<br/><br/>";
 		}
 		else {
 			echo "Erreur d'authentification.";
