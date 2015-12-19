@@ -12,7 +12,6 @@ if(isset($_SESSION['identifiant_utilisateur']) && $_SESSION['identifiant_utilisa
 }
 
 ?>
-</nav>
 
 <div id="page">
 		<?php 
