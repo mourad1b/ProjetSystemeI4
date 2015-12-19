@@ -43,9 +43,9 @@
 	<label for="message">Votre message</label><br/>
 	<textarea id="message" name="message" cols="40" rows="4"></textarea>
 	<br/>
-	<input type="hidden" name="destinataire" value="mourad1benzaid@gmail.com" />
+	<input type="hidden" name="destinataire" value="mourad_bzd@yopmail.com" />
 	<input type="submit" name="ok" value="Envoyer votre message" />
 </form>
 
-<body>
+</body>
 <html>
