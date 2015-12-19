@@ -9,19 +9,13 @@
     <orderEntry type="module-library">
       <library name="PHARS">
         <CLASSES>
-          <root url="phar://$MODULE_DIR$/ZendFramework-1.12.17/library/Zend/Service/WindowsAzure/CommandLine/Scaffolders/DefaultScaffolder.phar" />
-          <root url="phar://$MODULE_DIR$/ZendFramework-1.12.17/tests/Zend/Loader/_files/Zend_LoaderTest.phar" />
-          <root url="phar://$MODULE_DIR$/ZendFramework-1.12.17/tests/Zend/Loader/_files/classmap.phar" />
-          <root url="phar://$MODULE_DIR$/composer.phar" />
           <root url="phar://$MODULE_DIR$/phpunit.phar" />
+          <root url="phar://$MODULE_DIR$/composer.phar" />
           <root url="phar://$MODULE_DIR$/phpunit-old.phar" />
         </CLASSES>
         <SOURCES>
-          <root url="phar://$MODULE_DIR$/ZendFramework-1.12.17/library/Zend/Service/WindowsAzure/CommandLine/Scaffolders/DefaultScaffolder.phar" />
-          <root url="phar://$MODULE_DIR$/ZendFramework-1.12.17/tests/Zend/Loader/_files/Zend_LoaderTest.phar" />
-          <root url="phar://$MODULE_DIR$/ZendFramework-1.12.17/tests/Zend/Loader/_files/classmap.phar" />
-          <root url="phar://$MODULE_DIR$/composer.phar" />
           <root url="phar://$MODULE_DIR$/phpunit.phar" />
+          <root url="phar://$MODULE_DIR$/composer.phar" />
           <root url="phar://$MODULE_DIR$/phpunit-old.phar" />
         </SOURCES>
       </library>
