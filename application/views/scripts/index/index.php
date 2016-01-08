@@ -1,4 +1,4 @@
-<p>Le fichier README modfi se trouve <a href="http://localhost/ProjetSystemeI4newsletter/ProjetSystemeI4newsletter/readme.html" target="_blank">ici</a>.</p>
+<p>Le fichier README modf se trouve <a href="http://localhost/ProjetSystemeI4newsletter/ProjetSystemeI4newsletter/readme.html" target="_blank">ici</a>.</p>
 
     
 <nav>
