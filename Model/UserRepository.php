@@ -31,18 +31,18 @@ class UserRepository
             exit('Utilisateur non trouvé');
         }
 
-        return new User($raw['id_user'], $raw['nom'], $raw['prenom'], $raw['email']);
+        return new User($raw['id_user'], $raw['nom'], $raw['prenom'], $raw['mail']);
     }
 
     public function findAll()
     {
-        $stmt = "SELECT u.* FROM benzaidm.user u";
+        $stmt = "SELECT u.* FROM users u";
 
         $raw = $this->db->SqlArray($stmt);
         $hydrated = array();
 
         foreach ($raw as $user) {
-            $hydrated[] = new User($user['id_user'], $user['nom'], $user['prenom'], $user['email']);
+            $hydrated[] = new User($user['id_user'], $user['nom'], $user['prenom'], $user['mail']);
         }
 
         return $hydrated;
@@ -56,11 +56,16 @@ class UserRepository
      */
     public function persist(User $user)
     {
-        $this->db->Sql("INSERT INTO benzaidm.user VALUES('',:nom,:prenom,:email)",
-            array('nom' => $user->getNom(),
-                'prenom' => $user->getPrenom(),
-                'email' => $user->getEmail()));
-        return $this->db->lastInsertId();
+        $this->db->Sql("INSERT INTO users VALUES('',:nom,:prenom,:mail)",
+            array(  'nom' => $user->getNom(),
+                    'prenom' => $user->getPrenom(),
+                    'mail' => $user->getEmail()));
+
+        $id = $this->db->lastInsertId();
+
+        //var_dump($user);
+        var_dump($id);
+        return $id;
     }
 
 
@@ -72,11 +77,11 @@ class UserRepository
     public function removeJobCascade(User $user)
     {
         // Suprime les candidatures liées
-        $this->db->Sql("DELETE FROM benzaidm.user WHERE id_user = :id",
+        $this->db->Sql("DELETE FROM users WHERE id_user = :id",
             array('id' => $user->getId()));
 
         // Supprime l'emploi
-        $this->db->Sql("DELETE FROM benzaidm.user WHERE id_user = :id",
+        $this->db->Sql("DELETE FROM users WHERE id_user = :id",
             array('id' => $user->getId()));
     }
 }

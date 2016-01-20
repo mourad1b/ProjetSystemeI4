@@ -37,17 +37,17 @@ class User
     /**
      * @var
      */
-    private $email;
+    private $mail;
 
     /**
      * @param $id_user
      * @param $nom
      * @param $prenom
-     * @param $email
+     * @param $mail
      */
-    function __construct($id_user, $nom,$prenom, $email)
+    function __construct($id_user, $nom,$prenom, $mail)
     {
-        $this->email = $email;
+        $this->mail = $mail;
         $this->nom = $nom;
         $this->prenom = $prenom;
     }
@@ -74,15 +74,15 @@ class User
      */
     public function getEmail()
     {
-        return $this->email;
+        return $this->mail;
     }
 
     /**
-     * @param mixed $email
+     * @param mixed $mail
      */
-    public function setEmail($email)
+    public function setEmail($mail)
     {
-        $this->email = $email;
+        $this->mail = $mail;
     }
 
     /**
