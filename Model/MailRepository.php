@@ -1,6 +1,6 @@
 <?php
 /**
- * UserRepository.php
+ * MailRepository.php
  */
 
 namespace Newsletter\Model;
@@ -18,9 +18,9 @@ class MailRepository
     }
 
     /**
-     * Récupère un emploi en base de donnée
-     * @param $id Integer l'id de l'emploo
-     * @return User l'objet correspondant
+     * Récupère un mail en base de donnée
+     * @param $id Integer l'id du mail
+     * @return Mail l'objet correspondant
      */
     public function find($id)
     {
@@ -49,14 +49,14 @@ class MailRepository
     }
 
     /**
-     * Persiste un objet User dans la base de donnée
+     * Persiste un objet Mail dans la base de donnée
      *
-     * @param User $user un objet User
+     * @param Mail $user un objet Mail
      * @return string l'id de l'insertion
      */
     public function persist(Mail $mail)
     {
-        $this->db->Sql("INSERT INTO `mail`(`libelle`, `objet`, `body`) VALUES(:libelle,:objet,:body)",
+        $this->db->Sql("INSERT INTO mail (libelle, objet, body) VALUES(:libelle,:objet,:body)",
             array(  'libelle' => $mail->getLibelle(),
                     'objet' => $mail->getPrenom(),
                     'body' => $mail->getBody()));
@@ -66,17 +66,13 @@ class MailRepository
 
 
     /**
-     * Supprime de la base de donnée une offre d'emploi ainsi que les candidatures qui lui sont liées
+     * Supprime de la base de donnée un mail
      *
-     * @param User $user Le travail en question
+     * @param mail $mail Le travail en question
      */
-    public function removeJobCascade(Mail $mail)
+    public function removeMailCascade(Mail $mail)
     {
-        // Suprime les candidatures liées
-        $this->db->Sql("DELETE FROM mail WHERE id_mail = :id",
-            array('id' => $mail->getId()));
-
-        // Supprime l'emploi
+        // Supprime le mail
         $this->db->Sql("DELETE FROM users WHERE id_mail = :id",
             array('id' => $mail->getId()));
     }
