@@ -7,8 +7,9 @@
 </head>
 <body>
 <div class="row">
-<ul class="large-block-grid-2 text-center">
+<ul class="large-block-grid-3 text-center">
     <li><a href="index.php" class="radius button">Accueil</a></li>
     <li><a href="index.php?page=adduser" class="radius button">Ajouter des utilisateurs</a></li>
+    <li><a href="index.php?page=addgroupe" class="radius button">Gérer groupe ??</a></li>
 </ul>
 </div>

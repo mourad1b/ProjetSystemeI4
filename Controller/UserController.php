@@ -61,7 +61,7 @@ class UserController
     {
         $repos = new UserRepository();
 
-        $user = new User('', '', $_POST['nom'], $_POST['prenom'], $_POST['mail']);
+        $user = new User('', $_POST['nom'], $_POST['prenom'], $_POST['mail']);
         //$user->setCodeAndDateAjout();
 
         // Validation dans les Getter et Setters de Job car une validation côté client est mise en place et si y'a bypass on joue sur les exit()
@@ -71,10 +71,10 @@ class UserController
        // $code = $user->getCode();
 
         // Envoie du mail sans header et tout car trop long pour l'exercice qui servira une fois -> SwiftMailer pour le futur
-        //mail($user->getEmail(), "Confirmation de création", "Votre offre d'emploi à correctement été enregistrée !\nConsultez l'ensemble des candidatures via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\nSupprimez l'offre d'emploi et les candidature liées via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\n\nVous recevrez un mail en cas de nouveau candidat.");
+        //mail($user->getMail(), "Confirmation de création", "Votre offre d'emploi à correctement été enregistrée !\nConsultez l'ensemble des candidatures via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\nSupprimez l'offre d'emploi et les candidature liées via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\n\nVous recevrez un mail en cas de nouveau candidat.");
 
 
-        $this->indexAction('<strong>Félicitation !</strong> Les utilisateurs sont créés avec succès !'); // Redirect to index
+        $this->indexAction('<strong>Félicitations !</strong> Les utilisateurs sont créés avec succès !'); // Redirect to index
     }
 
     public function handleFormUploadFileAction()

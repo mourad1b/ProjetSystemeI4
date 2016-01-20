@@ -1,11 +1,11 @@
 <?php
 /**
- * UserRepository.php
+ * GroupeRepository.php
  */
 
 namespace Newsletter\Model;
 
-class UserRepository
+class GroupeRepository
 {
     /**
      * @var PDOSingleton
@@ -18,45 +18,45 @@ class UserRepository
     }
 
     /**
-     * Récupère un emploi en base de donnée
-     * @param $id Integer l'id de l'emploo
-     * @return User l'objet correspondant
+     * Récupère un groupe en base de donnée
+     * @param $id Integer l'id du groupe
+     * @return Groupe l'objet correspondant
      */
     public function find($id)
     {
-        $raw = $this->db->SqlLine('SELECT u.* WHERE id_user = :id GROUP BY u.id_user ORDER BY u.id_user DESC', array('id' => $id));
+        $raw = $this->db->SqlLine('SELECT g.* WHERE id_groupe = :id GROUP BY g.id_groupe ORDER BY g.id_groupe DESC', array('id' => $id));
 
         if ($raw == null) {
             header('HTTP/1.0 404 Not Found');
-            exit('Utilisateur non trouvé');
+            exit('Groupe non trouvé');
         }
 
-        return new User($raw['id_user'], $raw['nom'], $raw['prenom'], $raw['mail']);
+        return new Groupe($raw['id_groupe'], $raw['libelle']);
     }
 
     public function findAll()
     {
-        $stmt = "SELECT u.* FROM users u";
+        $stmt = "SELECT u.* FROM groupe u";
 
         $raw = $this->db->SqlArray($stmt);
         $hydrated = array();
 
-        foreach ($raw as $user) {
-            $hydrated[] = new User($user['id_user'], $user['nom'], $user['prenom'], $user['mail']);
+        foreach ($raw as $groupe) {
+            $hydrated[] = new Groupe($groupe['id_groupe'], $groupe['libelle']);
         }
 
         return $hydrated;
     }
 
     /**
-     * Persiste un objet User dans la base de donnée
+     * Persiste un objet Groupe dans la base de donnée
      *
-     * @param User $user un objet User
+     * @param Groupe $user un objet Groupe
      * @return string l'id de l'insertion
      */
-    public function persist(User $user)
+    public function persist(Groupe $user)
     {
-        $this->db->Sql("INSERT INTO users (nom,prenom,mail, telephone) VALUES(:nom,:prenom,:mail, :telephone)",
+        $this->db->Sql("INSERT INTO groupe (libelle) VALUES(:libelle)",
             array(  'nom' => $user->getNom(),
                     'prenom' => $user->getPrenom(),
                     'mail' => $user->getMail(),
@@ -72,14 +72,14 @@ class UserRepository
      *
      * @param User $user Le travail en question
      */
-    public function removeJobCascade(User $user)
+    public function removeGroupeCascade(User $user)
     {
         // Suprime les candidatures liées
-        $this->db->Sql("DELETE FROM users WHERE id_user = :id",
+        $this->db->Sql("DELETE FROM groupe WHERE id_user = :id",
             array('id' => $user->getId()));
 
         // Supprime l'emploi
-        $this->db->Sql("DELETE FROM users WHERE id_user = :id",
+        $this->db->Sql("DELETE FROM groupe WHERE id_user = :id",
             array('id' => $user->getId()));
     }
 }
