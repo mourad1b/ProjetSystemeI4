@@ -57,10 +57,7 @@ class GroupeRepository
     public function persist(Groupe $user)
     {
         $this->db->Sql("INSERT INTO groupe (libelle) VALUES(:libelle)",
-            array(  'nom' => $user->getNom(),
-                    'prenom' => $user->getPrenom(),
-                    'mail' => $user->getMail(),
-                    'telephone' => $user->getTelephone()));
+            array(  'libelle' => $user->getLibelle()));
 
         $id = $this->db->lastInsertId();
         return $id;

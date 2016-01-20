@@ -7,6 +7,8 @@ namespace Newsletter\Controller;
 
 use Newsletter\Model\User;
 use Newsletter\Model\UserRepository;
+use Newsletter\Model\Groupe;
+use Newsletter\Model\GroupeRepository;
 
 
 class UserController
@@ -18,10 +20,9 @@ class UserController
      */
     public function indexAction($flash = null)
     {
-        $reposUser = new UserRepository();
+        $reposUser = new GroupeRepository();
 
         $users = $reposUser->findAll();
-
 
         require_once('../View/header.php');
         require_once('../View/User/index.php');
@@ -34,24 +35,12 @@ class UserController
     public function displayUserAction()
     {
         $reposUser = new UserRepository();
-        //$user = $reposUser->find($_GET['id_user']);
 
         require_once('../View/header.php');
         require_once('../View/User/displayUser.php');
         require_once('../View/footer.php');
 
     }
-
-    /**
-     * Affiche le formulaire d'ajout d'une offre d'emploi
-     */
-    public function ajoutOffreAction()
-    {
-        require_once('../View/header.php');
-        require_once('../View/User/addUserForm.php');
-        require_once('../View/footer.php');
-    }
-
 
     /**
      * Traite le formulaire de création d'une offre d'emploi et persiste l'objet Job correspondant dans la base de données.
@@ -125,21 +114,6 @@ class UserController
             $this->indexAction('<strong>Félicitations !</strong> Les utilisateurs ont été ajoutés à la base avec succès !'); // Redirect to index
 
         }
-    }
-
-
-    /**
-     * Effectue une recherche dans la base de données avec des critères
-     */
-    public function searchJob()
-    {
-        $reposUser = new JobRepository();
-        $motscles = preg_replace("/[ ,-;]/","%",$_POST['keywords']); // Remplace les espaces, tirets et points virgules par des % pour le LIKE
-        $users = $reposUser->searchJob($motscles,$_POST['typecontrat']);
-
-        require_once('../View/header.php');
-        require_once('../View/User/index.php');
-        require_once('../View/footer.php');
     }
 
 }

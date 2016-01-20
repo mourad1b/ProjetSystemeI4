@@ -26,10 +26,9 @@ $groupeController = new GroupeController();
  * Traitement du formulaire de recherche
  */
 
-// Formulaire ajout d'un emploi
+// Formulaire ajout d'un utilisateur
 if (isset($_POST['formAddUser'])) {
     $userController->handleFormUploadFileAction(); // Traite le formulaire et redirige vers la page d'accueil
-    $groupeController->handleFormUploadFileAction();
 
 }
 elseif (isset($_GET['page'])) {
@@ -51,7 +50,7 @@ elseif (isset($_GET['page'])) {
     }
 } else {
     // On affiche la page d'accueil
-    $userController->indexAction();
+    $groupeController->indexAction();
 }
 
 ?>

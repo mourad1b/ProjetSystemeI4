@@ -18,13 +18,13 @@ class GroupeController
      */
     public function indexAction($flash = null)
     {
-        $reposUser = new UserRepository();
+        $reposGroupe = new GroupeRepository();
 
-        $users = $reposUser->findAll();
+        $groupes = $reposGroupe->findAll();
 
 
         require_once('../View/header.php');
-        require_once('../View/User/index.php');
+        require_once('../View/Groupe/index.php');
         require_once('../View/footer.php');
     }
 
