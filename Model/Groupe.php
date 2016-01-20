@@ -35,7 +35,6 @@ class Groupe
      */
     function __construct($id_groupe, $libelle)
     {
-        $this->id_groupe = $id_groupe;
         $this->libelle = $libelle;
     }
 
@@ -51,9 +50,9 @@ class Groupe
     /**
      * @param mixed $id
      */
-    public function setId($id)
+    public function setId($id_groupe)
     {
-        $this->$id_groupe = $id;
+        $this->$id_groupe = $id_groupe;
     }
 
     /**

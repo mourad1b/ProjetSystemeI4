@@ -1,12 +1,13 @@
 <!doctype html>
 <html lang="fr">
+<body>
 <head>
     <meta charset="utf-8">
     <title>Newsletter</title>
+    <script src="../Web/styles/jquery.js"></script>
     <link rel="stylesheet" href="../Web/styles/foundation.min.css">
-    <!--<link rel="stylesheet" href="../Web/styles/bootstrap.min.css">-->
+
 </head>
-<body>
 <div class="row">
 <ul class="large-block-grid-4 text-center">
     <li><a href="index.php" class="radius button">Accueil</a></li>

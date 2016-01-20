@@ -30,7 +30,6 @@ $mailController = new MailController();
 // Formulaire ajout d'un utilisateur
 if (isset($_POST['formAddUser'])) {
     $userController->handleFormUploadFileAction(); // Traite le formulaire et redirige vers la page d'accueil
-
 }
 
 if (isset($_POST['formAddGroupe'])) {
@@ -41,6 +40,8 @@ if (isset($_POST['formAddMail'])) {
     $mailController->handleFormAddAction(); // Traite le formulaire et redirige vers la page d'accueil
 
 }
+
+
 elseif (isset($_GET['page'])) {
     $url = $_GET['page'];
 
@@ -65,7 +66,8 @@ elseif (isset($_GET['page'])) {
     }
 } else {
     // On affiche la page d'accueil
-    $groupeController->indexAction();
+    //$groupeController->indexAction();
+    $userController->indexAction();
 }
 
 ?>

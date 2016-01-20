@@ -71,12 +71,10 @@ class GroupeRepository
      */
     public function removeGroupeCascade(User $user)
     {
-        // Suprime les candidatures liées
-        $this->db->Sql("DELETE FROM groupe WHERE id_user = :id",
+        // Suprime les user liées
+        $this->db->Sql("DELETE FROM user WHERE id_user = :id",
             array('id' => $user->getId()));
 
-        // Supprime l'emploi
-        $this->db->Sql("DELETE FROM groupe WHERE id_user = :id",
-            array('id' => $user->getId()));
+        // todo Supprime groupes
     }
 }

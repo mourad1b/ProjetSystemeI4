@@ -21,6 +21,11 @@ class GroupeController
         $reposGroupe = new GroupeRepository();
 
         $groupes = $reposGroupe->findAll();
+        var_dump($groupes);
+
+        foreach ($groupes as $groupe){
+            echo $groupe->getLibelle() . ' => ' . $groupe->getLibelle() . '<br>';
+        }
 
 
         require_once('../View/header.php');
