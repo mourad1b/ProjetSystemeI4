@@ -9,7 +9,7 @@ use Newsletter\Model\Groupe;
 use Newsletter\Model\GroupeRepository;
 
 
-class GroupeController
+class MailController
 {
     /**
      * Affiche la page d'accueil avec la liste des offres d'emploi
@@ -18,26 +18,26 @@ class GroupeController
      */
     public function indexAction($flash = null)
     {
-        $reposGroupe = new GroupeRepository();
+        $reposMail = new GroupeRepository();
 
-        $groupes = $reposGroupe->findAll();
+        $groupes = $reposMail->findAll();
 
 
         require_once('../View/header.php');
-        require_once('../View/Groupe/index.php');
+        require_once('../View/Mail/index.php');
         require_once('../View/footer.php');
     }
 
     /**
      * Affiche le détail d'une offre d'emploi
      */
-    public function displayGroupeAction()
+    public function displayMailAction()
     {
         $reposUser = new GroupeRepository();
         //$user = $reposUser->find($_GET['id_user']);
-        $groupe = $reposUser->findAll();
+        //$groupe = $reposUser->findAll();
         require_once('../View/header.php');
-        require_once('../View/Groupe/displayGroupe.php');
+        require_once('../View/Mail/displayMail.php');
         //require_once('../View/User/index.php');
         require_once('../View/footer.php');
 

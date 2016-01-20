@@ -5,12 +5,12 @@
         <div class="large-12 columns">
             <label>
                 <strong> VUE => Ajouter des groupe</strong>
+                <input type="text" name="libelle" id="libelle" value="Nom du groupe"/>
+                <input type="submit" class="radius button success" value="Ajouter"/>
             </label>
         </div>
     </div>
     <br>
     <br>
-    <div class="row text-center">
-        <input type="submit" class="radius button success" value="Soumettre">
-    </div>
+
 </form>
