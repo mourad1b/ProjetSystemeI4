@@ -4,7 +4,7 @@
         <div class="row">
             <div class="large-9 column large-centered">
                 <?php
-                require('../View/Groupe/addMailForm.php');
+                require('../View/Mail/addMailForm.php');
                 ?>
                <!-- <table>
                     <thead>

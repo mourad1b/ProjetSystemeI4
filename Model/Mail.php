@@ -83,9 +83,9 @@ class Mail
      * @param $id_groupe
      * @param $libelle
      */
-    function __construct($id_mail, $libelle, $objet, $body)
+    function __construct($libelle, $objet, $body)
     {
-        $this->id_mail = $id_mail;
+
         $this->libelle = $libelle;
         $this->body = $body;
         $this->objet = $objet;

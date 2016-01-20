@@ -31,7 +31,7 @@ class MailRepository
             exit('Utilisateur non trouvé');
         }
 
-        return new Groupe($raw['id_mail'], $raw['libelle'], $raw['objet'], $raw['body']);
+        return new Mail($raw['libelle'], $raw['objet'], $raw['body']);
     }
 
     public function findAll()
@@ -58,7 +58,7 @@ class MailRepository
     {
         $this->db->Sql("INSERT INTO `mail`(`libelle`, `objet`, `body`) VALUES(:libelle,:objet,:body)",
             array(  'libelle' => $mail->getLibelle(),
-                    'objet' => $mail->getPrenom(),
+                    'objet' => $mail->getObjet(),
                     'body' => $mail->getBody()));
         $id = $this->db->lastInsertId();
         return $id;

@@ -5,8 +5,8 @@
 
 namespace Newsletter\Controller;
 
-use Newsletter\Model\Groupe;
-use Newsletter\Model\GroupeRepository;
+use Newsletter\Model\Mail;
+use Newsletter\Model\MailRepository;
 
 
 class MailController
@@ -18,10 +18,9 @@ class MailController
      */
     public function indexAction($flash = null)
     {
-        $reposMail = new GroupeRepository();
+        $reposMail = new MailRepository();
 
-        $groupes = $reposMail->findAll();
-
+        $mails = $reposMail->findAll();
 
         require_once('../View/header.php');
         require_once('../View/Mail/index.php');
@@ -33,7 +32,7 @@ class MailController
      */
     public function displayMailAction()
     {
-        $reposUser = new GroupeRepository();
+        $reposUser = new MailRepository();
         //$user = $reposUser->find($_GET['id_user']);
         //$groupe = $reposUser->findAll();
         require_once('../View/header.php');
@@ -49,13 +48,12 @@ class MailController
      */
     public function handleFormAddAction()
     {
-        $repos = new GroupeRepository();
+        $repos = new MailRepository();
 
-        $groupe = new Groupe('', $_POST['libelle']);
+        $mail = new Mail( $_POST['libelleMail'],$_POST['objetMail'],$_POST['bodyMail'] );
 
-        $id = $repos->persist($groupe); // On persiste l'objet dans la base et on récupère son id
-
-        $this->indexAction('<strong>Félicitations !</strong> Le Groupe est créé avec succès !'); // Redirect to index
+        $id = $repos->persist($mail); // On persiste l'objet dans la base et on récupère son id
+        $this->indexAction('<strong>Félicitations !</strong> Le Mail est créé avec succès !'); // Redirect to index
     }
 
 }

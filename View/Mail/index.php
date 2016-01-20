@@ -1,6 +1,6 @@
 <?php
 
-use Newsletter\Model\Groupe;
+use Newsletter\Model\Mail;
 
 ?>
 <div class="row">
@@ -13,8 +13,7 @@ use Newsletter\Model\Groupe;
                             <div class="row collapse">
 
                                 <div class="small-2 columns">
-
-                                   <!-- <input type="submit" class="button postfix" value="Rechercher"> -->
+                                    <!-- <input type="submit" class="button postfix" value="Rechercher"> -->
                                 </div>
                             </div>
                         </div>
@@ -28,18 +27,26 @@ use Newsletter\Model\Groupe;
             echo '</div>';
 
         }?>
-
-        <h3>Libelle groupe</h3>
-        <select class="form-control m-b">
-            <option value="value1"></option>
+        <table style="width: 100%;">
+            <thead>
+            <tr>
+                <th>Libelle</th>
+                <th>Objet</th>
+                <th>Body</th>
+            </tr>
+            </thead>
+            <tbody>
             <?php
-            /** @var Groupe $groupe */
-
-            foreach ($groupes as $groupe){
-                echo '<option value="value3">'. $groupe->getLibelle() . '</option>';
-
+            /** @var Mail $mail */
+            foreach ($mails as $mail){
+                echo '<tr>';
+                echo '<td>' . $mail->getLibelle()  . '</td>';
+                echo '<td>' . $mail->getObjet() . '</td>';
+                echo '<td>' . $mail->getBody() . '</td>';
+                echo '</tr>';
             }
             ?>
-        </select>
+            </tbody>
+        </table>
     </div>
 </div>
