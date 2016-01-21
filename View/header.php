@@ -7,7 +7,7 @@
 
     <!-- Included CSS Files -->
     <link rel="stylesheet" href="../Web/css/foundation.min.css">
-    <link rel="stylesheet" href="../Web/styles/css/bootstrap.min.css">
+   <!--<link rel="stylesheet" href="../Web/styles/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="../Web/styles/css/style.css">
     <link rel="stylesheet" href="../Web/styles/css/reset.css">
 
