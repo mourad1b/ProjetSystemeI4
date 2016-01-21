@@ -1,4 +1,4 @@
-<h3 class="text-center">Formulaire d'ajout des GROUPES </h3>
+<h3 class="text-center">Formulaire d'ajout des Groupes </h3>
 <form enctype="multipart/form-data" action="index.php" method="post">
     <input type="hidden" name="formAddGroupe" value="true">
     <div class="row">

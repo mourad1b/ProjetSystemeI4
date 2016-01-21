@@ -187,7 +187,7 @@
 	
 	
 #main h1,h2,h3,p,td,small,form,input,ul,li,ol,label{
-	margin:0;
+	margin:1px;
 	padding:0;
 	text-align: center;
 }
