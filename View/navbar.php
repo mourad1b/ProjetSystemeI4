@@ -48,15 +48,16 @@
 
 <div id="bg_sousmenu">
     <ul id="nav">
-        <li><a href="index.php">Groupes</a></li>
+        <li><a href="">Groupes</a></li>
+
+
         <li><a href="">Gestion newsletters</a></li>
-        <li><a href="index.php?page=addmail" class="radius">Gestion mails</a></li>
 
         <li>
             <a class="depliant" href="#">Administration &#9660;</a>
             <ul class="sous-menu">
-                <li><a href="index.php?page=addgroupe" class="radius">Affectations groupe</a></li>
-                <li><a href="index.php?page=adduser" class="radius">Ajout utilisateurs</a></li>
+                <li><a href="">Affectations groupe</a></li>
+                <li><a href="">Ajout utilisateurs</a></li>
                 <li><a href="">Campagnes newsletters</a></li>
             </ul>
         </li>

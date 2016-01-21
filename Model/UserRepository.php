@@ -31,7 +31,7 @@ class UserRepository
             exit('Utilisateur non trouvé');
         }
 
-        return new User($raw['id_user'], $raw['nom'], $raw['prenom'], $raw['mail']);
+        return new User($raw['id_user'], $raw['nom'], $raw['prenom'], $raw['mail'],  $raw['telephone']);
     }
 
     public function findAll()
@@ -42,7 +42,7 @@ class UserRepository
         $hydrated = array();
 
         foreach ($raw as $user) {
-            $hydrated[] = new User($user['id_user'], $user['nom'], $user['prenom'], $user['mail']);
+            $hydrated[] = new User($user['id_user'], $user['nom'], $user['prenom'], $user['mail'], $user['telephone']);
         }
 
         return $hydrated;
@@ -56,7 +56,7 @@ class UserRepository
      */
     public function persist(User $user)
     {
-        $this->db->Sql("INSERT INTO users (nom,prenom,mail, telephone) VALUES(:nom,:prenom,:mail, :telephone)",
+        $this->db->Sql("INSERT INTO users (nom,prenom,mail,telephone) VALUES(:nom,:prenom,:mail,:telephone)",
             array(  'nom' => $user->getNom(),
                     'prenom' => $user->getPrenom(),
                     'mail' => $user->getMail(),

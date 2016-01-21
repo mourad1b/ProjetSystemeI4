@@ -1,6 +1,6 @@
 <?php
 /**
- * GroupeController.php
+ * mailController.php
  */
 
 namespace Newsletter\Controller;
@@ -12,7 +12,7 @@ use Newsletter\Model\MailRepository;
 class MailController
 {
     /**
-     * Affiche la page d'accueil avec la liste des offres d'emploi
+     * Affiche la page d'accueil avec la liste des mails
      *
      * @param String $flash Affiche un message de confirmation sur le haut de la page
      */

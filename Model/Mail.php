@@ -7,14 +7,14 @@
  */
 
 /**
- * Groupe.php
+ * Mail.php
  */
 
 namespace Newsletter\Model;
 
 
 /**
- * Class Groupe
+ * Class Mail
  * @package Newsletter\Model
  */
 class Mail
@@ -28,56 +28,16 @@ class Mail
      * @var
      */
     private $libelle;
+
+    /**
+     * @var
+     */
     private $objet;
 
     /**
-     * @return mixed
+     * @var
      */
-    public function getIdMail()
-    {
-        return $this->id_mail;
-    }
-
-    /**
-     * @param mixed $id_mail
-     */
-    public function setIdMail($id_mail)
-    {
-        $this->id_mail = $id_mail;
-    }
     private $body;
-
-    /**
-     * @return mixed
-     */
-    public function getBody()
-    {
-        return $this->body;
-    }
-
-    /**
-     * @param mixed $body
-     */
-    public function setBody($body)
-    {
-        $this->body = $body;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getObjet()
-    {
-        return $this->objet;
-    }
-
-    /**
-     * @param mixed $objet
-     */
-    public function setObjet($objet)
-    {
-        $this->objet = $objet;
-    }
 
     /**
      * @param $id_groupe
@@ -90,7 +50,6 @@ class Mail
         $this->body = $body;
         $this->objet = $objet;
     }
-
 
     /**
      * @return mixed
@@ -125,6 +84,39 @@ class Mail
             exit('Hack de la validation du formulaire côté client : Injection JS');
         }
         $this->libelle = strip_tags($libelle);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getObjet()
+    {
+        return $this->objet;
+    }
+
+    /**
+     * @param mixed $objet
+     */
+    public function setObjet($objet)
+    {
+        $this->objet = $objet;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * @param mixed $body
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
     }
 
 }
