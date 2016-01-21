@@ -67,7 +67,7 @@ elseif (isset($_GET['page'])) {
 } else {
     // On affiche la page d'accueil
     //$groupeController->indexAction();
-    $userController->indexAction();
+    $groupeController->indexAction();
 }
 
 ?>

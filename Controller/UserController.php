@@ -23,7 +23,7 @@ class UserController
         $reposUser = new UserRepository();
 
         $users = $reposUser->findAll();
-        var_dump($users);
+        //var_dump($users);
 
         require_once('../View/header.php');
         require_once('../View/User/index.php');

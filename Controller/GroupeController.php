@@ -21,10 +21,10 @@ class GroupeController
         $reposGroupe = new GroupeRepository();
 
         $groupes = $reposGroupe->findAll();
-        var_dump($groupes);
+        //var_dump($groupes);
 
         foreach ($groupes as $groupe){
-            echo $groupe->getLibelle() . ' => ' . $groupe->getLibelle() . '<br>';
+            //echo $groupe->getLibelle() . ' => ' . $groupe->getLibelle() . '<br>';
         }
 
 
@@ -39,8 +39,8 @@ class GroupeController
     public function displayGroupeAction()
     {
         $reposUser = new GroupeRepository();
-        //$user = $reposUser->find($_GET['id_user']);
         $groupe = $reposUser->findAll();
+
         require_once('../View/header.php');
         require_once('../View/Groupe/displayGroupe.php');
         //require_once('../View/User/index.php');
