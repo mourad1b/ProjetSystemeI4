@@ -23,7 +23,6 @@ class UserController
         $reposUser = new UserRepository();
 
         $users = $reposUser->findAll();
-        //var_dump($users);
 
         require_once('../View/header.php');
         require_once('../View/User/index.php');
@@ -51,7 +50,7 @@ class UserController
     {
         $repos = new UserRepository();
 
-        $user = new User('', $_POST['nom'], $_POST['prenom'], $_POST['mail']);
+        $user = new User('', $_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['telephone']);
         //$user->setCodeAndDateAjout();
 
         // Validation dans les Getter et Setters de Job car une validation côté client est mise en place et si y'a bypass on joue sur les exit()
@@ -105,7 +104,7 @@ class UserController
 
             try{
                 foreach ($aUsers as $userKey => $userVal) {
-                    $user = new User('', $userVal[0], $userVal[1], $userVal[2]);
+                    $user = new User('', $userVal[0], $userVal[1], $userVal[2], $userVal[3], $userVal[4]);
                     $id = $reposUser->persist($user); // On persiste l'objet dans la base et on récupère son id
                 }
             }catch (\Exception $e){

@@ -3,11 +3,14 @@
 <body>
 <head>
     <meta charset="utf-8">
-    <title>EPSI Montpellier - Gestion des Newsletters</title>
+    <title>Gestion des Newsletters</title>
 
     <!-- Included CSS Files -->
+    <!--
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    -->
+    <link rel="stylesheet" href="../Web/styles/css/bootstrap.min.css">
     <link rel="stylesheet" href="../Web/css/foundation.min.css">
-   <!--<link rel="stylesheet" href="../Web/styles/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="../Web/styles/css/style.css">
     <link rel="stylesheet" href="../Web/styles/css/reset.css">
 
@@ -19,6 +22,7 @@
     <script src="../Web/js/jquery.js"></script>
     <script src="../Web/styles/js/script.js"></script>
     <script src="../Web/styles/js/bootstrap.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 </head>
 

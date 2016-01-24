@@ -44,17 +44,34 @@ class User
      */
     private $telephone;
 
+    private $countUser;
+
+    /**
+     * @var
+     */
+    private $id_groupe;
+
+    private $groupe_libelle;
+
     /**
      * @param $id_user
      * @param $nom
      * @param $prenom
      * @param $mail
+     * @param $telephone
+     * @param $countUser
+     * @param $groupe_libelle
      */
-    function __construct($id_user, $nom,$prenom, $mail)
+    function __construct($id_user, $nom, $prenom, $mail, $telephone, $id_groupe, $groupe_libelle)
     {
-        $this->mail = $mail;
-        $this->nom = $nom;
-        $this->prenom = $prenom;
+        $this->id_user = $id_user;
+        $this->setNom($nom);
+        $this->setPrenom($prenom);
+        $this->setMail($mail);
+        $this->telephone = $telephone;
+        //$this->countUser = $countUser;
+        $this->id_groupe = $id_groupe;
+        $this->groupe_libelle = $groupe_libelle;
     }
 
 
@@ -72,22 +89,6 @@ class User
     public function setId($id)
     {
         $this->id_user = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMail()
-    {
-        return $this->mail;
-    }
-
-    /**
-     * @param mixed $mail
-     */
-    public function s($mail)
-    {
-        $this->mail = $mail;
     }
 
     /**
@@ -131,6 +132,25 @@ class User
     /**
      * @return mixed
      */
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    /**
+     * @param mixed $mail
+     */
+    public function setMail($mail)
+    {
+        if (preg_match('#<script(.*?)>(.*?)</script>#is', $mail)) {
+            exit('Hack de la validation du formulaire côté client : Injection JS');
+        }
+        $this->mail = $mail;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getTelephone()
     {
         return $this->telephone;
@@ -145,6 +165,57 @@ class User
             exit('Hack de la validation du formulaire côté client : Injection JS');
         }
         $this->$telephone = strip_tags($telephone);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCountUser()
+    {
+        return $this->countUser;
+    }
+
+    /**
+     * @param mixed $countUser
+     */
+    public function setCountUser($countUser)
+    {
+        $this->countUser = $countUser;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdGroupe()
+    {
+        return $this->id_groupe;
+    }
+
+    /**
+     * @param mixed $id_groupe
+     */
+    public function setIdGroupe($id_groupe)
+    {
+        $this->id_groupe = $id_groupe;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGroupeLibelle()
+    {
+        return $this->groupe_libelle;
+    }
+
+    /**
+     * @param mixed $groupe_libelle
+     */
+    public function setGroupeLibelle($groupe_libelle)
+    {
+        if (preg_match('#<script(.*?)>(.*?)</script>#is', $groupe_libelle)) {
+            exit('Hack de la validation du formulaire côté client : Injection JS');
+        }
+        $this->groupe_libelle = strip_tags($groupe_libelle);
     }
 
 }

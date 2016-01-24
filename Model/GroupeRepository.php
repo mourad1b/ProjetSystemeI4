@@ -31,18 +31,42 @@ class GroupeRepository
             exit('Groupe non trouvé');
         }
 
-        return new Groupe($raw['id_groupe'], $raw['libelle']);
+        return new Groupe($raw['id_groupe'], $raw['libelle'], $raw['countUser']);
     }
 
     public function findAll()
     {
-        $stmt = "SELECT u.* FROM groupe u";
+        $stmt = "SELECT g.* FROM groupe g";
 
         $raw = $this->db->SqlArray($stmt);
         $hydrated = array();
 
         foreach ($raw as $groupe) {
-            $hydrated[] = new Groupe($groupe['id_groupe'], $groupe['libelle']);
+            $hydrated[] = new Groupe($groupe['id_groupe'], $groupe['libelle'], $groupe['countUser']);
+        }
+
+        foreach ($hydrated as $groupe){
+            //echo $groupe->getId() . ' => ' . $groupe->getLibelle() . '<br>';
+        }
+        //var_dump($hydrated);
+
+        return $hydrated;
+    }
+
+    public function findAllWithCount()
+    {
+        $stmt = "SELECT g.*, count(DISTINCT gu.id_user) AS countUser
+                    FROM groupe g
+                    JOIN groupe_user gu ON g.id_groupe = gu.id_groupe
+                    GROUP BY gu.id_groupe
+                    ORDER BY gu.id_groupe DESC";
+
+        $raw = $this->db->SqlArray($stmt);
+
+        $hydrated = array();
+
+        foreach ($raw as $groupe) {
+            $hydrated[] = new Groupe($groupe['id_groupe'], $groupe['libelle'], $groupe['countUser']);
         }
 
         return $hydrated;
@@ -63,18 +87,15 @@ class GroupeRepository
         return $id;
     }
 
-
     /**
      * Supprime de la base de donnée une offre d'emploi ainsi que les candidatures qui lui sont liées
      *
      * @param User $user Le travail en question
      */
-    public function removeGroupeCascade(User $user)
+    public function removeUserFromGroupe(User $user)
     {
         // Suprime les user liées
-        $this->db->Sql("DELETE FROM user WHERE id_user = :id",
+        $this->db->Sql("DELETE FROM groupe_user WHERE id_user = :id",
             array('id' => $user->getId()));
-
-        // todo Supprime groupes
     }
 }

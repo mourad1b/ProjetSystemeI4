@@ -1,16 +1,16 @@
 <?php
 /**
- * GroupeController.php
+ * UserGroupeController.php
  */
 
 namespace Newsletter\Controller;
 
 use Newsletter\Model\Groupe;
 use Newsletter\Model\GroupeRepository;
-use Newsletter\Model\UserRepository;
+use Newsletter\Model\UserGroupeRepository;
 
 
-class GroupeController
+class UserGroupeController
 {
     /**
      * Affiche la page d'accueil avec la liste des offres d'emploi
@@ -19,21 +19,10 @@ class GroupeController
      */
     public function indexAction($flash = null)
     {
-        $reposGroupe = new GroupeRepository();
-        $groupes = $reposGroupe->findAllWithCount();
+        $reposUsergroupe = new UserGroupeRepository();
 
-        //var_dump($groupes);
-
-        $reposUser = new UserRepository();
-        $users = $reposUser->findUsersInGroupeUser();
-       // var_dump($users);
-        foreach ($users as $user){
-            //echo $user->getId() . ' => ' . $user->getNom() . '<br>';
-        }
-        foreach ($groupes as $groupe){
-           // echo $groupe->getLibelle() . ' => ' . $groupe->getLibelle() . '<br>';
-        }
-
+        $usergroupes = $reposUsergroupe->findAll();
+        //var_dump($usergroupes);
 
         require_once('../View/header.php');
         require_once('../View/Groupe/index.php');
@@ -45,12 +34,11 @@ class GroupeController
      */
     public function displayGroupeAction()
     {
-        $reposUser = new GroupeRepository();
+        $reposUser = new UserGroupeRepository();
         $groupe = $reposUser->findAll();
 
         require_once('../View/header.php');
         require_once('../View/Groupe/displayGroupe.php');
-        require_once('../View/User/index.php');
         require_once('../View/footer.php');
 
     }
@@ -62,6 +50,7 @@ class GroupeController
     public function handleFormAddAction()
     {
         $repos = new GroupeRepository();
+
         $groupe = new Groupe('', $_POST['libelle']);
 
         $id = $repos->persist($groupe); // On persiste l'objet dans la base et on récupère son id
