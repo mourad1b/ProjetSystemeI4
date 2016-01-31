@@ -3,7 +3,7 @@
  * GroupeRepository.php
  */
 
-namespace Newsletter\Model;
+namespace nsNewsletter\Model;
 
 class GroupeRepository
 {

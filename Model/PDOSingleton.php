@@ -1,8 +1,8 @@
 <?php
 
-namespace Newsletter\Model;
+namespace nsNewsletter\Model;
 
-use Newsletter\Config;
+use nsNewsletter\Config;
 
 require_once('../Config/config.php');
 
@@ -30,7 +30,8 @@ class PDOSingleton
      * @param string $username : User Name
      * @param string $password : User Password
      * @param string $driver_options : PDO Specific options
-     * @return \Newsletter\Model\PDOSingleton PDOInstance
+     *
+*@return \nsNewsletter\Model\PDOSingleton PDOInstance
      */
     private function __construct($dsn, $username = null, $password = null, $driver_options = null)
     {

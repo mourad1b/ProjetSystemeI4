@@ -10,7 +10,7 @@
  * GroupeUser.php
  */
 
-namespace Newsletter\Model;
+namespace nsNewsletter\Model;
 
 
 /**

@@ -4,7 +4,7 @@ $(document).ready(function () {
 
 
     /*******************************************************************
-     * Ouverture du panel d'ajout des enseignants, attribution, etc EN ADMIN
+     * Ouverture du panel d'ajout
      */
     ajoutEnseigantOuvert = false;
     $('#main').on('click','#btnOuvrePanelAjout', function(e){
@@ -188,7 +188,7 @@ $(document).ready(function () {
                 $('#alertMsg .msg').html('attributions supprimée avec succès.');
                 $('#alertMsg .type').html('Ok : ');
                 clearBoxIn5();
-                tbody.append('<tr><td><a href="" class="newAttribution"><span class="glyphicon glyphicon-plus"></span> Ajouter une attribution</a></td></tr>');
+                tbody.append('<tr><td><a href="" class="newUser"><span class="glyphicon glyphicon-plus"></span> Ajouter</a></td></tr>');
             })
             .fail(function () {
                 $('#alertMsg .msg').html('Impossible de supprimer l\'attribution');
@@ -200,7 +200,7 @@ $(document).ready(function () {
     });
 
 
-    $('#main').on('click', '.newAttribution', function (e) {
+    $('#main').on('click', '.newUser', function (e) {
         e.preventDefault();
         var that = this;
         var tbody = $(this).parent().parent().parent();

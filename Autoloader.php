@@ -1,6 +1,6 @@
 <?php
 
-namespace Newsletter;
+namespace nsNewsletter;
 
 /**
  * Class autoloading system

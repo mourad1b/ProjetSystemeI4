@@ -3,11 +3,11 @@
  * UserGroupeController.php
  */
 
-namespace Newsletter\Controller;
+namespace nsNewsletter\Controller;
 
-use Newsletter\Model\Groupe;
-use Newsletter\Model\GroupeRepository;
-use Newsletter\Model\UserGroupeRepository;
+use nsNewsletter\Model\Groupe;
+use nsNewsletter\Model\GroupeRepository;
+use nsNewsletter\Model\UserGroupeRepository;
 
 
 class UserGroupeController
@@ -51,7 +51,7 @@ class UserGroupeController
     {
         $repos = new GroupeRepository();
 
-        $groupe = new Groupe('', $_POST['libelle']);
+        $groupe = new Groupe('', $_POST['libelle'],  '');
 
         $id = $repos->persist($groupe); // On persiste l'objet dans la base et on récupère son id
 

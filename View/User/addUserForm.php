@@ -1,15 +1,19 @@
 <h3 class="text-center">Formulaire d'ajout des utilisateurs</h3>
-<form enctype="multipart/form-data" action="index.php" method="post">
+<br>
+<form class="form-horizontal" enctype="multipart/form-data" action="index.php" method="post">
     <input type="hidden" name="formAddUser" value="true">
-    <div class="row">
-        <div class="large-12 columns">
-            <label>
-                <strong>Charger un fichier CSV * (respecter le formalisme : nom;prenom;mail)</strong>
-                <input type="file" name="upload_file_csv" size="60" required />
-            </label>
+    <div class="form-group">
+        <label for="upload_file_csv">
+            <strong>Charger un fichier CSV * (respecter le formalisme : nom; prenom; mail; telephone)</strong>
+        </label>
+        <br>
+        <div class="col-sm-offset-4 col-sm-10">
+            <input type="file" id="upload_file_csv" name="upload_file_csv" size="60" required />
         </div>
     </div>
-    <div class="row text-center">
-        <input type="submit" class="radius button success" value="Soumettre">
+    <div class="form-group">
+        <div class="col-sm-offset-1 col-sm-10">
+            <button type="submit" class="btn btn success">Soumettre</button>
+        </div>
     </div>
 </form>

@@ -3,7 +3,7 @@
  * MailRepository.php
  */
 
-namespace Newsletter\Model;
+namespace nsNewsletter\Model;
 
 class MailRepository
 {

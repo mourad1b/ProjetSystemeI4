@@ -1,7 +1,7 @@
 <?php
 
-use Newsletter\Model\Groupe;
-use Newsletter\Model\GroupeUser;
+use nsNewsletter\Model\Groupe;
+use nsNewsletter\Model\GroupeUser;
 
 ?>
 <div class="row">

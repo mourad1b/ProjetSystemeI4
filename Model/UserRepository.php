@@ -3,7 +3,7 @@
  * UserRepository.php
  */
 
-namespace Newsletter\Model;
+namespace nsNewsletter\Model;
 
 class UserRepository
 {
@@ -46,6 +46,20 @@ class UserRepository
         }
 
         return $hydrated;
+    }
+
+    public function findWhere($where)
+    {
+        $condition = $where;
+
+        $user = $this->db->SqlLine('SELECT u.* FROM users u WHERE nom = :_username AND prenom = :_password',
+                                array(  '_username' => $condition['_username'],
+                                        '_password' => $condition['_password']));
+        //$hydrated = array();
+        //$hydrated[] = new User($user['id_user'], $user['nom'], $user['prenom'], $user['mail'], $user['telephone'], $user['adresse'], $user['etat'], $user['accuse']);
+
+        //return $hydrated;
+        return $user;
     }
 
     public function findUsersInGroupe()

@@ -10,7 +10,7 @@
  * User.php
  */
 
-namespace Newsletter\Model;
+namespace nsNewsletter\Model;
 
 
 /**
@@ -59,7 +59,6 @@ class User
      * @param $prenom
      * @param $mail
      * @param $telephone
-     * @param $countUser
      * @param $groupe_libelle
      */
     function __construct($id_user, $nom, $prenom, $mail, $telephone, $id_groupe, $groupe_libelle)
@@ -69,9 +68,8 @@ class User
         $this->setPrenom($prenom);
         $this->setMail($mail);
         $this->telephone = $telephone;
-        //$this->countUser = $countUser;
         $this->id_groupe = $id_groupe;
-        $this->groupe_libelle = $groupe_libelle;
+        $this->getGroupeLibelle($groupe_libelle);
     }
 
 
@@ -165,22 +163,6 @@ class User
             exit('Hack de la validation du formulaire côté client : Injection JS');
         }
         $this->$telephone = strip_tags($telephone);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCountUser()
-    {
-        return $this->countUser;
-    }
-
-    /**
-     * @param mixed $countUser
-     */
-    public function setCountUser($countUser)
-    {
-        $this->countUser = $countUser;
     }
 
     /**

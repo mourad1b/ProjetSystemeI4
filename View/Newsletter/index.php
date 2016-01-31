@@ -1,6 +1,6 @@
 <?php
 
-use nsNewsletter\Model\User;
+use nsNewsletter\Model\Newsletter;
 
 ?>
 <div class="row">
@@ -13,6 +13,7 @@ use nsNewsletter\Model\User;
                             <div class="row collapse">
 
                                 <div class="small-2 columns">
+
                                    <!-- <input type="submit" class="button postfix" value="Rechercher"> -->
                                 </div>
                             </div>
@@ -27,28 +28,8 @@ use nsNewsletter\Model\User;
             echo '</div>';
 
         }?>
-        <table style="width: 100%;">
-            <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Email</th>
-                <th>Téléphone</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php
-            /** @var User $user */
-            foreach ($users as $user){
-                echo '<tr>';
-                echo '<td>' . $user->getNom() . '</td>';
-                echo '<td>' . $user->getPrenom() . '</td>';
-                echo '<td>' . $user->getMail() . '</td>';
-                echo '<td> ' . $user->getTelephone() . ' </td>';
-                echo '</tr>';
-            }
-            ?>
-            </tbody>
-        </table>
+
+        <h3>Newsletter Index</h3>
+
     </div>
 </div>

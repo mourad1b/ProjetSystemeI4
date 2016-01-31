@@ -10,7 +10,7 @@
  * Mail.php
  */
 
-namespace Newsletter\Model;
+namespace nsNewsletter\Model;
 
 
 /**

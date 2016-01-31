@@ -1,6 +1,6 @@
 <?php
 
-namespace Newsletter\Config;
+namespace nsNewsletter\Config;
 
 /**
  * DataBase

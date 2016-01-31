@@ -3,10 +3,10 @@
  * mailController.php
  */
 
-namespace Newsletter\Controller;
+namespace nsNewsletter\Controller;
 
-use Newsletter\Model\Groupe;
-use Newsletter\Model\GroupeRepository;
+use nsNewsletter\Model\Groupe;
+use nsNewsletter\Model\GroupeRepository;
 
 
 class MailController
@@ -19,7 +19,6 @@ class MailController
     public function indexAction($flash = null)
     {
         $reposMail = new GroupeRepository();
-
         $groupes = $reposMail->findAll();
 
 
@@ -49,9 +48,9 @@ class MailController
      */
     public function handleFormAddAction()
     {
-        $repos = new GroupeRepository();
+        $repos = new MailRepository();
 
-        $groupe = new Groupe('', $_POST['libelle']);
+        $groupe = new Mail('', $_POST['libelle']);
 
         $id = $repos->persist($groupe); // On persiste l'objet dans la base et on récupère son id
 

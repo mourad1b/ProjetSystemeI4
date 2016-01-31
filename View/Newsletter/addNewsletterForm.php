@@ -1,6 +1,6 @@
-<h3 class="text-center">Formulaire d'ajout des mails </h3>
+<h3 class="text-center">Formulaire d'ajout des newsletters</h3>
 <br>
-
+<!--
 <form class="form-horizontal" enctype="multipart/form-data" action="index.php" method="post">
     <input type="hidden" name="formAddMail" value="true">
     <div class="form-group">
@@ -27,3 +27,4 @@
         </div>
     </div>
 </form>
+-->
