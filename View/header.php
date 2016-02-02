@@ -6,12 +6,10 @@
     <title>Gestion des Newsletters</title>
 
     <!-- Included CSS Files -->
-
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
     <link rel="stylesheet" href="../Web/styles/css/bootstrap.min.css">
     <link rel="stylesheet" href="../Web/css/foundation.min.css">
-   <link rel="stylesheet" href="../Web/styles/css/style.css">
+    <link rel="stylesheet" href="../Web/styles/css/style.css">
     <link rel="stylesheet" href="../Web/styles/css/reset.css">
 
     <!--for auth-->
@@ -32,6 +30,9 @@
     <script src="../Web/styles/js/bootstrap.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
+    <!-- Includ Scripts JS -->
+    <!--<script src="../Web/scripts/Fichiers.js"></script>
+    -->
 </head>
 
 <div id="header">

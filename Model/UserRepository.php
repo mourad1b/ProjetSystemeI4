@@ -90,22 +90,6 @@ class UserRepository
                 GROUP BY gu.id_user
                 ORDER BY gu.id_user";
 
-        /*
-         SELECT gu.*, count( gu.id_user) AS countUser
-FROM groupe_user gu
-JOIN groupe g ON g.id_groupe = gu.id_groupe
-GROUP BY gu.id_groupe
-ORDER BY gu.id_user
-         */
-        /*
-         SELECT gu.id_groupe, u.*, count( gu.id_user) AS countUser
-FROM users u
-JOIN groupe_user gu ON u.id_user = gu.id_user
-JOIN groupe g ON g.id_groupe = gu.id_groupe
-GROUP BY gu.id_groupe
-ORDER BY gu.id_groupe
-         */
-
         $raw = $this->db->SqlArray($stmt);
 
         $hydrated = array();

@@ -19,7 +19,7 @@ $userController = new UserController();
 $groupeController = new GroupeController();
 $mailController = new MailController();
 $securityController = new SecurityController();
-//$newsletterController = new NewsletterController();
+$newsletterController = new NewsletterController();
 
 /***********
  * Routing *
@@ -69,8 +69,7 @@ elseif (isset($_GET['page'])) {
             break;
 
         case 'newsletters':
-           //$newsletterController->displayNewsletterAction();
-            $mailController->displayMailAction();
+            $newsletterController->displayNewsletterAction();
             break;
 
         case 'options':

@@ -60,8 +60,8 @@ class SecurityController
 
         if(session_id() === ""){
             session_start();
-            var_dump("handle  : " );
-            var_dump($_POST['formLogin_token']);
+            //var_dump("handle  : " );
+            //var_dump($_POST['formLogin_token']);
         }
 
         /*if(is_array($where)){

@@ -40,11 +40,19 @@ class GroupeController
     public function displayGroupeAction()
     {
         $reposUser = new GroupeRepository();
-        $groupe = $reposUser->findAll();
+        $groupes = $reposUser->findAll();
+
+        $reposGroupe = new GroupeRepository();
+        $groupesCount = $reposGroupe->findAllWithCount();
+
+        //var_dump($groupes);
+
+        $reposUser = new UserRepository();
+        $users = $reposUser->findUsersInGroupeUser();
 
         require_once('../View/header.php');
         require_once('../View/Groupe/displayGroupe.php');
-        require_once('../View/User/index.php');
+        //require_once('../View/User/index.php');
         require_once('../View/footer.php');
 
     }

@@ -42,13 +42,8 @@ class GroupeRepository
         $hydrated = array();
 
         foreach ($raw as $groupe) {
-            $hydrated[] = new Groupe($groupe['id_groupe'], $groupe['libelle'], $groupe['countUser']);
+            $hydrated[] = new Groupe($groupe['id_groupe'], $groupe['libelle'], '');
         }
-
-        foreach ($hydrated as $groupe){
-            //echo $groupe->getId() . ' => ' . $groupe->getLibelle() . '<br>';
-        }
-        //var_dump($hydrated);
 
         return $hydrated;
     }

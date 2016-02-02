@@ -33,7 +33,7 @@ class NewsletterController
     public function displayNewsletterAction()
     {
         $repo = new NewsletterRepository();
-        $news = $repo->findAll();
+        $newsletters = $repo->findAll();
 
         require_once('../View/header.php');
         require_once('../View/Newsletter/displayNewsletter.php');

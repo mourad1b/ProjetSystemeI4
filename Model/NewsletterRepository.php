@@ -31,7 +31,7 @@ class NewsletterRepository
             exit('Utilisateur non trouvé');
         }
 
-        return new Newsletters($raw['id_newsletter'], $raw['id_mail'], $raw['nom'], $raw['texte'], $raw['photo'], $raw['lien']);
+        return new Newsletter($raw['id_newsletter'], $raw['id_mail'], $raw['nom'], $raw['texte'], $raw['photo'], $raw['lien']);
     }
 
     public function findAll()
@@ -42,7 +42,7 @@ class NewsletterRepository
         $hydrated = array();
 
         foreach ($raw as $news) {
-            $hydrated[] = new Newsletters($news['id_newsletter'], $news['id_mail'], $news['nom'], $news['texte'], $news['photo'], $news['lien']);
+            $hydrated[] = new Newsletter($news['id_newsletter'], $news['id_mail'], $news['nom'], $news['texte'], $news['photo'], $news['lien']);
         }
 
         return $hydrated;

@@ -20,9 +20,8 @@ class UserController
      */
     public function indexAction($flash = null)
     {
-        $reposUser = new UserRepository();
-
-        $users = $reposUser->findAll();
+        //$reposUser = new UserRepository();
+        //$users = $reposUser->findUsersInGroupeUser();
 
         require_once('../View/header.php');
         require_once('../View/User/index.php');
@@ -34,8 +33,6 @@ class UserController
      */
     public function displayUserAction()
     {
-        $reposUser = new UserRepository();
-
         require_once('../View/header.php');
         require_once('../View/User/displayUser.php');
         require_once('../View/footer.php');

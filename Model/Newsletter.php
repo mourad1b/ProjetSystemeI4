@@ -66,7 +66,7 @@ class Newsletter
     /**
      * @return mixed
      */
-    public function getIdNewsletter()
+    public function getId()
     {
         return $this->id_newsletter;
     }
@@ -74,7 +74,7 @@ class Newsletter
     /**
      * @param mixed $id
      */
-    public function setIdNewsletter($id)
+    public function setId($id)
     {
         $this->id_newsletter = $id;
     }
@@ -125,7 +125,7 @@ class Newsletter
     /**
      * @param mixed $texte
      */
-    public function settexte($texte)
+    public function setTexte($texte)
     {
         $this->texte = $texte;
     }

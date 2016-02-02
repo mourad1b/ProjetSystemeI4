@@ -32,12 +32,8 @@ class MailController
      */
     public function displayMailAction()
     {
-        $reposUser = new GroupeRepository();
-        //$user = $reposUser->find($_GET['id_user']);
-        //$groupe = $reposUser->findAll();
         require_once('../View/header.php');
         require_once('../View/Mail/displayMail.php');
-        //require_once('../View/User/index.php');
         require_once('../View/footer.php');
 
     }

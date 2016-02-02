@@ -3,33 +3,30 @@
 use nsNewsletter\Model\Groupe;
 
 ?>
-<!--
 <div class="row">
     <div class="small-12 small-centered column">
-         < ?php if (isset($flash)) {
-             echo '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-             echo '<div data-alert class="alert-box success radius">';
-             var_dump($flash);
-             echo $flash;
+        <?php if (isset($flash)) {
+            echo '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
+            echo '<div data-alert class="alert-box success radius">';
+            echo $flash;
             echo '</div>';
         }?>
     </div>
 </div>
- -->
 <?php if (isset($flash)) {
     echo '<div class="alert-box success">';
     echo $flash;
     echo '</div>';
 }?>
-<!--<p id="loading-img" style="display: none"><img
-        src="http://officedelamer.com/office/wp-content/plugins/ajax-campaign-monitor-forms/ajax-loading.gif"
-        alt="loading">
+
+</br>
+<p>
+Visualiser liste des groupes ;
+ les utilisateurs par groupe ;
+ pouvoir modifier les coordonnées d'un utilisateur donné
 </p>
--->
-</br>
-
-</br>
-
+<p>++ A Faire : Chapmp de recherche d'un utilisateur
+</p>
 
 <div id="main">
     <div class="loading">
@@ -37,13 +34,11 @@ use nsNewsletter\Model\Groupe;
              id="loading"/>
     </div>
     <div id="pageContent">
-
         <div id="alertMsg" class="alert-box" style="display: none;">
             <div class="close-box">x</div>
             <span class="type"></span>
             <span class="msg"></span>
         </div>
-
         <div class="file-wrap">
             <div class="commit commit-tease js-details-container"></div>
             <div class="tab">
@@ -152,7 +147,6 @@ use nsNewsletter\Model\Groupe;
         </div>
     </div>
     <!-- PageContent -->
-
     <div id="menu_right">
         <h1>Informations</h1>
 
