@@ -1,11 +1,13 @@
 <?php
 
-namespace Newsletter\Web;
+namespace nsNewsletter\Web;
 
-use Newsletter\Autoloader;
-use Newsletter\Controller\GroupeController;
-use Newsletter\Controller\MailController;
-use Newsletter\Controller\UserController;
+use nsNewsletter\Autoloader;
+use nsNewsletter\Controller\GroupeController;
+use nsNewsletter\Controller\MailController;
+use nsNewsletter\Controller\SecurityController;
+use nsNewsletter\Controller\UserController;
+use nsNewsletter\Controller\NewsletterController;
 
 /**
  * Autoloading
@@ -13,19 +15,31 @@ use Newsletter\Controller\UserController;
 require_once('../Autoloader.php');
 Autoloader::register();
 
-
-
 $userController = new UserController();
 $groupeController = new GroupeController();
 $mailController = new MailController();
+$securityController = new SecurityController();
+$newsletterController = new NewsletterController();
 
 /***********
  * Routing *
  ***********/
 
 /**
- * Traitement du formulaire de recherche
+ * Traitement des formulaires
  */
+
+
+if (isset($_POST['formLogin_token'])){
+    //var_dump("index traitement form : " );
+    //var_dump($_POST['formLogin_token']);
+    $securityController->handleFormLoginAction(); // Traite le formulaire et redirige vers la page d'accueil
+}
+
+if (isset($_POST['formManageNewsletter'])){
+    var_dump("traitement form Modif News: " );
+    $newsletterController->handleFormAddNewsletterAction(); // Traite le formulaire et redirige vers la page d'accueil
+}
 
 // Formulaire ajout d'un utilisateur
 if (isset($_POST['formAddUser'])) {
@@ -38,10 +52,7 @@ if (isset($_POST['formAddGroupe'])) {
 }
 if (isset($_POST['formAddMail'])) {
     $mailController->handleFormAddAction(); // Traite le formulaire et redirige vers la page d'accueil
-
 }
-
-
 elseif (isset($_GET['page'])) {
     $url = $_GET['page'];
 
@@ -58,16 +69,45 @@ elseif (isset($_GET['page'])) {
             $mailController->displayMailAction();
             break;
 
+        case 'campagnes':
+            $mailController->displayMailAction();
+            break;
+
+        case 'newsletters':
+            $newsletterController->displayNewsletterAction();
+            break;
+
+        case 'options':
+            $securityController->displayOptionsAction();
+            break;
+
+        case 'Login':
+            $securityController->displayLoginAction();
+            break;
+
+        case 'logout':
+            $securityController->displayLogoutAction();
+            //$groupeController->indexAction();
+            break;
+
         default:
             header('Status: 301 Moved Permanently', false, 301); // Redirection vers l'acceuil -> mémorisé dans le cache du navigateur
             header('Location: index.php');
-
-
     }
 } else {
-    // On affiche la page d'accueil
-    //$groupeController->indexAction();
-    $groupeController->indexAction();
+    if(session_id()===""){
+        session_start();
+        //var_dump("index  : " );
+        //var_dump($_SESSION['formLogin_token']);
+    }
+    if(isset($_SESSION['formLogin_token'])){
+       // var_dump("formLogin_token  : " );
+        //var_dump($_SESSION['formLogin_token']);
+        $securityController->displayLoginAction();
+    }else{
+        // On affiche la page d'accueil
+        $groupeController->indexAction();
+    }
 }
 
 ?>

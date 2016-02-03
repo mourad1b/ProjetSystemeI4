@@ -10,7 +10,7 @@
  * Groupe.php
  */
 
-namespace Newsletter\Model;
+namespace nsNewsletter\Model;
 
 
 /**
@@ -29,13 +29,18 @@ class Groupe
      */
     private $libelle;
 
+    private $countUser;
+
     /**
      * @param $id_groupe
      * @param $libelle
+     * @param $countUser
      */
-    function __construct($id_groupe, $libelle)
+    function __construct($id_groupe, $libelle, $countUser)
     {
+        $this->id_groupe = $id_groupe;
         $this->libelle = $libelle;
+        $this->countUser = $countUser;
     }
 
 
@@ -44,11 +49,11 @@ class Groupe
      */
     public function getId()
     {
-        return $this->$id_groupe;
+        return $this->id_groupe;
     }
 
     /**
-     * @param mixed $id
+     * @param mixed
      */
     public function setId($id_groupe)
     {
@@ -64,7 +69,7 @@ class Groupe
     }
 
     /**
-     * @param mixed $nom
+     * @param mixed
      */
     public function setLibelle($libelle)
     {
@@ -72,6 +77,23 @@ class Groupe
             exit('Hack de la validation du formulaire côté client : Injection JS');
         }
         $this->libelle = strip_tags($libelle);
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getCountUser()
+    {
+        return $this->countUser;
+    }
+
+    /**
+     * @param mixed $countUser
+     */
+    public function setCountUser($countUser)
+    {
+        $this->countUser = $countUser;
     }
 
 }

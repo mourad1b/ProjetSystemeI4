@@ -3,10 +3,11 @@
  * GroupeController.php
  */
 
-namespace Newsletter\Controller;
+namespace nsNewsletter\Controller;
 
-use Newsletter\Model\Groupe;
-use Newsletter\Model\GroupeRepository;
+use nsNewsletter\Model\Groupe;
+use nsNewsletter\Model\GroupeRepository;
+use nsNewsletter\Model\UserRepository;
 
 
 class GroupeController
@@ -19,14 +20,14 @@ class GroupeController
     public function indexAction($flash = null)
     {
         $reposGroupe = new GroupeRepository();
+        $groupes = $reposGroupe->findAllWithCount();
 
-        $groupes = $reposGroupe->findAll();
         //var_dump($groupes);
 
-        foreach ($groupes as $groupe){
-            //echo $groupe->getLibelle() . ' => ' . $groupe->getLibelle() . '<br>';
-        }
+        $reposUser = new UserRepository();
+        $users = $reposUser->findUsersInGroupeUser();
 
+        //$userLogged = $reposUser->findWhere();
 
         require_once('../View/header.php');
         require_once('../View/Groupe/index.php');
@@ -39,7 +40,15 @@ class GroupeController
     public function displayGroupeAction()
     {
         $reposUser = new GroupeRepository();
-        $groupe = $reposUser->findAll();
+        $groupes = $reposUser->findAll();
+
+        $reposGroupe = new GroupeRepository();
+        $groupesCount = $reposGroupe->findAllWithCount();
+
+        //var_dump($groupes);
+
+        $reposUser = new UserRepository();
+        $users = $reposUser->findUsersInGroupeUser();
 
         require_once('../View/header.php');
         require_once('../View/Groupe/displayGroupe.php');
@@ -55,8 +64,7 @@ class GroupeController
     public function handleFormAddAction()
     {
         $repos = new GroupeRepository();
-
-        $groupe = new Groupe('', $_POST['libelle']);
+        $groupe = new Groupe('', $_POST['libelle'], array());
 
         $id = $repos->persist($groupe); // On persiste l'objet dans la base et on récupère son id
 

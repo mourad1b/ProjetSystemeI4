@@ -1,18 +1,40 @@
-<h3 class="text-center">Formulaire d'ajout des MAILS </h3>
-<form enctype="multipart/form-data" action="index.php" method="post">
-    <input type="hidden" name="formAddMail" value="true">
-    <div class="row">
-        <div class="large-12 columns">
-            <label>
-                <strong> VUE => Ajouter un mail</strong>
-                <input type="text" name="libelleMail" id="libelleMail" value="Nom du mail"/>
-                <input type="text" name="objetMail" id="objetMail" value="Objet du mail"/>
-                <input type="text" name="bodyMail" id="bodyMail" value="Corp du mail"/>
-                <input type="submit" class="radius button success" value="Ajouter"/>
-            </label>
-        </div>
+<h3 class="text-center">Formulaire d'ajout des mails </h3>
+<br>
+<p>
+    Visualiser liste des mails ;
+</p>
+<p><strong>A Faire :</strong> ajouter/modifier les mails
+</p>
+<div class="panel panel-info">
+    <div class="panel-heading addFile">
+        <h3 class="panel-title">Ajout des mails</h3>
     </div>
-    <br>
-    <br>
-
-</form>
+    <div class="panel-body">
+        <form class="form-horizontal" enctype="multipart/form-data" action="index.php" method="post">
+            <input type="hidden" name="formAddMail" value="true">
+            <div class="form-group">
+                <label for="libeleMail" class="col-sm-2 control-label"><strong>Nom du mail</strong></label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="libeleMail" placeholder="Nom du mail">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="objetMail" class="col-sm-2 control-label"><strong>Objet</strong></label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="objetMail" placeholder="Objet du mail">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="corpsMail" class="col-sm-2 control-label"><strong>Corps</strong></label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="corpsMail" placeholder="Corps du mail">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-10">
+                    <button type="submit" class="btn btn success">Soumettre</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

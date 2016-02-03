@@ -3,7 +3,7 @@
  * UserRepository.php
  */
 
-namespace Newsletter\Model;
+namespace nsNewsletter\Model;
 
 class UserRepository
 {
@@ -18,7 +18,7 @@ class UserRepository
     }
 
     /**
-     * Récupère un emploi en base de donnée
+     * Récupère un user en base de donnée
      * @param $id Integer l'id de l'emploo
      * @return User l'objet correspondant
      */
@@ -31,7 +31,7 @@ class UserRepository
             exit('Utilisateur non trouvé');
         }
 
-        return new User($raw['id_user'], $raw['nom'], $raw['prenom'], $raw['mail'],  $raw['telephone']);
+        return new User($raw['id_user'], $raw['nom'], $raw['prenom'], $raw['mail'],  $raw['telephone'], $raw['id_groupe'], $raw['groupe_libelle']);
     }
 
     public function findAll()
@@ -42,7 +42,60 @@ class UserRepository
         $hydrated = array();
 
         foreach ($raw as $user) {
-            $hydrated[] = new User($user['id_user'], $user['nom'], $user['prenom'], $user['mail'], $user['telephone']);
+            $hydrated[] = new User($user['id_user'], $user['nom'], $user['prenom'], $user['mail'], $user['telephone'], $user['id_groupe'], $user['groupe_libelle']);
+        }
+
+        return $hydrated;
+    }
+
+    public function findWhere($where)
+    {
+        $condition = $where;
+
+        $user = $this->db->SqlLine('SELECT u.* FROM users u WHERE nom = :_username AND prenom = :_password',
+                                array(  '_username' => $condition['_username'],
+                                        '_password' => $condition['_password']));
+        //$hydrated = array();
+        //$hydrated[] = new User($user['id_user'], $user['nom'], $user['prenom'], $user['mail'], $user['telephone'], $user['adresse'], $user['etat'], $user['accuse']);
+
+        //return $hydrated;
+        return $user;
+    }
+
+    public function findUsersInGroupe()
+    {
+        $stmt = "SELECT u.*, count(DISTINCT u.id_user) AS countUser
+                  FROM users u
+                  JOIN groupe_user ug ON u.id_user = ug.id_user
+                  JOIN groupe g ON g.id_groupe = ug.id_groupe
+                  GROUP BY u.id_user
+                  ORDER BY u.id_user DESC";
+
+        $raw = $this->db->SqlArray($stmt);
+
+        $hydrated = array();
+        foreach ($raw as $user) {
+            $hydrated[] = new User($user['id_user'], $user['nom'], $user['prenom'], $user['mail'], $user['telephone'], $user['id_groupe'], $user['groupe_libelle']);
+        }
+
+        return $hydrated;
+    }
+
+    public function findUsersInGroupeUser()
+    {
+        $stmt = "SELECT g.id_groupe, g.libelle AS groupe_libelle, u.*
+                FROM users u
+                JOIN groupe_user gu ON u.id_user = gu.id_user
+                JOIN groupe g ON g.id_groupe = gu.id_groupe
+                GROUP BY gu.id_user
+                ORDER BY gu.id_user";
+
+        $raw = $this->db->SqlArray($stmt);
+
+        $hydrated = array();
+
+        foreach ($raw as $user) {
+            $hydrated[] = new User($user['id_user'], $user['nom'], $user['prenom'], $user['mail'], $user['telephone'], $user['id_groupe'], $user['groupe_libelle']);
         }
 
         return $hydrated;
@@ -72,7 +125,7 @@ class UserRepository
      *
      * @param User $user Le travail en question
      */
-    public function removeJobCascade(User $user)
+    public function removeUserCascade(User $user)
     {
         // Suprime les candidatures liées
         $this->db->Sql("DELETE FROM users WHERE id_user = :id",

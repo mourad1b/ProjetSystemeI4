@@ -1,26 +1,10 @@
 <?php
 
-use Newsletter\Model\User;
+use nsNewsletter\Model\User;
 
 ?>
 <div class="row">
     <div class="small-12 small-centered column">
-        <div class="row">
-            <form action="index.php" method="post">
-                <div class="large-12 columns">
-                    <div class="row collapse prefix-radius">
-                        <div class="small-12 columns">
-                            <div class="row collapse">
-
-                                <div class="small-2 columns">
-                                   <!-- <input type="submit" class="button postfix" value="Rechercher"> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
         <?php if (isset($flash)) {
             echo '<div data-alert class="alert-box success radius">';
             echo $flash;
@@ -40,6 +24,7 @@ use Newsletter\Model\User;
             <?php
             /** @var User $user */
             foreach ($users as $user){
+                var_dump($users);
                 echo '<tr>';
                 echo '<td>' . $user->getNom() . '</td>';
                 echo '<td>' . $user->getPrenom() . '</td>';

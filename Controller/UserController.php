@@ -3,12 +3,12 @@
  * UserController.php
  */
 
-namespace Newsletter\Controller;
+namespace nsNewsletter\Controller;
 
-use Newsletter\Model\User;
-use Newsletter\Model\UserRepository;
-use Newsletter\Model\Groupe;
-use Newsletter\Model\GroupeRepository;
+use nsNewsletter\Model\User;
+use nsNewsletter\Model\UserRepository;
+use nsNewsletter\Model\Groupe;
+use nsNewsletter\Model\GroupeRepository;
 
 
 class UserController
@@ -20,10 +20,8 @@ class UserController
      */
     public function indexAction($flash = null)
     {
-        $reposUser = new UserRepository();
-
-        $users = $reposUser->findAll();
-        //var_dump($users);
+        //$reposUser = new UserRepository();
+        //$users = $reposUser->findUsersInGroupeUser();
 
         require_once('../View/header.php');
         require_once('../View/User/index.php');
@@ -35,8 +33,6 @@ class UserController
      */
     public function displayUserAction()
     {
-        $reposUser = new UserRepository();
-
         require_once('../View/header.php');
         require_once('../View/User/displayUser.php');
         require_once('../View/footer.php');
@@ -51,7 +47,7 @@ class UserController
     {
         $repos = new UserRepository();
 
-        $user = new User('', $_POST['nom'], $_POST['prenom'], $_POST['mail']);
+        $user = new User('', $_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['telephone'], array(), array());
         //$user->setCodeAndDateAjout();
 
         // Validation dans les Getter et Setters de Job car une validation côté client est mise en place et si y'a bypass on joue sur les exit()
@@ -105,7 +101,7 @@ class UserController
 
             try{
                 foreach ($aUsers as $userKey => $userVal) {
-                    $user = new User('', $userVal[0], $userVal[1], $userVal[2]);
+                    $user = new User('', $userVal[0], $userVal[1], $userVal[2], $userVal[3], $userVal[4], array(), array());
                     $id = $reposUser->persist($user); // On persiste l'objet dans la base et on récupère son id
                 }
             }catch (\Exception $e){

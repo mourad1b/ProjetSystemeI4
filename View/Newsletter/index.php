@@ -1,6 +1,6 @@
 <?php
 
-use nsNewsletter\Model\Groupe;
+use nsNewsletter\Model\Newsletter;
 
 ?>
 <div class="row">
@@ -30,19 +30,7 @@ use nsNewsletter\Model\Groupe;
             }?>
         </div>
 
-        <h3>Libelle groupe</h3>
-        <select class="form-control m-b">
-            <option value="value1"></option>
-            <?php
+        <h3>Newsletter Index</h3>
 
-            /** @var Groupe $groupe */
-/*
-            foreach ($groupes as $groupe){
-                echo '<option value="value3">'. $groupe->getLibelle() . '</option>';
-
-            }
-*/
-            ?>
-        </select>
     </div>
 </div>

@@ -1,24 +1,23 @@
 <?php
-
-use Newsletter\Model\Groupe;
-
+use nsNewsletter\Model\Groupe;
 ?>
-<div class="row">
-    <div class="small-12 small-centered column">
-         <?php if (isset($flash)) {
-            echo '<div data-alert class="alert-box success radius">';
-            echo $flash;
-            echo '</div>';
-        }?>
-    </div>
+
+<div class="small-6 small-centered column">
+    <?php if (isset($flash)) {
+        //var_dump($flash);
+        echo '<div data-alert class="alert-box success radius">';
+        echo $flash;
+        echo '</div>';
+    }?>
 </div>
 
-<p id="loading-img" style="display: none"><img
-        src="http://officedelamer.com/office/wp-content/plugins/ajax-campaign-monitor-forms/ajax-loading.gif"
-        alt="loading"></p>
-</br>
-
-
+<p>
+Visualiser liste des groupes ;
+ les utilisateurs par groupe ;
+ pouvoir modifier les coordonnées d'un utilisateur donné
+</p>
+<p><strong>A Faire :</strong> Chapmp de recherche d'un utilisateur
+</p>
 
 <div id="main">
     <div class="loading">
@@ -26,13 +25,11 @@ use Newsletter\Model\Groupe;
              id="loading"/>
     </div>
     <div id="pageContent">
-
-        <div id="alertMsg" class="alert-box">
+        <!--<div id="alertMsg" class="alert-box" style="display: none;">
             <div class="close-box">x</div>
             <span class="type"></span>
             <span class="msg"></span>
-        </div>
-
+        </div>-->
         <div class="file-wrap">
             <div class="commit commit-tease js-details-container"></div>
             <div class="tab">
@@ -44,14 +41,15 @@ use Newsletter\Model\Groupe;
                                  src="http://officedelamer.com/office/wp-content/plugins/ajax-campaign-monitor-forms/ajax-loading.gif" width="16">
                         </div>
                         <div class="col content">
-                            <a href="#" title="">Groupe 1 </a>
+                            <a href="#" title="">Liste des groupes contenant des utilisateurs </a>
                         </div>
 
                         <div class="col">
-                            <span>#Nb utilisateurs dans Groupe 1</span>
+                            <span>#Nombre d'utilisateurs / Groupe</span>
                         </div>
                     </div>
-
+                    <?php   /** @var Groupe $groupe */
+                    foreach($groupes as $groupe): ?>
                     <div class="level2">
                         <div class="ligne">
                             <div class="col icon">
@@ -60,84 +58,86 @@ use Newsletter\Model\Groupe;
                                      src="http://officedelamer.com/office/wp-content/plugins/ajax-campaign-monitor-forms/ajax-loading.gif" width="16">
                             </div>
                             <div class="col content">
-                                <a href="#" title="Utilisateurs">Utilisateurs</a>
+                                <a href="#" title="<?php echo $groupe->getLibelle(); ?>"><?php echo $groupe->getLibelle(); ?></a>
                             </div>
 
                             <div class="col">
-                                <span>#Nb utilisateurs</span>
+                                <span><?php echo $groupe->getCountUser(); ?></span>
                             </div>
                         </div>
-                        <div class="level3">
-                            <div class="ligne">
-                                <div class="col icon">
-                                    <span class="glyphicon glyphicon-folder-close"></span>
-                                    <img alt="" class="loading" height="16"
-                                         src="http://officedelamer.com/office/wp-content/plugins/ajax-campaign-monitor-forms/ajax-loading.gif"
-                                         width="16">
-                                </div>
-                                <div class="col content">
-                                    <a href="#"
-                                       title="">Utilisateurs</a>
-                                </div>
-                                <div class="col">
-                                                    <span>#Nb utilisateurs</span>
-                                </div>
-                            </div>
-
-                            <div class="last-level" data-userId="">
+                        <?php /** @var User $user */ foreach($users as $user): ?>
+                            <?php if($user->getIdGroupe() == $groupe->getId()): ?>
+                            <div class="level3">
                                 <div class="ligne">
-                                    <table>
-                                        <tbody>
-                                        <tr class="champTitre">
-                                            <th>Utilisateurs</th>
-                                            <th>Adresse mail</th>
-                                            <th>Télephone</th>
-                                        </tr>
-
-
-                                        <tr id="">
-                                            <td class="username">Prenom NOM</td>
-                                            <td class="mail"><input type="text" name="cm"
-                                                                  value="prenom.nom@test.com"
-                                                                  disabled></td>
-                                            <td class="tel"><input type="text" name="td"
-                                                                  value="06 10 20 30 40"
-                                                                  disabled></td>
-                                            <td class="btn_action">
-                                                <a href="#" title="Modifier"
-                                                   class='btnModifier'><span
-                                                        class="glyphicon glyphicon-pencil"></span></a>
-                                                <a href="#" title="Supprimer"
-                                                   class='btnSupprimer'><span
-                                                        class="glyphicon glyphicon-trash"></span></a>
-                                                <a href="#" title="Valider"
-                                                   class='btnValider'><span
-                                                        class="glyphicon glyphicon-ok"></span></a>
-                                            </td>
-                                        </tr>
-
-                                        </tbody>
-                                        <tr>
-                                            <td><a href="" class="newUser"><span
-                                                        class="glyphicon glyphicon-plus"></span>
-                                                    Ajouter un utilisateur</a></td>
-                                        </tr>
-                                    </table>
+                                    <div class="col icon">
+                                        <span class="glyphicon glyphicon-folder-close"></span>
+                                        <img alt="" class="loading" height="16"
+                                             src="http://officedelamer.com/office/wp-content/plugins/ajax-campaign-monitor-forms/ajax-loading.gif"
+                                             width="16">
+                                    </div>
+                                    <div class="col content">
+                                        <a href="#"
+                                           title=""><?php echo $user->getMail(); ?></a>
+                                    </div>
+                                    <div class="col">
+                                                        <span></span>
+                                    </div>
                                 </div>
+
+                                <div class="last-level" data-userId="">
+                                    <div class="ligne">
+                                        <table>
+                                            <tbody>
+                                            <tr class="champTitre">
+                                                <th>Nom</th>
+                                                <th>Prénom</th>
+                                                <th>Mail</th>
+                                                <th>Télephone</th>
+                                            </tr>
+
+
+                                            <tr id="">
+                                                <td class="nom"><input type="text" name="nom"
+                                                                       value="<?php echo $user->getNom(); ?>" disabled></td>
+                                                <td class="prenom"><input type="text" name="prenom"
+                                                                      value="<?php echo $user->getPrenom(); ?>" disabled></td>
+                                                <td class="mail"><input type="text" name="td"
+                                                                      value="<?php echo $user->getMail(); ?>" disabled></td>
+                                                <td class="telephone"><input type="text" name="telephone"
+                                                                        value="<?php echo $user->getTelephone(); ?>" disabled></td>
+                                                <td class="btn_action">
+                                                    <a href="#" title="Modifier"
+                                                       class='btnModifier'><span
+                                                            class="glyphicon glyphicon-pencil"></span></a>
+                                                    <a href="#" title="Supprimer"
+                                                       class='btnSupprimer'><span
+                                                            class="glyphicon glyphicon-trash"></span></a>
+                                                    <a href="#" title="Valider"
+                                                       class='btnValider'><span
+                                                            class="glyphicon glyphicon-ok"></span></a>
+                                                </td>
+                                            </tr>
+
+                                            </tbody>
+                                            <tr>
+                                                <td><a href="" class="newUser"><span
+                                                            class="glyphicon glyphicon-plus"></span>
+                                                        Ajouter un utilisateur</a></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
                             </div>
-
-                        </div>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
                     </div>
+                    <?php endforeach; ?>
                 </div>
-
-
             </div>
-
         </div>
-
     </div>
     <!-- PageContent -->
-
     <div id="menu_right">
         <h1>Informations</h1>
 
@@ -153,14 +153,7 @@ use Newsletter\Model\Groupe;
 
 
 
-
-
-
-
-
-
-
-<script>
+<!--<script type="text/javascript">
     $(function() {
 
 
@@ -172,7 +165,7 @@ use Newsletter\Model\Groupe;
 
         var loadingImg = $('#loading-img');
 
-        console.log(loadingImg);
+        //console.log(loadingImg);
 
         /*selectTypeDiplome.change(function (e) {
             e.stopPropagation();
@@ -201,3 +194,4 @@ use Newsletter\Model\Groupe;
 
     });
 </script>
+-->
