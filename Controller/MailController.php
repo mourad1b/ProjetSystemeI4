@@ -6,7 +6,7 @@
 namespace nsNewsletter\Controller;
 
 use nsNewsletter\Model\Groupe;
-use nsNewsletter\Model\GroupeRepository;
+use nsNewsletter\Model\MailRepository;
 
 
 class MailController
@@ -18,10 +18,6 @@ class MailController
      */
     public function indexAction($flash = null)
     {
-        $reposMail = new GroupeRepository();
-        $groupes = $reposMail->findAll();
-
-
         require_once('../View/header.php');
         require_once('../View/Mail/index.php');
         require_once('../View/footer.php');
@@ -32,6 +28,9 @@ class MailController
      */
     public function displayMailAction()
     {
+        $reposMail = new MailRepository();
+        $mails = $reposMail->findAll();
+
         require_once('../View/header.php');
         require_once('../View/Mail/displayMail.php');
         require_once('../View/footer.php');

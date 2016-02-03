@@ -6,7 +6,31 @@
 <p><strong>A Faire :</strong> ajouter/modifier les mails
 </p>
 <div class="panel panel-info">
-    <div class="panel-heading addFile">
+
+    <div class="panel-heading"><span><a class="glyphicon glyphicon-plus addMail btnAjouter pull-right" title="Ajouter"></a></span>
+        <h3 class="panel-title">Gestion des mails</h3>
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal formManageMail" id="formNewsletter" role="form" enctype="multipart/form-data" action="../Web/index.php" method="post">
+            <input type="hidden" name="formManageMail" value="true">
+            <ul id="listMail" class="list-group">
+                <?php /** @var Mail $mail */
+                foreach($mails as $mail): ?>
+                    <li class="list-group-item" id="idNewsletter" data-id="<?php echo $mail->getId(); ?>"
+                        value="<?php echo $mail->getId(); ?>">
+                        <span class=""><?php echo $mail->getLibelle(); ?></span>
+                        <span><a class="glyphicon glyphicon-trash suppMail btnSupprimer pull-right" title="Supprimer"></a>
+                        <a class="glyphicon glyphicon-pencil modifMail btnModifier pull-right" title="Modifier"></a>
+                            </span>
+                    </li>
+
+                <?php endforeach ?>
+            </ul>
+        </form>
+    </div>
+
+    <!--
+    <div class="panel-heading addNewMail">
         <h3 class="panel-title">Ajout des mails</h3>
     </div>
     <div class="panel-body">
@@ -37,4 +61,5 @@
             </div>
         </form>
     </div>
+    -->
 </div>

@@ -7,7 +7,7 @@
     pouvoir ajouter/modifier des newsletters (clic sur +/crayon);
 </p>
 <div class="panel panel-info">
-    <div class="panel-heading"><span><a class="glyphicon glyphicon-plus btnAjouter pull-right" title="Ajouter"></a></span>
+    <div class="panel-heading"><span><a class="glyphicon glyphicon-plus addNews btnAjouter pull-right" title="Ajouter"></a></span>
         <h3 class="panel-title">Gestion des newsletters</h3>
     </div>
     <div class="panel-body">
