@@ -36,6 +36,11 @@ if (isset($_POST['formLogin_token'])){
     $securityController->handleFormLoginAction(); // Traite le formulaire et redirige vers la page d'accueil
 }
 
+if (isset($_POST['formManageNewsletter'])){
+    var_dump("traitement form Modif News: " );
+    $newsletterController->handleFormAddNewsletterAction(); // Traite le formulaire et redirige vers la page d'accueil
+}
+
 // Formulaire ajout d'un utilisateur
 if (isset($_POST['formAddUser'])) {
     $userController->handleFormUploadFileAction(); // Traite le formulaire et redirige vers la page d'accueil

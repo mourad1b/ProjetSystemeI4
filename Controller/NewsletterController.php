@@ -5,8 +5,7 @@
 
 namespace nsNewsletter\Controller;
 
-use nsNewsletterNewsletter\Model\Groupe;
-use nsNewsletter\Model\GroupeRepository;
+use nsNewsletter\Model\Newsletter;
 use nsNewsletter\Model\NewsletterRepository;
 
 
@@ -47,14 +46,14 @@ class NewsletterController
      */
     public function handleFormAddNewsletterAction()
     {
-        /*$repos = new MailRepository();
+        //$repos = new NewsletterRepository();
 
-        $groupe = new Mail('', $_POST['libelle']);
+        //$news = $repos->find($id);// new Newsletter('','','','','','','');
 
-        $id = $repos->persist($groupe); // On persiste l'objet dans la base et on récupère son id
+        //$id = $repos->persist($news); // On persiste l'objet dans la base et on récupère son id
 
-        $this->indexAction('<strong>Félicitations !</strong> Le Groupe est créé avec succès !'); // Redirect to index
-        */
+        $this->displayNewsletterAction('<strong>Félicitations !</strong> Newsletter !'); // Redirect to index
+
     }
 
 }

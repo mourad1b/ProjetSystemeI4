@@ -1,31 +1,22 @@
 <?php
-
 use nsNewsletter\Model\Groupe;
-
 ?>
-<div class="row">
-    <div class="small-12 small-centered column">
-        <?php if (isset($flash)) {
-            echo '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-            echo '<div data-alert class="alert-box success radius">';
-            echo $flash;
-            echo '</div>';
-        }?>
-    </div>
-</div>
-<?php if (isset($flash)) {
-    echo '<div class="alert-box success">';
-    echo $flash;
-    echo '</div>';
-}?>
 
-</br>
+<div class="small-6 small-centered column">
+    <?php if (isset($flash)) {
+        //var_dump($flash);
+        echo '<div data-alert class="alert-box success radius">';
+        echo $flash;
+        echo '</div>';
+    }?>
+</div>
+
 <p>
 Visualiser liste des groupes ;
  les utilisateurs par groupe ;
  pouvoir modifier les coordonnées d'un utilisateur donné
 </p>
-<p>++ A Faire : Chapmp de recherche d'un utilisateur
+<p><strong>A Faire :</strong> Chapmp de recherche d'un utilisateur
 </p>
 
 <div id="main">
@@ -34,11 +25,11 @@ Visualiser liste des groupes ;
              id="loading"/>
     </div>
     <div id="pageContent">
-        <div id="alertMsg" class="alert-box" style="display: none;">
+        <!--<div id="alertMsg" class="alert-box" style="display: none;">
             <div class="close-box">x</div>
             <span class="type"></span>
             <span class="msg"></span>
-        </div>
+        </div>-->
         <div class="file-wrap">
             <div class="commit commit-tease js-details-container"></div>
             <div class="tab">

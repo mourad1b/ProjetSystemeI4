@@ -22,12 +22,13 @@ use nsNewsletter\Model\Groupe;
                 </div>
             </form>
         </div>
-        <?php if (isset($flash)) {
-            echo '<div data-alert class="alert-box success radius">';
-            echo $flash;
-            echo '</div>';
-
-        }?>
+        <div class="small-6 small-centered column">
+            <?php if (isset($flash)) {
+                echo '<div id="setTimeout" data-alert class="alert alert-success">';
+                echo $flash;
+                echo '</div>';
+            }?>
+        </div>
 
         <h3>Libelle groupe</h3>
         <select class="form-control m-b">

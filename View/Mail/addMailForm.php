@@ -1,5 +1,10 @@
 <h3 class="text-center">Formulaire d'ajout des mails </h3>
 <br>
+<p>
+    Visualiser liste des mails ;
+</p>
+<p><strong>A Faire :</strong> ajouter/modifier les mails
+</p>
 <div class="panel panel-info">
     <div class="panel-heading addFile">
         <h3 class="panel-title">Ajout des mails</h3>

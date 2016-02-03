@@ -4,35 +4,15 @@ use nsNewsletter\Model\Groupe;
 use nsNewsletter\Model\GroupeUser;
 
 ?>
-<div class="row">
-    <div class="small-12 small-centered column">
-        <?php if (isset($flash)) {
-            echo '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-            echo '<div data-alert class="alert-box success radius">';
-            echo $flash;
-            echo '</div>';
-        }?>
-    </div>
+<div class="small-6 small-centered column">
+    <?php if (isset($flash)) {
+        echo '<div id="setTimeout" data-alert class="alert alert-success">';
+        echo $flash;
+        echo '</div>';
+    }?>
 </div>
 
-</br></br>
-
-<div id="main">
-    <div class="loading">
-        <img src="http://officedelamer.com/office/wp-content/plugins/ajax-campaign-monitor-forms/ajax-loading.gif" alt="loading" width="71" height="61"
-             id="loading"/>
-    </div>
-    <div id="pageContent">
-
-    </div>
-</div>
-
-
-
-
-
-
-
+</br>
 
 <script>
     $(function() {

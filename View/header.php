@@ -62,8 +62,8 @@
 <div id="bg_sousmenu">
     <ul id="nav">
         <li><a href="index.php" class="radius">Groupes</a></li>
-        <li><a href="index.php?page=newsletters" class="radius">Gestion newsletters</a></li>
-        <li><a href="index.php?page=addmail" class="radius">Gestion mails</a></li>
+        <li><a href="index.php?page=newsletters" class="radius">Newsletters</a></li>
+        <li><a href="index.php?page=addmail" class="radius">Mails</a></li>
 
         <li>
             <a class="depliant" href="#">Administration &#9660;</a>
@@ -76,3 +76,10 @@
     </ul>
 </div>
 <br>
+
+<div class="text-center" id="loading-img" style="display: none">
+    <img src="../Web/styles/img/loading-img.gif" alt="loading">
+    <!--src="http://officedelamer.com/office/wp-content/plugins/ajax-campaign-monitor-forms/ajax-loading.gif"
+src="../Web/styles/img/ajax_load.gif"
+-->
+</div>
