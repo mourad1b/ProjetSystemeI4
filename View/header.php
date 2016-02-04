@@ -30,10 +30,10 @@
 <script src="../Web/styles/js/bootstrap.min.js"></script>
 
 <script src="../Web/styles/js/bootbox.min.js"></script>
-<script src="../Web/styles/js/example.js"></script>
 
 <!-- Includ Scripts JS -->
-<script src="../Web/scripts/Mail.js">Mail();</script>
+<script src="../Web/scripts/Mail.js"></script>
+<script src="../Web/scripts/Example.js"></script>
 
 <div id="header">
     <div id="header_left">
