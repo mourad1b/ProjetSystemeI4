@@ -56,12 +56,24 @@ class MailRepository
      */
     public function persist(Mail $mail)
     {
-        $this->db->Sql("INSERT INTO mail (libelle, objet, body) VALUES(:libelle,:objet,:body)",
+
+        $result = $this->db->SqlValue("Select `libelle` From mail where `libelle` = '".$mail->getLibelle()."' LIMIT 1 ");
+        //$req = mysql_fetch_array($result);
+
+        if ($result) {
+            echo 'Ce type de mail existe déja';
+        }
+        else {
+
+            $this->db->Sql("INSERT INTO mail (libelle, objet, body) VALUES(:libelle,:objet,:body)",
             array(  'libelle' => $mail->getLibelle(),
-                    'objet' => $mail->getObjet(),
-                    'body' => $mail->getBody()));
-        $id = $this->db->lastInsertId();
-        return $id;
+                'objet' => $mail->getObjet(),
+                'body' => $mail->getBody()));
+
+        }
+        return $result;
+        //$id = $this->db->lastInsertId();
+        //return $id;
     }
 
 
@@ -73,7 +85,7 @@ class MailRepository
     public function removeMailCascade(Mail $mail)
     {
         // Supprime le mail
-        $this->db->Sql("DELETE FROM users WHERE id_mail = :id",
+        $this->db->Sql("DELETE FROM mail WHERE id_mail = :id",
             array('id' => $mail->getId()));
     }
 }

@@ -37,7 +37,7 @@ if (isset($_POST['formLogin_token'])){
 }
 
 if (isset($_POST['formManageNewsletter'])){
-    var_dump("traitement form Modif News: " );
+   // var_dump("traitement form Modif News: " );
     $newsletterController->handleFormAddNewsletterAction(); // Traite le formulaire et redirige vers la page d'accueil
 }
 

@@ -53,5 +53,21 @@ class MailController
         $this->indexAction('<strong>Félicitations !</strong> Le Groupe est créé avec succès !'); // Redirect to index
     }
 
+    public function deleteMail()
+    {
+
+        if(!empty($_POST['id_rep[]']))
+        {
+            echo 'Les valeurs des cases cochées sont :<br />';
+            foreach($_POST['choix'] as $val)
+            {
+                echo $val,'<br />';
+            }
+            echo '<br /> Faire un autre test : <a href="checkbox3.php">Tester à nouveau</a>';
+        }
+        else{
+            echo ' vide ';
+        }
+    }
 }
 

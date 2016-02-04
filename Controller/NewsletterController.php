@@ -46,11 +46,11 @@ class NewsletterController
      */
     public function handleFormAddNewsletterAction()
     {
-        //$repos = new NewsletterRepository();
+        $repos = new NewsletterRepository();
 
-        //$news = $repos->find($id);// new Newsletter('','','','','','','');
+        $news = new Newsletter('', $_POST['nomNewsletter'], $_POST['lienNewsletter'], $_POST['photoNewsletter'], $_POST['texteNewsletter']);
 
-        //$id = $repos->persist($news); // On persiste l'objet dans la base et on récupère son id
+        $id = $repos->persist($news); // On persiste l'objet dans la base et on récupère son id
 
         $this->displayNewsletterAction('<strong>Félicitations !</strong> Newsletter !'); // Redirect to index
 
