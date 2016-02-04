@@ -87,11 +87,11 @@ class MailRepository
         //return $id;
     }
 
-    public function remove($id)
+    public function remove(Mail $mail)
     {
         // Supprime le mail
         $this->db->Sql("DELETE FROM mail WHERE id_mail = :id",
-            array('id' => $id));
+            array('id' => $mail->getId()));
     }
 
     /**

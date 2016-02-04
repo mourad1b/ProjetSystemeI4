@@ -1,17 +1,16 @@
 <!doctype html>
 <html lang="fr">
-<body>
 <head>
     <meta charset="utf-8">
     <title>Gestion des Newsletters</title>
 
     <!-- Included CSS Files -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="../Web/styles/css/bootstrap.min.css">
     <link rel="stylesheet" href="../Web/css/foundation.min.css">
     <link rel="stylesheet" href="../Web/styles/css/style.css">
     <link rel="stylesheet" href="../Web/styles/css/reset.css">
 
+    <link rel="stylesheet" href="../Web/styles/css/main.css">
     <!--for auth-->
     <!--<link rel="stylesheet" href="../Web/styles/css/auth/app_reset_1.css">
     <link rel="stylesheet" href="../Web/styles/css/auth/app_style_3.css">
@@ -19,21 +18,22 @@
     <link rel="stylesheet" href="../Web/styles/css/auth/app_bootstrap.min_2.css">
 -->
 
-
-    <!--[if lt IE 9]>
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-
-    <!-- Included JS Files (Compressed) -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="../Web/js/jquery.js"></script>
-    <script src="../Web/styles/js/script.js"></script>
-    <script src="../Web/styles/js/bootstrap.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-    <!-- Includ Scripts JS -->
-    <!--<script src="../Web/scripts/Fichiers.js"></script>
-    -->
 </head>
+
+<body>
+<!--[if lt IE 9]>
+<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+<!-- Included JS Files (Compressed) -->
+<script src="../Web/js/jquery.js"></script>
+<script src="../Web/styles/js/script.js"></script>
+<script src="../Web/styles/js/bootstrap.min.js"></script>
+
+<script src="../Web/styles/js/bootbox.min.js"></script>
+<script src="../Web/styles/js/example.js"></script>
+
+<!-- Includ Scripts JS -->
+<script src="../Web/scripts/Mail.js">Mail();</script>
 
 <div id="header">
     <div id="header_left">

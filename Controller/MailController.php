@@ -36,7 +36,6 @@ class MailController
 
         require_once('../View/header.php');
         require_once('../View/Mail/displayMail.php');
-        //require_once('../View/User/index.php');
         require_once('../View/footer.php');
 
     }
@@ -49,8 +48,6 @@ class MailController
     public function handleFormManageMailAction()
     {
         $repos = new MailRepository();
-        var_dump($_POST);
-
         $mail = new Mail('', $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
 
         $id = $repos->persist($mail); // On persiste l'objet dans la base et on récupère son id
@@ -73,38 +70,21 @@ class MailController
     public function updateMailAction()
     {
         $repos = new MailRepository();
-        $mail = new Mail('', $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
+        $mail = new Mail($_POST['idMail'], $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
 
         $id = $repos->update($mail); // On persiste l'objet dans la base et on récupère son id
 
         $this->indexAction('<strong>Succès !</strong> Le mail a bien été mis à jour.'); // Redirect to index
     }
 
-    public function deleteMailByIdAction($id)
+    public function deleteMailAction()
     {
         $repos = new MailRepository();
-        //$mail = new Mail('', $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
+        $mail = new Mail($_POST['idMail'], $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
 
-        $repos->remove($id); // On persiste l'objet dans la base et on récupère son id
+        $repos->remove($mail); // On persiste l'objet dans la base et on récupère son id
 
         $this->indexAction('<strong>Succès !</strong> Le mail a bien été supprimé.'); // Redirect to index
-    }
-
-    public function deleteMail()
-    {
-
-        if(!empty($_POST['id_rep[]']))
-        {
-            echo 'Les valeurs des cases cochées sont :<br />';
-            foreach($_POST['choix'] as $val)
-            {
-                echo $val,'<br />';
-            }
-            echo '<br /> Faire un autre test : <a href="checkbox3.php">Tester à nouveau</a>';
-        }
-        else{
-            echo ' vide ';
-        }
     }
 }
 
