@@ -51,12 +51,21 @@ if (isset($_POST['formAddGroupe'])) {
 
 }
 if (isset($_POST['formAddMail'])) {
-    $mailController->handleFormAddAction(); // Traite le formulaire et redirige vers la page d'accueil
+    $mailController->addMailAction(); // Traite le formulaire et redirige vers la page d'accueil
+}
+if (isset($_POST['formUpdateMail'])) {
+    $mailController->updateMailAction(); // Traite le formulaire et redirige vers la page d'accueil
+}
+if (isset($_POST['formDeleteMail'])) {
+    $mailController->deleteMailAction(); // Traite le formulaire et redirige vers la page d'accueil
 }
 elseif (isset($_GET['page'])) {
-    $url = $_GET['page'];
-
-    switch ($url) {
+    $urlPage = $_GET['page'];
+    $urlAction = null;
+    if (isset($_GET['action'])){
+        $urlAction = $_GET['action'];
+    }
+    switch ($urlPage) {
         case 'adduser':
             $userController->displayUserAction();
             break;
@@ -66,7 +75,13 @@ elseif (isset($_GET['page'])) {
             break;
 
         case 'addmail':
-            $mailController->displayMailAction();
+            if ($urlAction == "create"){
+                $mailController->addMailAction();
+            }elseif($urlAction == "update"){
+                $mailController->updateMailAction();
+            }else{
+                $mailController->displayMailAction();
+            }
             break;
 
         case 'campagnes':

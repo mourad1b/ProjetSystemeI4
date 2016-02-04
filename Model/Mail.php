@@ -46,9 +46,9 @@ class Mail
     function __construct($libelle, $objet, $body)
     {
 
-        $this->libelle = $libelle;
-        $this->body = $body;
-        $this->objet = $objet;
+        $this->setLibelle($libelle);
+        $this->setObjet($objet);
+        $this->setBody($body);
     }
 
     /**
@@ -99,7 +99,10 @@ class Mail
      */
     public function setObjet($objet)
     {
-        $this->objet = $objet;
+        if (preg_match('#<script(.*?)>(.*?)</script>#is', $objet)) {
+            exit('Hack de la validation du formulaire côté client : Injection JS');
+        }
+        $this->objet = strip_tags($objet);
     }
 
 
@@ -116,7 +119,10 @@ class Mail
      */
     public function setBody($body)
     {
-        $this->body = $body;
+        if (preg_match('#<script(.*?)>(.*?)</script>#is', $body)) {
+            exit('Hack de la validation du formulaire côté client : Injection JS');
+        }
+        $this->body = strip_tags($body);
     }
 
 }

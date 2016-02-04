@@ -60,7 +60,7 @@ class UserController
         //mail($user->getMail(), "Confirmation de création", "Votre offre d'emploi à correctement été enregistrée !\nConsultez l'ensemble des candidatures via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\nSupprimez l'offre d'emploi et les candidature liées via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\n\nVous recevrez un mail en cas de nouveau candidat.");
 
 
-        $this->indexAction('<strong>Félicitations !</strong> Les utilisateurs sont créés avec succès !'); // Redirect to index
+        $this->indexAction('<strong>Succès :</strong> les utilisateurs ont bien été créés.'); // Redirect to index
     }
 
     public function handleFormUploadFileAction()
@@ -108,7 +108,7 @@ class UserController
                 echo "erreur parse CSV";
             }
 
-            $this->indexAction('<strong>Félicitations !</strong> Les utilisateurs ont été ajoutés à la base avec succès !'); // Redirect to index
+            $this->indexAction('<strong>Succès :</strong> les utilisateurs ont bien été créés.'); // Redirect to index
 
         }
     }

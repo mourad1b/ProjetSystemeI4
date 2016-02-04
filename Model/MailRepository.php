@@ -57,35 +57,53 @@ class MailRepository
     public function persist(Mail $mail)
     {
 
-        $result = $this->db->SqlValue("Select `libelle` From mail where `libelle` = '".$mail->getLibelle()."' LIMIT 1 ");
+        $result = $this->db->SqlValue("SELECT libelle FROM mail WHERE libelle = '".$mail->getLibelle()."' LIMIT 1 ");
         //$req = mysql_fetch_array($result);
 
         if ($result) {
             echo 'Ce type de mail existe déja';
         }
         else {
-
             $this->db->Sql("INSERT INTO mail (libelle, objet, body) VALUES(:libelle,:objet,:body)",
             array(  'libelle' => $mail->getLibelle(),
                 'objet' => $mail->getObjet(),
                 'body' => $mail->getBody()));
-
         }
         return $result;
         //$id = $this->db->lastInsertId();
         //return $id;
     }
 
+    public function update(Mail $mail)
+    {
+        $this->db->Sql("UPDATE mail SET libelle = :libelle, objet = :objet, body = :body WHERE id_mail = :id",
+            array(
+                'id' => $mail->getId(),
+                'libelle' => $mail->getLibelle(),
+                'objet' => $mail->getObjet(),
+                'body' => $mail->getBody()));
+
+        //$id = $this->db->lastInsertId();
+        //return $id;
+    }
+
+    public function remove($id)
+    {
+        // Supprime le mail
+        $this->db->Sql("DELETE FROM mail WHERE id_mail = :id",
+            array('id' => $id));
+    }
 
     /**
      * Supprime de la base de donnée un mail
      *
      * @param mail $mail Le travail en question
      */
-    public function removeMailCascade(Mail $mail)
+    public function removeMailCascade($id)
     {
         // Supprime le mail
+        // todo Supprimer le mail de newsletter,... cascade
         $this->db->Sql("DELETE FROM mail WHERE id_mail = :id",
-            array('id' => $mail->getId()));
+            array('id' => $id));
     }
 }

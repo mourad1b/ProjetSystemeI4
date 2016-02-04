@@ -66,7 +66,7 @@
             idGroupe = selectGroupe.val();
             console.log(idGroupe);
 
-            formAddUsersCsv.show();
+            //formAddUsersCsv.show();
             //selectGroupe.attr('disabled', 'disabled');
             //loadingImg.show();
 

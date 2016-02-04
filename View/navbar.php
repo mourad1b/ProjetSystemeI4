@@ -19,6 +19,7 @@
     <script src="../Web/js/jquery.js"></script>
     <script src="../Web/styles/js/script.js"></script>
     <script src="../Web/styles/js/bootstrap.min.js"></script>
+    <script src="../Web/styles/js/bootbox.min.js"></script>
 
 </head>
 

@@ -5,7 +5,7 @@
 
 namespace nsNewsletter\Controller;
 
-use nsNewsletter\Model\Groupe;
+use nsNewsletter\Model\Mail;
 use nsNewsletter\Model\MailRepository;
 
 
@@ -18,6 +18,9 @@ class MailController
      */
     public function indexAction($flash = null)
     {
+        $reposMail = new MailRepository();
+        $mails = $reposMail->findAll();
+
         require_once('../View/header.php');
         require_once('../View/Mail/index.php');
         require_once('../View/footer.php');
@@ -26,7 +29,7 @@ class MailController
     /**
      * Affiche le détail d'une offre d'emploi
      */
-    public function displayMailAction()
+    public function displayMailAction($flash = null)
     {
         $reposMail = new MailRepository();
         $mails = $reposMail->findAll();
@@ -42,15 +45,49 @@ class MailController
      * Traite le formulaire de création d'un Groupe et persiste l'objet Groupe correspondant dans la base de données.
      *
      */
-    public function handleFormAddAction()
+
+    public function handleFormManageMailAction()
     {
         $repos = new MailRepository();
+        var_dump($_POST);
 
-        $groupe = new Mail('', $_POST['libelle']);
+        $mail = new Mail('', $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
 
-        $id = $repos->persist($groupe); // On persiste l'objet dans la base et on récupère son id
+        $id = $repos->persist($mail); // On persiste l'objet dans la base et on récupère son id
 
-        $this->indexAction('<strong>Félicitations !</strong> Le Groupe est créé avec succès !'); // Redirect to index
+        $this->indexAction('<strong>Succès !</strong> Le mail a bien été créé.'); // Redirect to index
+    }
+
+    public function addMailAction()
+    {
+        $repos = new MailRepository();
+        var_dump($_POST);
+
+        $mail = new Mail('', $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
+
+        $id = $repos->persist($mail); // On persiste l'objet dans la base et on récupère son id
+
+        $this->indexAction('<strong>Succès !</strong> Le mail a bien été créé.'); // Redirect to index
+    }
+
+    public function updateMailAction()
+    {
+        $repos = new MailRepository();
+        $mail = new Mail('', $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
+
+        $id = $repos->update($mail); // On persiste l'objet dans la base et on récupère son id
+
+        $this->indexAction('<strong>Succès !</strong> Le mail a bien été mis à jour.'); // Redirect to index
+    }
+
+    public function deleteMailByIdAction($id)
+    {
+        $repos = new MailRepository();
+        //$mail = new Mail('', $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
+
+        $repos->remove($id); // On persiste l'objet dans la base et on récupère son id
+
+        $this->indexAction('<strong>Succès !</strong> Le mail a bien été supprimé.'); // Redirect to index
     }
 
     public function deleteMail()
