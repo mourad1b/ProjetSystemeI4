@@ -1,6 +1,11 @@
-<!--<h3 class="text-center">Formulaire d'affectation des groupes</h3>
--->
-
+<h3 class="text-center">Formulaire d'affectation des groupes</h3>
+<br>
+<p>
+    Visualiser liste des groupe ;
+</p>
+<p><strong>A Faire :</strong>
+    pouvoir ajouter/modifier des groupes (clic sur +/crayon);
+</p>
 <?php if (isset($flash)) {
     echo '<div data-alert class="alert-box success radius">';
     echo $flash;
@@ -10,6 +15,7 @@
 
 <div class="panel panel-info">
     <div class="panel-heading">
+        <span><a class="glyphicon glyphicon-plus addGroupe btnAjouter pull-right" title="Ajouter"></a></span>
         <h3 class="panel-title">Affectation des groupes</h3>
     </div>
     <div class="panel-body">
@@ -19,8 +25,8 @@
                 <?php //if($user->getIdGroupe() == $groupe->getId()): ?>
                 <li class="list-group-item" id="<?php echo $groupe->getId(); ?>" data-id="<?php echo $groupe->getId(); ?>" value="<?php echo $groupe->getId(); ?>">
                     <span class=""><?php echo $groupe->getLibelle(); ?></span>
-                    <span><a class="glyphicon glyphicon-trash btnSupprimer pull-right" title="Modifier"></a>
-                    <a class="glyphicon glyphicon-pencil btnModifier pull-right" title="Supprimer"></a>
+                    <span><a class="glyphicon glyphicon-trash supprGroupe btnSupprimer pull-right" title="Modifier"></a>
+                    <a class="glyphicon glyphicon-pencil modifGroupe btnModifier pull-right" title="Supprimer"></a>
                         </span>
                 </li>
 
