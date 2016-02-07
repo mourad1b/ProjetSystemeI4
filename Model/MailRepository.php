@@ -31,7 +31,7 @@ class MailRepository
             exit('Utilisateur non trouvé');
         }
 
-        return new Mail($raw['libelle'], $raw['objet'], $raw['body']);
+        return new Mail($raw['id'], $raw['libelle'], $raw['objet'], $raw['body']);
     }
 
     public function findAll()

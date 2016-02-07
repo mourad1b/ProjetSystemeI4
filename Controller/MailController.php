@@ -50,16 +50,26 @@ class MailController
         $repos = new MailRepository();
         $mail = new Mail('', $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
 
-        $id = $repos->persist($mail); // On persiste l'objet dans la base et on récupère son id
+        $id = $repos->find($mail); // On persiste l'objet dans la base et on récupère son id
 
         $this->indexAction('<strong>Succès !</strong> Le mail a bien été créé.'); // Redirect to index
+    }
+
+    public function getMailByIdAction($id)
+    {
+        $repos = new MailRepository();
+        //$mail = new Mail($_POST['idMail'], $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
+
+        $mail = $repos->find($id); // On persiste l'objet dans la base et on récupère son id
+
+        return $mail;
+        //$this->indexAction(/*'<strong>Succès !</strong> Le mail a bien été créé.'*/); // Redirect to index
     }
 
     public function addMailAction()
     {
         $repos = new MailRepository();
-        var_dump($_POST);
-
+        $post = $_POST;
         $mail = new Mail('', $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
 
         $id = $repos->persist($mail); // On persiste l'objet dans la base et on récupère son id
@@ -67,10 +77,11 @@ class MailController
         $this->indexAction('<strong>Succès !</strong> Le mail a bien été créé.'); // Redirect to index
     }
 
-    public function updateMailAction()
+    public function updateMailAction($mail)
     {
         $repos = new MailRepository();
-        $mail = new Mail($_POST['idMail'], $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
+        $post = $_POST;
+        //$mail = new Mail($_POST['idMail'], $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
 
         $id = $repos->update($mail); // On persiste l'objet dans la base et on récupère son id
 
@@ -80,7 +91,7 @@ class MailController
     public function deleteMailAction()
     {
         $repos = new MailRepository();
-        $mail = new Mail($_POST['idMail'], $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
+        $mail = new Mail($_GET['idMail'], $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
 
         $repos->remove($mail); // On persiste l'objet dans la base et on récupère son id
 

@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="../Web/styles/css/reset.css">
 
     <link rel="stylesheet" href="../Web/styles/css/main.css">
-    <!--for auth-->
+    <link rel="stylesheet" href="../Web/styles/css/list.css">
+    <!--  <link rel="stylesheet" href="../Web/styles/css/starter-template.css">
+     <!--for auth-->
     <!--<link rel="stylesheet" href="../Web/styles/css/auth/app_reset_1.css">
     <link rel="stylesheet" href="../Web/styles/css/auth/app_style_3.css">
     <link rel="stylesheet" href="../Web/styles/css/auth/app.css">
@@ -28,12 +30,14 @@
 <script src="../Web/js/jquery.js"></script>
 <script src="../Web/styles/js/script.js"></script>
 <script src="../Web/styles/js/bootstrap.min.js"></script>
-
 <script src="../Web/styles/js/bootbox.min.js"></script>
+<script src="../Web/styles/js/list.min.js"></script>
 
 <!-- Includ Scripts JS -->
 <script src="../Web/scripts/Mail.js"></script>
 <script src="../Web/scripts/Example.js"></script>
+<script src="../Web/scripts/Ajax.js"></script>
+<script src="../Web/scripts/IHM.js"></script>
 
 <div id="header">
     <div id="header_left">
@@ -77,9 +81,10 @@
 </div>
 <br>
 
-<div class="text-center" id="loading-img" style="display: none">
+<div class="loading-img text-center" id="loader" style="display: none">
     <img src="../Web/styles/img/loading-img.gif" alt="loading">
     <!--src="http://officedelamer.com/office/wp-content/plugins/ajax-campaign-monitor-forms/ajax-loading.gif"
 src="../Web/styles/img/ajax_load.gif"
 -->
 </div>
+<div id="flashMessage" class="alert hidden"></div>

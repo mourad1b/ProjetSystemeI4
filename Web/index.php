@@ -8,6 +8,7 @@ use nsNewsletter\Controller\MailController;
 use nsNewsletter\Controller\SecurityController;
 use nsNewsletter\Controller\UserController;
 use nsNewsletter\Controller\NewsletterController;
+use nsNewsletter\Model\Mail;
 
 /**
  * Autoloading
@@ -35,7 +36,7 @@ if (isset($_POST['formLogin_token'])){
     //var_dump($_POST['formLogin_token']);
     $securityController->handleFormLoginAction(); // Traite le formulaire et redirige vers la page d'accueil
 }
-
+/*
 if (isset($_POST['formManageNewsletter'])){
    // var_dump("traitement form Modif News: " );
     $newsletterController->handleFormAddNewsletterAction(); // Traite le formulaire et redirige vers la page d'accueil
@@ -53,13 +54,19 @@ if (isset($_POST['formAddGroupe'])) {
 if (isset($_POST['formAddMail'])) {
     $mailController->addMailAction(); // Traite le formulaire et redirige vers la page d'accueil
 }
+
 if (isset($_POST['formUpdateMail'])) {
-    $mailController->updateMailAction(); // Traite le formulaire et redirige vers la page d'accueil
+    $id = $_GET['idMail'];
+    $post = $_POST;
+    return $mailController->updateMailAction($id); // Traite le formulaire et redirige vers la page d'accueil
 }
 if (isset($_POST['formDeleteMail'])) {
     $mailController->deleteMailAction(); // Traite le formulaire et redirige vers la page d'accueil
 }
-elseif (isset($_GET['page'])) {
+*/
+
+if (isset($_GET['page'])) {
+    $post = $_POST;
     $urlPage = $_GET['page'];
     $urlAction = null;
     if (isset($_GET['action'])){
@@ -75,10 +82,20 @@ elseif (isset($_GET['page'])) {
             break;
 
         case 'addmail':
-            if ($urlAction == "create"){
-                $mailController->addMailAction();
-            }elseif($urlAction == "update"){
-                $mailController->updateMailAction();
+            if (isset($_GET['action'])) {
+                $urlAction = $_GET['action'];
+
+                if ($urlAction == "create") {
+                    $mailController->addMailAction();
+                }elseif($urlAction == "read") {
+                    $id = $_GET['idMail'];
+                    $mailController->getMailByIdAction($id);
+                } elseif ($urlAction == "update") {
+                    $mail = new Mail($_POST['idMail'], $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
+                    $mailController->updateMailAction($mail);
+                } elseif ($urlAction == "delete") {
+                    $mailController->deleteMailAction();
+                }
             }else{
                 $mailController->displayMailAction();
             }
