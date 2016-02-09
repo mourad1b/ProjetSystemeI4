@@ -40,21 +40,21 @@
         <form class="form-horizontal formActionMail" enctype="multipart/form-data">
             <input type="hidden" class="formManageMail" name="" value="true">
             <div class="form-group">
-                <label for="libelleMail" class="col-sm-3 control-label"><strong>Nom du mail</strong></label>
+                <label for="libelleMail" class="col-sm-2 control-label"><strong>Nom du mail</strong></label>
                 <div class="col-sm-9">
                     <input class="form-control libelleMail modalRequired" id="libelleMail" value="" name="libelleMail" placeholder="libellé du mail" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">
                     <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
                 </div>
             </div>
             <div class="form-group">
-                <label for="objetMail" class="col-sm-3 control-label"><strong>Objet</strong></label>
+                <label for="objetMail" class="col-sm-2 control-label"><strong>Objet</strong></label>
                 <div class="col-sm-9">
                     <input class="form-control objetMail modalRequired" id="objetMail" name="objetMail" value="" placeholder="objet du mail" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">
                     <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
                 </div>
             </div>
             <div class="form-group">
-                <label for="corpsMail" class="col-sm-3 control-label"><strong>Corps</strong></label>
+                <label for="corpsMail" class="col-sm-2 control-label"><strong>Corps</strong></label>
                 <div class="col-sm-9">
                     <input class="form-control corpsMail modalRequired" id="corpsMail" name="corpsMail" value="" placeholder="corps du mail" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">
                     <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
@@ -74,10 +74,3 @@
 
 
 <script src="../Web/scripts/Mail.js"></script>
-<!--<script src="../Web/scripts/Ajax.js"></script>
-<script src="../Web/scripts/IHM.js"></script>
--->
-<!--
-<script> $(function() { Mail(); });
-</script>
--->

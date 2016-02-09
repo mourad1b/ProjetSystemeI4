@@ -42,7 +42,14 @@ class UserRepository
         $hydrated = array();
 
         foreach ($raw as $user) {
-            $hydrated[] = new User($user['id_user'], $user['nom'], $user['prenom'], $user['mail'], $user['telephone'], $user['id_groupe'], $user['groupe_libelle']);
+            $id_groupe = array(); $groupe_libelle = array();
+            if(isset($user['id_groupe'])){
+                $id_groupe = $user['id_groupe'];
+            }
+            if(isset($user['groupe_libelle'])){
+                $groupe_libelle = $user['id_groupe'];
+            }
+            $hydrated[] = new User($user['id_user'], $user['nom'], $user['prenom'], $user['mail'], $user['telephone'], $id_groupe, $groupe_libelle  );
         }
 
         return $hydrated;
@@ -119,6 +126,19 @@ class UserRepository
         return $id;
     }
 
+    public function update(User $user)
+    {
+        $this->db->Sql("UPDATE users SET nom =:nom, prenom =:prenom, mail =:mail, telephone=:telephone WHERE id_user=:id",
+            array(
+                'id' => $user->getId(),
+                'nom' => $user->getNom(),
+                'prenom' => $user->getPrenom(),
+                'mail' => $user->getMail(),
+                'telephone' => $user->getTelephone()));
+
+        //$id = $this->db->lastInsertId();
+        //return $id;
+    }
 
     /**
      * Supprime de la base de donnée une offre d'emploi ainsi que les candidatures qui lui sont liées

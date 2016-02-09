@@ -6,13 +6,13 @@
 
     <!-- Included CSS Files -->
     <link rel="stylesheet" href="../Web/styles/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Web/styles/css/starter-template.css">
     <link rel="stylesheet" href="../Web/css/foundation.min.css">
-    <link rel="stylesheet" href="../Web/styles/css/style.css">
     <link rel="stylesheet" href="../Web/styles/css/reset.css">
-
-    <link rel="stylesheet" href="../Web/styles/css/main.css">
+    <link rel="stylesheet" href="../Web/styles/css/style.css">
     <link rel="stylesheet" href="../Web/styles/css/list.css">
-    <!--  <link rel="stylesheet" href="../Web/styles/css/starter-template.css">
+    <link rel="stylesheet" href="../Web/styles/css/main.css">
+
      <!--for auth-->
     <!--<link rel="stylesheet" href="../Web/styles/css/auth/app_reset_1.css">
     <link rel="stylesheet" href="../Web/styles/css/auth/app_style_3.css">
@@ -28,12 +28,14 @@
 
 <!-- Included JS Files (Compressed) -->
 <script src="../Web/js/jquery.js"></script>
-<script src="../Web/styles/js/script.js"></script>
 <script src="../Web/styles/js/bootstrap.min.js"></script>
+<script src="../Web/styles/js/script.js"></script>
 <script src="../Web/styles/js/bootbox.min.js"></script>
 <script src="../Web/styles/js/list.min.js"></script>
 
 <!-- Includ Scripts JS -->
+<script src="../Web/scripts/User2.js"></script>
+<script src="../Web/scripts/User.js"></script>
 <script src="../Web/scripts/Mail.js"></script>
 <script src="../Web/scripts/Example.js"></script>
 <script src="../Web/scripts/Ajax.js"></script>
@@ -47,7 +49,7 @@
             <h3>Gestion des Newsletters</h3>
         </div>
         <div id="header_left2">
-            <h2>EPSI</h2>
+            <h2><!--EPSI--></h2>
         </div>
     </div>
     <div id="header_right">
@@ -67,14 +69,14 @@
     <ul id="nav">
         <li><a href="index.php" class="radius">Groupes</a></li>
         <li><a href="index.php?page=newsletters" class="radius">Newsletters</a></li>
-        <li><a href="index.php?page=addmail" class="radius">Mails</a></li>
+        <li><a href="index.php?page=mails" class="radius">Mails</a></li>
 
         <li>
             <a class="depliant" href="#">Administration &#9660;</a>
             <ul class="sous-menu">
-                <li><a href="index.php?page=addgroupe" class="radius">Affectations groupe</a></li>
-                <li><a href="index.php?page=adduser" class="radius">Ajout utilisateurs</a></li>
-                <li><a href="index.php?page=campagne" class="radius">Campagnes newsletters</a></li>
+                <li><a href="index.php?page=groupes" class="radius">Affectations groupes</a></li>
+                <li><a href="index.php?page=users" class="radius">Gestion utilisateurs</a></li>
+                <li><a href="index.php?page=campagnes" class="radius">Campagnes newsletters</a></li>
             </ul>
         </li>
     </ul>

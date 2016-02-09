@@ -21,6 +21,7 @@ var Mail = function() {
     var corps = $('.corpsMail').val();
     */
     function _fillForm() {
+        var form = $('.selectMail')
         libelleMail = $(this).parent().parent().data('libelle');
         objetMail = $(this).parent().parent().data('objet');
         corpsMail = $(this).parent().parent().data('body');
@@ -61,7 +62,7 @@ var Mail = function() {
         //e.stopPropagation();
         e.preventDefault();
 
-        console.log('btnSupprMail');
+
         idMail = $(this).parent().parent().data('id');
         //var nomSelectMail = $(this).parent().parent().val();
 
@@ -76,9 +77,8 @@ var Mail = function() {
         });
 
         modal.on('click', '.btn-primary', function () {
-            console.log("btn suppr");
             $.ajax({
-                url: "../Web/index.php?page=addmail&action=delete&idMail=" + idMail
+                url: "../Web/index.php?page=mails&action=delete&idMail=" + idMail
                 //context: document.body
             }).done(function () {
                 bootbox.alert("Mail supprimé.");
@@ -92,9 +92,8 @@ var Mail = function() {
     btnAddMail.click(function (e) {
         e.stopPropagation();
         formManageMail.attr('name', 'formAddMail');
-        //formActionMail.attr('action', '../Web/index.php?page=addmail');
+        //formActionMail.attr('action', '../Web/index.php?page=mails');
         //panelFormManageMail.show();
-        console.log('btnAddMail');
 
         var modal = bootbox.dialog({
             title: "Ajout d'un nouveau mail",
@@ -112,7 +111,7 @@ var Mail = function() {
             }],
             //show : false,
             onEscape : function() {
-                console.log("X (exit add)");
+                //console.log("X (exit add)");
                 //modal.modal("hide");
             }
         });
@@ -121,7 +120,7 @@ var Mail = function() {
         IHM.validateModal();
 
         modal.on('click', '.btnAddNewMail', function(){
-            console.log("ajax add");
+            //console.log("ajax add");
 
             libelleMail = $('.libelleMail').val();
             objetMail = $('.objetMail').val();
@@ -129,7 +128,7 @@ var Mail = function() {
 
             $.ajax({
                 method: "POST",
-                url: "../Web/index.php?page=addmail&action=create",
+                url: "../Web/index.php?page=mails&action=create",
                 data: { libelleMail: libelleMail, objetMail: objetMail, corpsMail: corpsMail }
                 //,context: document.body
             }).done(function() {
@@ -148,19 +147,18 @@ var Mail = function() {
         e.stopPropagation();
         //console.log("formUpdateMail");
         formManageMail.attr('name', 'formUpdateMail');
-        //formActionMail.attr('action', '../Web/index.php?page=addmail');
+        //formActionMail.attr('action', '../Web/index.php?page=mails');
+        //panelFormManageMail.show();
 
         idMail = $(this).parent().parent().data('id');
         libelleMail = $(this).parent().parent().data('libelle');
         objetMail = $(this).parent().parent().data('objet');
-        corpsMail = $(this).parent().parent().data('body');
 
+        corpsMail = $(this).parent().parent().data('body');
         $('.libelleMail').val(libelleMail);
         $('.objetMail').val(objetMail);
-        $('.corpsMail').val(corpsMail);
 
-        //panelFormManageMail.show();
-        // _fillForm();
+        $('.corpsMail').val(corpsMail);
 
         var modal = bootbox.dialog({
                 title: "Modification du mail n° "+idMail,
@@ -180,7 +178,7 @@ var Mail = function() {
                 }],
                 //show : false,
                 onEscape : function() {
-                    console.log("X (exit modif)");
+                    //console.log("X (exit modif)");
                     //modal.modal("hide");
                 }
         });
@@ -190,20 +188,14 @@ var Mail = function() {
         IHM.validateModal();
 
         modal.on('click', '.btnUpdateMail', function(){
-            console.log("ajax modif");
 
             libelleMail = $('.libelleMail').val();
             objetMail = $('.objetMail').val();
             corpsMail = $('.corpsMail').val();
 
-            console.log(idMail);
-            console.log(libelleMail);
-            console.log(objetMail);
-            console.log(corpsMail);
-
             $.ajax({
                 method: "POST",
-                url: "../Web/index.php?page=addmail&action=update&idMail="+idMail,
+                url: "../Web/index.php?page=mails&action=update&idMail="+idMail,
                 data: {idMail: idMail, libelleMail: libelleMail, objetMail: objetMail, corpsMail: corpsMail }
                 //context: document.body
                 }).done(function() {

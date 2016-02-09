@@ -1,13 +1,13 @@
-supprEnseignantOuvert = false;
+suppr = false;
 $('#main').on('click', '#btnOuvrePanelSuppr', function (e) {
     e.preventDefault();
-    if (supprEnseignantOuvert == false) {
-        supprEnseignantOuvert = true;
+    if (suppr == false) {
+        suppr = true;
         $(this).find('span').removeClass('glyphicon-plus').addClass('glyphicon-minus');
         $("#panelAjout").slideDown();
     }
     else {
-        supprEnseignantOuvert = false;
+        suppr = false;
         $(this).find('span').removeClass('glyphicon-minus').addClass('glyphicon-plus');
         $("#panelAjout").slideUp();
     }

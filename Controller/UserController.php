@@ -33,10 +33,44 @@ class UserController
      */
     public function displayUserAction()
     {
+        $reposUser = new UserRepository();
+        $users = $reposUser->findAll();
+
         require_once('../View/header.php');
         require_once('../View/User/displayUser.php');
         require_once('../View/footer.php');
+    }
 
+    public function getUsersAction()
+    {
+        $reposUser = new UserRepository();
+        $users = $reposUser->findAll();
+
+        $json = array();
+        $array =array();
+        foreach($users as $user){
+            $array = array(
+                'id' => $user->getId(),
+                'nom' => $user->getNom(),
+                'prenom' => $user->getPrenom(),
+                'mail' => $user->getMail()
+                //'tel' => $user->getTelephone()
+            );
+            array_push($json, $array);
+        }
+
+        echo json_encode($json);
+    }
+
+    public function updateUserAction(User $user)
+    {
+        $repos = new userRepository();
+        $post = $_POST;
+        //$mail = new Mail($_POST['idMail'], $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
+
+        $id = $repos->update($user); // On persiste l'objet dans la base et on récupère son id
+
+        $this->indexAction('<strong>Succès !</strong> Utilisateur mis à jour.'); // Redirect to index
     }
 
     /**

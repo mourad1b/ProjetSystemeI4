@@ -29,7 +29,7 @@ class MailController
     /**
      * Affiche le détail d'une offre d'emploi
      */
-    public function displayMailAction($flash = null)
+    public function displayMailAction()
     {
         $reposMail = new MailRepository();
         $mails = $reposMail->findAll();
@@ -74,7 +74,7 @@ class MailController
 
         $id = $repos->persist($mail); // On persiste l'objet dans la base et on récupère son id
 
-        $this->indexAction('<strong>Succès !</strong> Le mail a bien été créé.'); // Redirect to index
+        $this->indexAction('<strong>Succès !</strong> Mail créé.'); // Redirect to index
     }
 
     public function updateMailAction($mail)
@@ -85,7 +85,7 @@ class MailController
 
         $id = $repos->update($mail); // On persiste l'objet dans la base et on récupère son id
 
-        $this->indexAction('<strong>Succès !</strong> Le mail a bien été mis à jour.'); // Redirect to index
+        $this->indexAction('<strong>Succès !</strong> Mail mis à jour.'); // Redirect to index
     }
 
     public function deleteMailAction()
@@ -95,7 +95,7 @@ class MailController
 
         $repos->remove($mail); // On persiste l'objet dans la base et on récupère son id
 
-        $this->indexAction('<strong>Succès !</strong> Le mail a bien été supprimé.'); // Redirect to index
+        $this->indexAction('<strong>Succès !</strong> Mail supprimé.'); // Redirect to index
     }
 }
 

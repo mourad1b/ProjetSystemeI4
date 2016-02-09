@@ -4,7 +4,7 @@
         <div class="row">
             <div class="large-9 column large-centered">
                 <?php
-                require('../View/User/addUserForm.php');
+                require('../View/User/addUserForm2.php');
                 ?>
             </div>
         </div>

@@ -9,6 +9,7 @@ use nsNewsletter\Controller\SecurityController;
 use nsNewsletter\Controller\UserController;
 use nsNewsletter\Controller\NewsletterController;
 use nsNewsletter\Model\Mail;
+use nsNewsletter\Model\User;
 
 /**
  * Autoloading
@@ -66,22 +67,35 @@ if (isset($_POST['formDeleteMail'])) {
 */
 
 if (isset($_GET['page'])) {
-    $post = $_POST;
     $urlPage = $_GET['page'];
     $urlAction = null;
-    if (isset($_GET['action'])){
-        $urlAction = $_GET['action'];
-    }
     switch ($urlPage) {
-        case 'adduser':
-            $userController->displayUserAction();
+        case 'users':
+            if (isset($_GET['action'])) {
+                $urlAction = $_GET['action'];
+                if ($urlAction == "create") {
+                    //$mailController->addMailAction();
+                }elseif($urlAction == "list") {
+                    $userController->getUsersAction();
+                }elseif($urlAction == "read") {
+                    $id = $_GET['idUser'];
+                    //$mailController->getMailByIdAction($id);
+                } elseif ($urlAction == "update") {
+                    $user = new User($_POST['idMail'], $_POST['nomUser'], $_POST['prenomUser'], $_POST['mailUser'], array(), array(), array());
+                    $userController->updateMailAction($user);
+                } elseif ($urlAction == "delete") {
+                    //$mailController->deleteMailAction();
+                }
+            }else {
+                $userController->displayUserAction();
+            }
             break;
 
-        case 'addgroupe':
+        case 'groupes':
             $groupeController->displayGroupeAction();
             break;
 
-        case 'addmail':
+        case 'mails':
             if (isset($_GET['action'])) {
                 $urlAction = $_GET['action'];
 
