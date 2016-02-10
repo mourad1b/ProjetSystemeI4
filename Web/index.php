@@ -82,7 +82,7 @@ if (isset($_GET['page'])) {
                     //$mailController->getMailByIdAction($id);
                 } elseif ($urlAction == "update") {
                     $user = new User($_POST['idMail'], $_POST['nomUser'], $_POST['prenomUser'], $_POST['mailUser'], array(), array(), array());
-                    $userController->updateMailAction($user);
+                    $userController->updateUserAction($user);
                 } elseif ($urlAction == "delete") {
                     //$mailController->deleteMailAction();
                 }
@@ -104,8 +104,10 @@ if (isset($_GET['page'])) {
                 }elseif($urlAction == "read") {
                     $id = $_GET['idMail'];
                     $mailController->getMailByIdAction($id);
-                } elseif ($urlAction == "update") {
-                    $mail = new Mail($_POST['idMail'], $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
+                }elseif($urlAction == "list") {
+                    $mailController->getMailsAction();
+                }elseif ($urlAction == "update") {
+                    $mail = new Mail($_POST['idMail'], $_POST['libelle'], $_POST['objet'], $_POST['corps']);
                     $mailController->updateMailAction($mail);
                 } elseif ($urlAction == "delete") {
                     $mailController->deleteMailAction();

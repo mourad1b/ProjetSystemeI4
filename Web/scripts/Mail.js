@@ -6,7 +6,7 @@ var Mail = function() {
     var formManageMail = $('.formManageMail');
     var formActionMail = $('.formActionMail');
 
-    var loadingImg = $('#loading-img');
+    var loadingImg = $('#loader');
 
     panelFormManageMail.hide();
     loadingImg.hide();

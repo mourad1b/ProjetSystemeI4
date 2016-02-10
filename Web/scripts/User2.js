@@ -1,15 +1,19 @@
 var User2 = (function() {
     var options = {
-        item: '<li class="row"><div class="id col-md-1"></div><div class="nom col-md-3"></div>' +
+        item: '<li class="row"><div class="idUser col-md-1"></div><div class="nom col-md-3"></div>' +
         '<div class="prenom col-md-3"></div><div class="mail col-md-4"></div><div class="col-md-1 text-right">' +
-        '<button class="updateUser btn btn-info btn-xs" data-toggle="modal" data-target="#modal">Modifier</button></div></li>'
+        '<button class="btnUpdateUser btn btn-info btn-xs" data-toggle="modal" data-target="#modal">Modifier</button></div></li>'
     };
 
-    var _users;
-    var userList;
+    var _users, userList, li, idUser, nom, prenom, mail;
     var _url = "../Web/index.php?page=users";
 
     var _action;
+    var btnSubmitUser = $('.btnSubmitUser');
+    var btnUpdateUser = $('.btnUpdateUser');
+    var btnNewUser = $('.btnNewUser');
+    var btnList = $(".list");
+
 
     var listeCache = {};
 
@@ -32,7 +36,7 @@ var User2 = (function() {
     };
 
     function cleanForm() {
-        $('#inputId').val("");
+        $('#inputIdUser').val("");
         $('#inputNom').val("");
         $('#inputPrenom').val("");
         $('#inputMail').val("");
@@ -41,7 +45,7 @@ var User2 = (function() {
 
     function fillForm() {
         li = $('.fillSource');
-        $('#inputId').val(li.find('.id').text());
+        $('#inputIdUser').val(li.find('.idUser').text());
         $('#inputNom').val(li.find('.nom').text());
         $('#inputPrenom').val(li.find('.prenom').text());
         $('#inputMail').val(li.find('.mail').text());
@@ -72,39 +76,44 @@ var User2 = (function() {
         });
         */
 
-        $('#modalContent').on('click', "#newUser", function() {
+        btnNewUser.click(function (e) {
+            //e.stopPropagation();
+            e.preventDefault();
             cleanForm();
             _action = "create";
             console.log('action:' +_action);
         });
 
-        $(".list").on("click",".updateUser", function() {
+        btnList.on("click",".btnUpdateUser", function(e) {
+            e.preventDefault();
+
+            console.log('action:' +_action);
             $("li.fillSource").removeClass('fillSource');
             $(this).closest("li.row").addClass('fillSource');
             fillForm();
             _action = "update";
-            console.log('action:' +_action);
         });
 
-        $('#modal').on('click', ".submitUser", function() {
-
+        $('#modal').on('click', ".brnSubmitUser", function() {
             console.log('url: ' +_url);
-            id = $('#inputId').val();
+            idUser = $('#inputIdUser').val();
             nom = $('#inputNom').val();
             prenom = $('#inputPrenom').val();
             mail= $('#inputMail').val();
 
-            /*if(mail == "") {
+            if(mail == "") {
                 bootbox.alert('Mail est obligatoire !');
                 return;
-            }*/
+            }
 
-            $('#modal').modal('hide');
+            $('#modal').hide();
 
             console.log('action : '+_action);
+            IHM.validateModal();
+
             $.ajax({
                 //csrf: true,
-                url : _url + "&action=" + _action +  ((_action === 'update') ? '&idUser=' + id : ''),
+                url : _url + "&action=" + _action +  ((_action === 'update') ? '&idUser=' + idUser : ''),
                 type: 'POST',
                 data : {
                     nom: nom,
@@ -124,7 +133,7 @@ var User2 = (function() {
                             bootbox.alert("Mise à jour ok.");
                             break;
                         case "create":
-                            userList.add({"id": data.id, "nom": nom, "prenom": prenom, "mail":mail});
+                            userList.add({"idUser": data.idUser, "nom": nom, "prenom": prenom, "mail":mail});
                             bootbox.alert("Enregistrement ok.");
                             break;
                     }

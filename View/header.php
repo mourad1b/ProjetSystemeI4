@@ -36,6 +36,7 @@
 <!-- Includ Scripts JS -->
 <script src="../Web/scripts/User2.js"></script>
 <script src="../Web/scripts/User.js"></script>
+<script src="../Web/scripts/Mail2.js"></script>
 <script src="../Web/scripts/Mail.js"></script>
 <script src="../Web/scripts/Example.js"></script>
 <script src="../Web/scripts/Ajax.js"></script>
@@ -83,7 +84,7 @@
 </div>
 <br>
 
-<div class="loading-img text-center" id="loader" style="display: none">
+<div class="loader text-center" id="loader" style="display: none">
     <img src="../Web/styles/img/loading-img.gif" alt="loading">
     <!--src="http://officedelamer.com/office/wp-content/plugins/ajax-campaign-monitor-forms/ajax-loading.gif"
 src="../Web/styles/img/ajax_load.gif"

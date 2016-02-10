@@ -50,7 +50,7 @@ class UserController
         $array =array();
         foreach($users as $user){
             $array = array(
-                'id' => $user->getId(),
+                'idUser' => $user->getId(),
                 'nom' => $user->getNom(),
                 'prenom' => $user->getPrenom(),
                 'mail' => $user->getMail()

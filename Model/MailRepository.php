@@ -81,7 +81,7 @@ class MailRepository
                 'id' => $mail->getId(),
                 'libelle' => $mail->getLibelle(),
                 'objet' => $mail->getObjet(),
-                'body' => $mail->getBody()));
+                'corps' => $mail->getBody()));
 
         //$id = $this->db->lastInsertId();
         //return $id;

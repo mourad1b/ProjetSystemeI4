@@ -13,32 +13,6 @@ use nsNewsletter\Model\User;
             echo $flash;
             echo '</div>';
         }?>
-        <!--<table style="width: 100%;">
-            <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Email</th>
-                <th>Téléphone</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php
-            // @var User $user */
-        /*
-            foreach ($users as $user){
-                var_dump($users);
-                echo '<tr>';
-                echo '<td>' . $user->getNom() . '</td>';
-                echo '<td>' . $user->getPrenom() . '</td>';
-                echo '<td>' . $user->getMail() . '</td>';
-                echo '<td> ' . $user->getTelephone() . ' </td>';
-                echo '</tr>';
-            }*/
-            ?>
-            </tbody>
-        </table>
-        -->
     </div>
     <div class="panel panel-info">
         <?php

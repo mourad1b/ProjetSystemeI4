@@ -48,11 +48,30 @@ class MailController
     public function handleFormManageMailAction()
     {
         $repos = new MailRepository();
-        $mail = new Mail('', $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
+        $mail = new Mail('', $_POST['libelle'], $_POST['objet'], $_POST['corps']);
 
         $id = $repos->find($mail); // On persiste l'objet dans la base et on récupère son id
 
         $this->indexAction('<strong>Succès !</strong> Le mail a bien été créé.'); // Redirect to index
+    }
+
+    public function getMailsAction()
+    {
+        $repos = new MailRepository();
+        $mails = $repos->findAll();
+
+        $json = array();
+        foreach($mails as $mail){
+            $array = array(
+                'idMail' => $mail->getId(),
+                'libelle' => $mail->getLibelle(),
+                'objet' => $mail->getObjet(),
+                'corps' => $mail->getBody()
+            );
+            array_push($json, $array);
+        }
+
+        echo json_encode($json);
     }
 
     public function getMailByIdAction($id)
@@ -70,7 +89,7 @@ class MailController
     {
         $repos = new MailRepository();
         $post = $_POST;
-        $mail = new Mail('', $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
+        $mail = new Mail('', $_POST['libelle'], $_POST['objet'], $_POST['corps']);
 
         $id = $repos->persist($mail); // On persiste l'objet dans la base et on récupère son id
 
@@ -91,7 +110,7 @@ class MailController
     public function deleteMailAction()
     {
         $repos = new MailRepository();
-        $mail = new Mail($_GET['idMail'], $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
+        $mail = new Mail($_GET['idMail'], $_POST['libelle'], $_POST['objet'], $_POST['corps']);
 
         $repos->remove($mail); // On persiste l'objet dans la base et on récupère son id
 

@@ -1,5 +1,5 @@
 <h3 class="text-center" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
-    xmlns="http://www.w3.org/1999/html">Formulaire d'ajout des utilisateurs</h3>
+    xmlns="http://www.w3.org/1999/html">Gestion des utilisateurs</h3>
 <br>
 <div id="flashMessage" class="alert hidden"></div>
 <div class="panels">
