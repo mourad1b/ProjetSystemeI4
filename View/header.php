@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="../Web/css/foundation.min.css">
     <link rel="stylesheet" href="../Web/styles/css/reset.css">
     <link rel="stylesheet" href="../Web/styles/css/style.css">
-    <link rel="stylesheet" href="../Web/styles/css/list.css">
     <link rel="stylesheet" href="../Web/styles/css/main.css">
+    <link rel="stylesheet" href="../Web/styles/css/list.css">
 
      <!--for auth-->
     <!--<link rel="stylesheet" href="../Web/styles/css/auth/app_reset_1.css">
@@ -28,15 +28,16 @@
 
 <!-- Included JS Files (Compressed) -->
 <script src="../Web/js/jquery.js"></script>
+<script src="../Web/styles/js/bootbox.min.js"></script>
 <script src="../Web/styles/js/bootstrap.min.js"></script>
 <script src="../Web/styles/js/script.js"></script>
-<script src="../Web/styles/js/bootbox.min.js"></script>
 <script src="../Web/styles/js/list.min.js"></script>
 
 <!-- Includ Scripts JS -->
+<script src="../Web/scripts/Groupe.js"></script>
+<script src="../Web/scripts/Mail2.js"></script>
 <script src="../Web/scripts/User2.js"></script>
 <script src="../Web/scripts/User.js"></script>
-<script src="../Web/scripts/Mail2.js"></script>
 <script src="../Web/scripts/Mail.js"></script>
 <script src="../Web/scripts/Example.js"></script>
 <script src="../Web/scripts/Ajax.js"></script>
@@ -75,7 +76,7 @@
         <li>
             <a class="depliant" href="#">Administration &#9660;</a>
             <ul class="sous-menu">
-                <li><a href="index.php?page=groupes" class="radius">Affectations groupes</a></li>
+                <li><a href="index.php?page=groupes" class="radius">Gestion groupes</a></li>
                 <li><a href="index.php?page=users" class="radius">Gestion utilisateurs</a></li>
                 <li><a href="index.php?page=campagnes" class="radius">Campagnes newsletters</a></li>
             </ul>
@@ -86,8 +87,6 @@
 
 <div class="loader text-center" id="loader" style="display: none">
     <img src="../Web/styles/img/loading-img.gif" alt="loading">
-    <!--src="http://officedelamer.com/office/wp-content/plugins/ajax-campaign-monitor-forms/ajax-loading.gif"
-src="../Web/styles/img/ajax_load.gif"
--->
+    <br><span>Chargement des données...</span>
 </div>
 <div id="flashMessage" class="alert hidden"></div>

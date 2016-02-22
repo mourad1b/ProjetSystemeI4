@@ -1,96 +1,65 @@
-<h3 class="text-center">Formulaire d'affectation des groupes</h3>
+<h3 class="text-center" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+    xmlns="http://www.w3.org/1999/html">Gestion des groupes</h3>
 <br>
-<p>
-    Visualiser liste des groupe ;
-</p>
-<p><strong>A Faire :</strong>
-    pouvoir ajouter/modifier des groupes (clic sur +/crayon);
-</p>
-<?php if (isset($flash)) {
-    echo '<div data-alert class="alert-box success radius">';
-    echo $flash;
-    echo '</div>';
+<div class="panels">
+    <div class="panel panel-info panelFormListGroupe">
+        <div class="panel-heading">
+            <span><a id="btnAddGroupe" class="glyphicon glyphicon-plus btnAddGroupe btnAjouter pull-right" title="Ajouter"></a></span>
+            <h3 class="panel-title">Liste des groupes</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal formListGroupe" id="formListGroupe" role="form" enctype="multipart/form-data" action="../Web/index.php" method="post">
+                <input type="hidden" name="formListGroupe" value="true">
+                <div id="groupe-list">
+                    <ul id="listGroupe" class="listGroupe list list-unstyled">
 
-}?>
-
-<div class="panel panel-info">
-    <div class="panel-heading">
-        <span><a class="glyphicon glyphicon-plus addGroupe btnAjouter pull-right" title="Ajouter"></a></span>
-        <h3 class="panel-title">Affectation des groupes</h3>
+                    </ul>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="panel-body">
-        <ul id="listGroupe" class="list-group">
-            <?php /** @var Groupe $groupe */
-            foreach($groupesCount as $groupe): ?>
-                <?php //if($user->getIdGroupe() == $groupe->getId()): ?>
-                <li class="list-group-item" id="<?php echo $groupe->getId(); ?>" data-id="<?php echo $groupe->getId(); ?>" value="<?php echo $groupe->getId(); ?>">
-                    <span class=""><?php echo $groupe->getLibelle(); ?></span>
-                    <span><a class="glyphicon glyphicon-trash supprGroupe btnSupprimer pull-right" title="Modifier"></a>
-                    <a class="glyphicon glyphicon-pencil modifGroupe btnModifier pull-right" title="Supprimer"></a>
-                        </span>
-                </li>
 
-            <?php endforeach ?>
-        </ul>
+    <?php /* ** @var Groupe $groupe */
+    /*foreach($groupesCount as $groupe): ?>
+        <?php //if($user->getIdGroupe() == $groupe->getId()): ?>
+        <li class="list-group-item selectGroupe" id="<?php echo $groupe->getId(); ?>"
+            data-id="<?php echo $groupe->getId(); ?>"
+            data-libelle="<?php echo $groupe->getLibelle(); ?>"
+            value="<?php echo $groupe->getLibelle(); ?>">
+            <span class=""><?php echo $groupe->getLibelle(); ?></span>
+            <span>
+                <a class="glyphicon glyphicon-trash btnSupprGroupe btnSupprimer  pull-right" title="Supprimer"></a>
+                <a class="glyphicon glyphicon-pencil  pull-right btnModifGroupe btnModifier" title="Modifier"></a>
+            </span>
+        </li>
+    <?php endforeach*/ ?>
+
+    <div class="panel panel-info panelFormManageGroupe">
+        <!--<div class="panel-heading">
+            <h3 class="panel-title"><strong>Ajouter un mail</strong></h3>
+        </div>-->
+
+        </br>
+        <form class="form-horizontal formActionGroupe" enctype="multipart/form-data">
+            <input type="hidden" class="formManageGroupe" name="" value="true">
+            <div class="form-group">
+                <label for="libelleGroupe" class="col-sm-3 control-label"><strong>Libellé Groupe</strong></label>
+                <div class="col-sm-8">
+                    <input id='inputIdGroupe' class="form-control inputIdGroupe" type="hidden" value=""/>
+                    <input class="form-control inputLibelleGroupe modalRequired" id="inputLibelleGroupe" value="" name="inputLibelleGroupe" placeholder="libellé du groupe" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">
+                    <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
+                </div>
+            </div>
+            <!--<div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button name="btnCancelGroupe" type="cancel" class="btn btn-default btnCancelMail">Annuler</button>
+                    <button name="btnSubmitGroupe" type="submit" class="btn btn-success btnSubmitMail">Ajouter</button>
+                </div>
+            </div>
+            -->
+        </form>
     </div>
 </div>
 
-<script type="text/javascript">
-    $(function() {
+<script src="../Web/scripts/Groupe.js">Groupe.init()</script>
 
-
-        var objectUsers = [];
-        var btnModifier= $(".btnModifier");
-        var idUser, idGroupe;
-        var selectGroupe = $('#selectGroupe');
-        var loadingImg = $('#loading-img');
-        var formAddUsersCsv = $('#formAddUsersCsv');
-
-        loadingImg.hide();
-        formAddUsersCsv.hide();
-
-        btnModifier.click(function (e) {
-            e.stopPropagation();
-            //idSearchInput = searchInput.val();
-            /*$.post(
-            "/filtres/ajax/ficheProspect.php", {idsSelected: idsSelected})
-             .done(function (data) {
-             console.log(data);
-             });
-             */
-
-        });
-
-        selectGroupe.change(function (e) {
-            e.stopPropagation();
-            idGroupe = selectGroupe.val();
-            console.log(idGroupe);
-
-            //formAddUsersCsv.show();
-            //selectGroupe.attr('disabled', 'disabled');
-            //loadingImg.show();
-
-            /*$.post("../Web/index.php?adduser", {id: idGroupe})
-                .done(function (data) {
-
-
-
-                    //selectGroupe.append('<option hidden="hidden">-- Diplôme --</option>');
-                    /*$.each(data, function (i, item) {
-                        selectDiplome.append($('<option>', {
-                            value: item.id,
-                            text: item.nom
-                        }));
-                        tabDiplomes[i] = item.id;
-                        objectDiplomes[i] = data[i];
-                    });
-                    * /
-
-                    formAddUsersCsv.show();
-                    loadingImg.hide();
-                });
-        */
-        });
-
-    });
-</script>

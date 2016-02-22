@@ -73,13 +73,39 @@ class GroupeRepository
      * @param Groupe $user un objet Groupe
      * @return string l'id de l'insertion
      */
-    public function persist(Groupe $user)
+    public function persist(Groupe $groupe)
     {
-        $this->db->Sql("INSERT INTO groupe (libelle) VALUES(:libelle)",
-            array(  'libelle' => $user->getLibelle()));
+        $result = $this->db->SqlValue("SELECT libelle FROM groupe WHERE libelle = '".$groupe->getLibelle()."' LIMIT 1");
+        //$req = mysql_fetch_array($result);
 
-        $id = $this->db->lastInsertId();
-        return $id;
+        if ($result) {
+            return '';
+        }
+        else {
+            $this->db->Sql(
+                "INSERT INTO groupe (libelle) VALUES(:libelle)",
+                array('libelle' => $groupe->getLibelle())
+            );
+            $id = $this->db->lastInsertId();
+            $result = $id;
+        }
+        return $result;
+    }
+
+
+    public function update(Groupe $groupe)
+    {
+        $this->db->Sql("UPDATE groupe SET libelle = :libelle WHERE id_groupe = :id",
+            array(
+                'id' => $groupe->getId(),
+                'libelle' => $groupe->getLibelle()));
+    }
+
+    public function remove(Groupe $groupe)
+    {
+        // Supprime le mail
+        $this->db->Sql("DELETE FROM groupe WHERE id_groupe = :id",
+            array('id' => $groupe->getId()));
     }
 
     /**

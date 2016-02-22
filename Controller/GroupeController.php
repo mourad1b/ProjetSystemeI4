@@ -57,6 +57,66 @@ class GroupeController
 
     }
 
+    public function getGroupesAction()
+    {
+        $repos = new GroupeRepository();
+        $groupes = $repos->findAll();
+
+        $json = array();
+        foreach($groupes as $groupe){
+            $array = array(
+                'idGroupe' => $groupe->getId(),
+                'libelleGroupe' => $groupe->getLibelle()
+            );
+            array_push($json, $array);
+        }
+
+        echo json_encode($json);
+    }
+
+    public function getGroupeByIdAction($id)
+    {
+        $repos = new GroupeRepository();
+        //$mail = new Mail($_POST['idMail'], $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
+
+        $groupe = $repos->find($id); // On persiste l'objet dans la base et on récupère son id
+
+        return $groupe;
+        //$this->indexAction(/*'<strong>Succès !</strong> Le mail a bien été créé.'*/); // Redirect to index
+    }
+
+    public function addGroupeAction()
+    {
+        $repos = new GroupeRepository();
+
+        $groupe = new Groupe('', $_POST['libelleGroupe'], '');
+
+        $id = $repos->persist($groupe); // On persiste l'objet dans la base et on récupère son id
+
+        $this->indexAction('<strong>Succès !</strong> Groupe créé.'); // Redirect to index
+    }
+
+    public function updateGroupeAction(Groupe $groupe)
+    {
+        $repos = new GroupeRepository();
+        $post = $_POST;
+        //$mail = new Mail($_POST['idMail'], $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
+
+        $id = $repos->update($groupe); // On persiste l'objet dans la base et on récupère son id
+
+        $this->indexAction('<strong>Succès !</strong> Groupe mis à jour.'); // Redirect to index
+    }
+
+    public function deleteGroupeAction()
+    {
+        $repos = new GroupeRepository();
+        $groupe = new Groupe($_GET['idGroupe'], $_POST['libelleGroupe'], array());
+
+        $repos->remove($groupe); // On persiste l'objet dans la base et on récupère son id
+
+        $this->indexAction('<strong>Succès !</strong> Groupe supprimé.'); // Redirect to index
+    }
+
     /**
      * Traite le formulaire de création d'un Groupe et persiste l'objet Groupe correspondant dans la base de données.
      *

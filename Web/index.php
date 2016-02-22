@@ -10,6 +10,7 @@ use nsNewsletter\Controller\UserController;
 use nsNewsletter\Controller\NewsletterController;
 use nsNewsletter\Model\Mail;
 use nsNewsletter\Model\User;
+use nsNewsletter\Model\Groupe;
 
 /**
  * Autoloading
@@ -74,17 +75,14 @@ if (isset($_GET['page'])) {
             if (isset($_GET['action'])) {
                 $urlAction = $_GET['action'];
                 if ($urlAction == "create") {
-                    //$mailController->addMailAction();
                 }elseif($urlAction == "list") {
                     $userController->getUsersAction();
                 }elseif($urlAction == "read") {
                     $id = $_GET['idUser'];
-                    //$mailController->getMailByIdAction($id);
                 } elseif ($urlAction == "update") {
                     $user = new User($_POST['idMail'], $_POST['nomUser'], $_POST['prenomUser'], $_POST['mailUser'], array(), array(), array());
                     $userController->updateUserAction($user);
                 } elseif ($urlAction == "delete") {
-                    //$mailController->deleteMailAction();
                 }
             }else {
                 $userController->displayUserAction();
@@ -92,7 +90,25 @@ if (isset($_GET['page'])) {
             break;
 
         case 'groupes':
-            $groupeController->displayGroupeAction();
+            if (isset($_GET['action'])) {
+                $urlAction = $_GET['action'];
+
+                if ($urlAction == "create") {
+                    $groupeController->addGroupeAction();
+                }elseif($urlAction == "read") {
+                    $id = $_GET['idGroupe'];
+                    $groupeController->getGroupeByIdAction($id);
+                }elseif($urlAction == "list") {
+                    $groupeController->getGroupesAction();
+                }elseif ($urlAction == "update") {
+                    $groupe = new Groupe($_POST['idGroupe'], $_POST['libelleGroupe'], array());
+                    $groupeController->updateGroupeAction($groupe);
+                } elseif ($urlAction == "delete") {
+                    $groupeController->deleteGroupeAction();
+                }
+            }else{
+                $groupeController->displayGroupeAction();
+            }
             break;
 
         case 'mails':
