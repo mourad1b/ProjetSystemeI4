@@ -19,10 +19,11 @@
                     <div class="corps col-md-4">Body</div>
                 </li>
             </ul>
-            <ul class="listMail list list-unstyled"></ul>
+            <ul class="list list-unstyled"></ul>
         </div>
     </div>
 </div>
+
 <div id="modal" class="modal fade">
     <div class="modal-dialog">
         <div id="modalContentMail" class="modal-content">
@@ -33,12 +34,16 @@
             <div class="modal-body">
                 <form class="form-horizontal formActionMail" enctype="multipart/form-data">
                     <div class="form-group">
+                        <label for="inputIdMail" class="col-sm-2 control-label"><strong>Numéro</strong></label>
+                        <div class="col-sm-9">
+                            <input id='inputIdMail' class="form-control inputIdMail key" value=""/>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="inputLibelle" class="col-sm-2 control-label"><strong>Libellé<span>*</span></strong></label>
                         <div class="col-sm-9">
-                            <input id='inputIdMail' class="form-control inputIdMail" type="hidden" value=""/>
-                            <input id="inputLibelle" class="form-control inputLibelle modalRequired" name="inputLibelle" value=""onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">
+                            <input id="inputLibelle" class="form-control inputLibelle modalRequired" name="inputLibelle" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">
                             <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
-
                         </div>
                     </div>
                     <div class="form-group">
@@ -64,3 +69,6 @@
         </div>
     </div>
 </div>
+
+
+<script src="../Web/scripts/Mail2.js"></script>

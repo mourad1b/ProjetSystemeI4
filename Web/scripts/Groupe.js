@@ -41,7 +41,7 @@ var Groupe = (function() {
 
     var _getGroupes = function() {
         _loaderOn();
-        console.log("appel _getGroupes()");
+        //console.log("appel _getGroupes()");
         // Lancement de l'appel ajax
         $.ajax({
             //csrf:true,
@@ -51,7 +51,6 @@ var Groupe = (function() {
             function(data) {
                 _groupesLi = jQuery.parseJSON(data);
                 _loaderOff();
-                //console.log(_groupesLi);
                 initList();
             })
     };
@@ -82,13 +81,11 @@ var Groupe = (function() {
             e.preventDefault();
 
             idGroupe = $(this).parent().parent().find('.idGroupe').text();
-
-
             libelleGroupe = $(this).parent().parent().find('.libelleGroupe').text();
 
             var modal = bootbox.confirm({
                 title: "Êtes-vous sûr ?",
-                message: "Supprimer groupe : "+libelleGroupe,
+                message: "Supprimer le groupe : "+libelleGroupe,
                 callback: function (result) {
                     //bootbox.alert(" result " +result);
                 }
@@ -102,13 +99,12 @@ var Groupe = (function() {
                 }).done(function () {
                     //groupeList.remove({"idGroupe": data.idGroupe, "libelleGroupe": libelleGroupe});
                     _loaderOff();
+                    //@todo gérer le refresh avec _getGroupes()
+                    //location.reload();
+                    _getGroupes();
                     bootbox.alert("Groupe supprimé.");
                 });
-                //@todo gérer le refresh avec _getGroupes()
-                //location.reload();
-               //_getGroupes();
             });
-
         });
 
         btnAddGroupe.click(function (e) {
@@ -123,11 +119,10 @@ var Groupe = (function() {
                 buttons: [{
                     label: "Annuler",
                     className: "btn-default btnCancelGroupe"
-                },
-                    {
-                        label: "Ajouter",
-                        className: "btn-success btnAddNewGroupe buttonValide"
-                    }],
+                },{
+                    label: "Ajouter",
+                    className: "btn-success btnAddNewGroupe buttonValide"
+                }],
                 //show : false,
                 onEscape: function () {
                     //console.log("X (exit add)");
@@ -135,7 +130,6 @@ var Groupe = (function() {
             });
 
             IHM.validateModal();
-
 
             modal.on('click', '.btnAddNewGroupe', function () {
 
@@ -157,10 +151,10 @@ var Groupe = (function() {
                 }).done(function (data) {
                     //groupeList.add({"idGroupe": data.idGroupe, "libelleGroupe": libelleGroupe});
                     _loaderOff();
+                    _getGroupes();
                     bootbox.alert("Groupe ajouté.");
                     //location.reload();
                 });
-                _getGroupes();
             });
         });
 
@@ -213,10 +207,10 @@ var Groupe = (function() {
                 }).done(function () {
                     _loaderOff();
 
+                    _getGroupes();
                     bootbox.alert("Groupe mis à jour.");
                     //$( this ).addClass( "done" );
                 });
-                _getGroupes();
             });
         });
 

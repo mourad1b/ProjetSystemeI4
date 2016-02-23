@@ -1,12 +1,11 @@
 <h3 class="text-center" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
     xmlns="http://www.w3.org/1999/html">Gestion des mails</h3>
 <br>
-<div id="flashMessage" class="alert hidden"></div>
 <div class="panels">
     <div class="panel panel-info panelFormListMail">
-        <!-- href="../Web/index.php?page=addmail&action=create"-->
-        <div class="panel-heading"><span><a id="btnAddMail" class="glyphicon glyphicon-plus btnAddMail btnAjouter pull-right" title="Ajouter"></a></span>
-            <h3 class="panel-title"><strong>liste des mails</strong></h3>
+        <div class="panel-heading">
+            <span><a id="btnAddMail" class="glyphicon glyphicon-plus btnAddMail btnAjouter pull-right" title="Ajouter"></a></span>
+            <h3 class="panel-title"><strong>Liste des mails</strong></h3>
         </div>
         <div class="panel-body">
             <form class="form-horizontal formListMail" id="formListMail" role="form" enctype="multipart/form-data" action="../Web/index.php" method="post">

@@ -15,9 +15,6 @@ var User2 = (function() {
     var btnNewUser = $('.btnNewUser');
     var btnList = $(".list");
 
-
-    var listeCache = {};
-
     function _getUsers() {
         $.ajax({
             url : _url + "&action=list",
@@ -29,7 +26,6 @@ var User2 = (function() {
                 //console.log(_users);
                 initList();
             });
-
     };
 
     function initList() {
@@ -55,7 +51,6 @@ var User2 = (function() {
 
     function _initEvents() {
         btnNewUser.click(function (e) {
-            //e.stopPropagation();
             e.preventDefault();
             cleanForm();
             IHM.validateModal();
@@ -64,8 +59,7 @@ var User2 = (function() {
 
         btnList.on("click",".btnUpdateUser", function(e) {
             e.preventDefault();
-
-            IHM.validateModal();
+            //IHM.validateModal();
             $("li.fillSource").removeClass('fillSource');
             $(this).closest("li.row").addClass('fillSource');
             fillForm();
@@ -78,7 +72,6 @@ var User2 = (function() {
             prenom = $('#inputPrenom').val();
             mail = $.trim($('#inputMail').val());
 
-            console.log("idUser : "+idUser);
             if(mail == "") {
                 bootbox.alert('Mail est obligatoire !');
                 cleanForm();
@@ -113,7 +106,6 @@ var User2 = (function() {
                             modal.hide();
                             break;
                     }
-
                 });
         });
     };

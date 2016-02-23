@@ -125,7 +125,7 @@ if (isset($_GET['page'])) {
                 }elseif($urlAction == "list") {
                     $mailController->getMailsAction();
                 }elseif ($urlAction == "update") {
-                    $mail = new Mail($_POST['idMail'], $_POST['libelle'], $_POST['objet'], $_POST['corps']);
+                    $mail = new Mail($_POST['idMail'], $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
                     $mailController->updateMailAction($mail);
                 } elseif ($urlAction == "delete") {
                     $mailController->deleteMailAction();

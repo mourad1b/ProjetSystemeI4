@@ -9,23 +9,13 @@ var Mail2 = (function() {
     var _url = "../Web/index.php?page=mails";
 
     var _action;
+    var modal = $('#modal');
     var btnSubmitMail = $('.btnSubmitMail');
     var btnUpdateMail = $('.btnUpdateMail');
     var btnNewMail = $('.btnNewMail');
-    var listMail = $(".listMail");
-
-    var _loaderOn = function() {
-        $('#loader').slideDown();
-        $('#panelFormListMail').slideUp();
-    };
-    var _loaderOff = function() {
-        $('#loader').slideUp();
-        $('#panelFormListMail').slideDown();
-        $("body").addClass('modal-open');
-    };
+    var btnList = $(".list");
 
     function _getMails() {
-        _loaderOn();
         $.ajax({
             url : _url + "&action=list",
             type: 'POST'
@@ -34,14 +24,10 @@ var Mail2 = (function() {
                 //data = [{"id":"2","nom":"BEN","prenom":"Mourad","mail":"mourad_ben@test.com"}, {"id":"3","nom":"Loue","prenom":"Arnauld","mail":"Ar.loue@test.net"},{"id":"5","nom":"toto","prenom":"titi","mail":"toto.titi@test-auth.fr"}];
                 _mails = jQuery.parseJSON(data);
                 initList();
-            }).always(function(){
-                _loaderOff();
             });
-
     };
 
     function initList() {
-        //console.log(_mails);
         mailList = new List('mail-list', options, _mails);
     };
 
@@ -50,7 +36,7 @@ var Mail2 = (function() {
         $('#inputLibelle').val("");
         $('#inputObjet').val("");
         $('#inputBody').val("");
-        //$('#modalContentMail').find(".key").prop('disabled', false);
+        $('#modalContentMail').find(".key").prop('disabled', true);
     };
 
     function fillForm() {
@@ -59,93 +45,64 @@ var Mail2 = (function() {
         $('#inputLibelle').val(li.find('.libelle').text());
         $('#inputObjet').val(li.find('.objet').text());
         $('#inputBody').val(li.find('.corps').text());
-        //$('#modalContentMail').find(".key").prop('disabled', true);
+        $('#modalContentMail').find(".key").prop('disabled', true);
     };
 
     function _initEvents() {
-
-        /*var modal = bootbox.dialog({
-         title: "Utilisateurs",
-         message: $('#modal'),
-         buttons: [{
-         label: "Annuler",
-         className: "btn-default btnCancelUser"
-         },
-         {
-         label: "Ajouter",
-         className: "btn-success btnAddNewUser buttonValide",
-         callback: function () {
-         //Example.show("Hello");
-         }
-         }],
-         //show : false,
-         onEscape : function() {
-         console.log("X (exit add)");
-         //modal.modal("hide");
-         }
-         });
-         */
-
         btnNewMail.click(function (e) {
-            //e.stopPropagation();
             e.preventDefault();
             cleanForm();
             IHM.validateModal();
             _action = "create";
-            console.log('action:' +_action);
         });
 
-        listMail.on("click",".btnUpdateMail", function(e) {
+        btnList.on("click",".btnUpdateMail", function(e) {
             e.preventDefault();
-
-            console.log('action:' +_action);
+            //IHM.validateModal();
             $("li.fillSource").removeClass('fillSource');
             $(this).closest("li.row").addClass('fillSource');
             fillForm();
             _action = "update";
         });
 
-        $('#modal').on('click', ".brnSubmitMail", function() {
-            console.log('url: ' +_url);
+        btnSubmitMail.click(function() {
             idMail = $('#inputIdMail').val();
             libelle = $('#inputLibelle').val();
             objet = $('#inputObjet').val();
             corps = $('#inputBody').val();
 
             if(libelle == "") {
-                bootbox.alert('Mail est obligatoire !');
-                return;
+                bootbox.alert('Libellé est obligatoire !');
+                cleanForm();
+                IHM.validateModal();
+                return "";
             }
-
-            $('#modal').hide();
-
-            console.log('action : '+_action);
-            IHM.validateModal();
 
             $.ajax({
                 //csrf: true,
                 url : _url + "&action=" + _action +  ((_action === 'update') ? '&idMail=' + idMail : ''),
                 type: 'POST',
                 data : {
-                    libelle: libelle,
-                    objet: objet,
-                    corps: corps
+                    idMail: idMail,
+                    libelleMail: libelle,
+                    objetMail: objet,
+                    corpsMail: corps
                 }
             })
                 .done(function(data) {
-
                     switch(_action) {
                         case "update":
                             var li = $('.fillSource');
                             li.find('.libelle').text(libelle);
                             li.find('.objet').text(objet);
                             li.find('.corps').text(corps);
-
                             bootbox.alert("Mise à jour ok.");
+                            modal.hide();
                             break;
                         case "create":
                             mailList.add({"idUser": data.idUser, "libelle": libelle, "objet": objet, "corps":corps});
                             bootbox.alert("Enregistrement ok.");
+                            modal.hide();
                             break;
                     }
                 });
