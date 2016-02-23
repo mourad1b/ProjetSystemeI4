@@ -6,7 +6,7 @@
     <div class="panel panel-info panelFormListUser">
         <!-- href="../Web/index.php?page=addmail&action=create"-->
         <div class="panel-heading"><span><a id="btnAddUser" class="glyphicon glyphicon-plus btnAddUser btnAjouter pull-right" title="Ajouter"></a></span>
-            <h3 class="panel-title"><strong>liste des mails</strong></h3>
+            <h3 class="panel-title"><strong>liste des utilisateurs</strong></h3>
         </div>
         <div class="panel-body">
             <form class="form-horizontal formListUser" id="formListUser" role="form" enctype="multipart/form-data" action="../Web/index.php" method="post">

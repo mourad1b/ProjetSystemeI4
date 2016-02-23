@@ -75,12 +75,14 @@ if (isset($_GET['page'])) {
             if (isset($_GET['action'])) {
                 $urlAction = $_GET['action'];
                 if ($urlAction == "create") {
+                    $userController->addUserAction();
                 }elseif($urlAction == "list") {
                     $userController->getUsersAction();
                 }elseif($urlAction == "read") {
                     $id = $_GET['idUser'];
+                    $userController->getUserByIdAction($id);
                 } elseif ($urlAction == "update") {
-                    $user = new User($_POST['idMail'], $_POST['nomUser'], $_POST['prenomUser'], $_POST['mailUser'], array(), array(), array());
+                    $user = new User($_POST['idUser'], $_POST['nomUser'], $_POST['prenomUser'], $_POST['mailUser'], array(), array(), array());
                     $userController->updateUserAction($user);
                 } elseif ($urlAction == "delete") {
                 }

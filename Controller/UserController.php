@@ -41,6 +41,15 @@ class UserController
         require_once('../View/footer.php');
     }
 
+    public function getUserByIdAction($id)
+    {
+        $repos = new UserRepository();
+        $user = $repos->find($id); // On persiste l'objet dans la base et on récupère son id
+
+        return $user;
+        //$this->indexAction(/*'<strong>Succès !</strong> Le mail a bien été créé.'*/); // Redirect to index
+    }
+
     public function getUsersAction()
     {
         $reposUser = new UserRepository();
@@ -60,6 +69,17 @@ class UserController
         }
 
         echo json_encode($json);
+    }
+
+    public function addUserAction()
+    {
+        $repos = new UserRepository();
+        $post = $_POST;
+        $user = new User('', $_POST['nom'], $_POST['prenom'], $_POST['mail'], '', '', '');
+
+        $id = $repos->persist($user); // On persiste l'objet dans la base et on récupère son id
+
+        $this->indexAction('<strong>Succès !</strong> Utilisateur créé.'); // Redirect to index
     }
 
     public function updateUserAction(User $user)

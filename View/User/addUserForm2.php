@@ -34,9 +34,14 @@
             <div class="modal-body">
                 <form class="form-horizontal formActionMail" enctype="multipart/form-data">
                     <div class="form-group">
+                        <label for="inputIdUser" class="col-sm-2 control-label"><strong>Numéro</strong></label>
+                        <div class="col-sm-9">
+                            <input id='inputIdUser' class="form-control inputIdUser key"  value=""/>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="inputNom" class="col-sm-2 control-label"><strong>Nom</strong></label>
                         <div class="col-sm-9">
-                            <input id='inputIdUser' class="form-control inputIdUser " type="hidden" value=""/>
                             <input id="inputNom" class="form-control inputNom" name="inputNom" value=""/>
                         </div>
                     </div>
@@ -62,3 +67,5 @@
         </div>
     </div>
 </div>
+
+<script src="../Web/scripts/User2.js"></script>
