@@ -9,7 +9,7 @@ var User2 = (function() {
     var _url = "../Web/index.php?page=users";
 
     var _action;
-    var  modal = $('#modal');
+    var modal = $('#modal');
     var btnSubmitUser = $('.btnSubmitUser');
     var btnUpdateUser = $('.btnUpdateUser');
     var btnNewUser = $('.btnNewUser');
@@ -74,7 +74,7 @@ var User2 = (function() {
 
             if(mail == "") {
                 bootbox.alert('Mail est obligatoire !');
-                cleanForm();
+                //cleanForm();
                 IHM.validateModal();
                 return "";
             }
@@ -115,7 +115,6 @@ var User2 = (function() {
             _getUsers();
             _initEvents();
         }
-
     };
 })();
 $(document).ready(User2.init());

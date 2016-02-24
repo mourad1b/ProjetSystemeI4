@@ -76,12 +76,12 @@ class MailRepository
 
     public function update(Mail $mail)
     {
-        $this->db->Sql("UPDATE mail SET libelle = :libelle, objet = :objet, body = :body WHERE id_mail = :id",
+        $this->db->Sql("UPDATE mail SET libelle =:libelle, objet =:objet, body =:body WHERE id_mail =:id",
             array(
                 'id' => $mail->getId(),
                 'libelle' => $mail->getLibelle(),
                 'objet' => $mail->getObjet(),
-                'corps' => $mail->getBody()));
+                'body' => $mail->getBody()));
 
         //$id = $this->db->lastInsertId();
         //return $id;

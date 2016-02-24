@@ -34,9 +34,10 @@
 <script src="../Web/styles/js/list.min.js"></script>
 
 <!-- Includ Scripts JS -->
-<script src="../Web/scripts/Groupe.js"></script>
 <!--<script src="../Web/scripts/User2.js"></script>
-<script src="../Web/scripts/Mail2.js"></script>-->
+<script src="../Web/scripts/Mail2.js"></script>
+-->
+<script src="../Web/scripts/Groupe.js"></script>
 <script src="../Web/scripts/User.js"></script>
 <script src="../Web/scripts/Mail.js"></script>
 <script src="../Web/scripts/Example.js"></script>

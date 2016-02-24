@@ -82,7 +82,7 @@ if (isset($_GET['page'])) {
                     $id = $_GET['idUser'];
                     $userController->getUserByIdAction($id);
                 } elseif ($urlAction == "update") {
-                    $user = new User($_POST['idUser'], $_POST['nomUser'], $_POST['prenomUser'], $_POST['mailUser'], array(), array(), array());
+                    $user = new User($_POST['idUser'], $_POST['nomUser'], $_POST['prenomUser'], $_POST['mailUser'], '', '', '');
                     $userController->updateUserAction($user);
                 } elseif ($urlAction == "delete") {
                 }
@@ -103,7 +103,7 @@ if (isset($_GET['page'])) {
                 }elseif($urlAction == "list") {
                     $groupeController->getGroupesAction();
                 }elseif ($urlAction == "update") {
-                    $groupe = new Groupe($_POST['idGroupe'], $_POST['libelleGroupe'], array());
+                    $groupe = new Groupe($_POST['idGroupe'], $_POST['libelleGroupe'], '');
                     $groupeController->updateGroupeAction($groupe);
                 } elseif ($urlAction == "delete") {
                     $groupeController->deleteGroupeAction();
@@ -116,7 +116,6 @@ if (isset($_GET['page'])) {
         case 'mails':
             if (isset($_GET['action'])) {
                 $urlAction = $_GET['action'];
-
                 if ($urlAction == "create") {
                     $mailController->addMailAction();
                 }elseif($urlAction == "read") {

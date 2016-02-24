@@ -88,21 +88,17 @@ class MailController
     public function addMailAction()
     {
         $repos = new MailRepository();
-        $post = $_POST;
-        $mail = new Mail('', $_POST['libelle'], $_POST['objet'], $_POST['corps']);
+        $mail = new Mail('', $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
 
         $id = $repos->persist($mail); // On persiste l'objet dans la base et on récupère son id
 
         $this->indexAction('<strong>Succès !</strong> Mail créé.'); // Redirect to index
     }
 
-    public function updateMailAction($mail)
+    public function updateMailAction(Mail $mail)
     {
         $repos = new MailRepository();
-        $post = $_POST;
-        //$mail = new Mail($_POST['idMail'], $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
-
-        $id = $repos->update($mail); // On persiste l'objet dans la base et on récupère son id
+        $id = $repos->update($mail);
 
         $this->indexAction('<strong>Succès !</strong> Mail mis à jour.'); // Redirect to index
     }

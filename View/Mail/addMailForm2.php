@@ -70,5 +70,4 @@
     </div>
 </div>
 
-
 <script src="../Web/scripts/Mail2.js"></script>

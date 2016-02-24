@@ -74,8 +74,7 @@ class UserController
     public function addUserAction()
     {
         $repos = new UserRepository();
-        $post = $_POST;
-        $user = new User('', $_POST['nom'], $_POST['prenom'], $_POST['mail'], '', '', '');
+        $user = new User('', $_POST['nomUser'], $_POST['prenomUser'], $_POST['mailUser'], '', '', '');
 
         $id = $repos->persist($user); // On persiste l'objet dans la base et on récupère son id
 
@@ -84,10 +83,7 @@ class UserController
 
     public function updateUserAction(User $user)
     {
-        $repos = new userRepository();
-        $post = $_POST;
-        //$mail = new Mail($_POST['idMail'], $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
-
+        $repos = new UserRepository();
         $id = $repos->update($user); // On persiste l'objet dans la base et on récupère son id
 
         $this->indexAction('<strong>Succès !</strong> Utilisateur mis à jour.'); // Redirect to index
@@ -101,7 +97,7 @@ class UserController
     {
         $repos = new UserRepository();
 
-        $user = new User('', $_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['telephone'], array(), array());
+        $user = new User('', $_POST['nom'], $_POST['prenom'], $_POST['mail'], '', '', '');
         //$user->setCodeAndDateAjout();
 
         // Validation dans les Getter et Setters de Job car une validation côté client est mise en place et si y'a bypass on joue sur les exit()

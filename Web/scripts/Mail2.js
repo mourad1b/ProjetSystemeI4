@@ -67,13 +67,25 @@ var Mail2 = (function() {
 
         btnSubmitMail.click(function() {
             idMail = $('#inputIdMail').val();
-            libelle = $('#inputLibelle').val();
-            objet = $('#inputObjet').val();
-            corps = $('#inputBody').val();
+            libelle = $.trim($('#inputLibelle').val());
+            objet = $.trim($('#inputObjet').val());
+            corps = $.trim($('#inputBody').val());
 
             if(libelle == "") {
                 bootbox.alert('Libellé est obligatoire !');
-                cleanForm();
+                //cleanForm();
+                IHM.validateModal();
+                return "";
+            }
+            if(objet == "") {
+                bootbox.alert('Objet est obligatoire !');
+                //cleanForm();
+                IHM.validateModal();
+                return "";
+            }
+            if(corps == "") {
+                bootbox.alert('Corps est obligatoire !');
+                //cleanForm();
                 IHM.validateModal();
                 return "";
             }
@@ -100,7 +112,7 @@ var Mail2 = (function() {
                             modal.hide();
                             break;
                         case "create":
-                            mailList.add({"idUser": data.idUser, "libelle": libelle, "objet": objet, "corps":corps});
+                            mailList.add({"idMail": idMail, "libelleMail": libelle, "objetMail": objet, "corpsMail":corps});
                             bootbox.alert("Enregistrement ok.");
                             modal.hide();
                             break;
@@ -114,7 +126,6 @@ var Mail2 = (function() {
             _getMails();
             _initEvents();
         }
-
     };
 })();
 $(document).ready(Mail2.init());
