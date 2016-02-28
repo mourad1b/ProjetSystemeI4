@@ -29,7 +29,7 @@
         <div id="modalContentMail" class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Mail</h4>
+                <h4 class="modal-title" id="myModalLabel">Gestion des Mails</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal formActionMail" enctype="multipart/form-data">

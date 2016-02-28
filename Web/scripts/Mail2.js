@@ -2,7 +2,8 @@ var Mail2 = (function() {
     var options = {
         item: '<li class="row"><div class="idMail col-md-1"></div><div class="libelle col-md-3"></div>' +
         '<div class="objet col-md-3"></div><div class="corps col-md-4"></div><div class="col-md-1 text-right">' +
-        '<button class="btnUpdateMail btn btn-info btn-xs" data-toggle="modal" data-target="#modal">Modifier</button></div></li>'
+        '<button id="btnUpdateMail" class="btnUpdateMail btn btn-info btn-xs" data-toggle="modal" data-target="#modal">Modifier</button>' +
+        '<button id="btnDeleteMail" class="btnDeleteMail btn btn-info btn-xs">Supprimer</button></div></li>'
     };
 
     var _mails, mailList, li, idMail, libelle, objet, corps;
@@ -58,11 +59,50 @@ var Mail2 = (function() {
 
         btnList.on("click",".btnUpdateMail", function(e) {
             e.preventDefault();
-            //IHM.validateModal();
             $("li.fillSource").removeClass('fillSource');
             $(this).closest("li.row").addClass('fillSource');
             fillForm();
+            IHM.validateModal();
             _action = "update";
+        });
+
+        btnList.on("click",".btnDeleteMail", function(e) {
+            e.preventDefault();
+            //var contentPanelId = $(e.target)[0].id;
+            //console.log(contentPanelId);
+            $("li.fillSource").removeClass('fillSource');
+            $(this).closest("li.row").addClass('fillSource');
+            li = $('.fillSource');
+            _action = "delete";
+            idMail = li.find('.idMail').text();
+            /*libelle = li.find('.libelle').text();
+            objet = li.find('.objet').text();
+            corps = li.find('.corps').text();
+            */
+            var modal = bootbox.confirm({
+                //title: "Suppression du mail "+nomSelectUser,
+                message: "Êtes-vous sûr ?",
+                callback: function (result) {
+                    //Example.show("Hello");
+                }
+            });
+
+            modal.on('click', '.btn-primary', function () {
+             $.ajax({
+             url:  _url + "&action=" + _action + '&idMail=' + idMail,
+             type: 'POST',
+             data : {
+                 idMail: idMail
+             }
+            //context: document.body
+             })
+                 .done(function () {
+                     //mailList.add({"idMail": idMail, "libelleMail": libelle, "objetMail": objet, "corpsMail":corps});
+                     //mailList.add();
+                     bootbox.alert("Suppression ok.");
+                     //modal.hide();
+                });
+             });
         });
 
         btnSubmitMail.click(function() {

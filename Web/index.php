@@ -43,28 +43,6 @@ if (isset($_POST['formManageNewsletter'])){
    // var_dump("traitement form Modif News: " );
     $newsletterController->handleFormAddNewsletterAction(); // Traite le formulaire et redirige vers la page d'accueil
 }
-
-// Formulaire ajout d'un utilisateur
-if (isset($_POST['formAddUser'])) {
-    $userController->handleFormUploadFileAction(); // Traite le formulaire et redirige vers la page d'accueil
-}
-
-if (isset($_POST['formAddGroupe'])) {
-    $groupeController->handleFormAddAction(); // Traite le formulaire et redirige vers la page d'accueil
-
-}
-if (isset($_POST['formAddMail'])) {
-    $mailController->addMailAction(); // Traite le formulaire et redirige vers la page d'accueil
-}
-
-if (isset($_POST['formUpdateMail'])) {
-    $id = $_GET['idMail'];
-    $post = $_POST;
-    return $mailController->updateMailAction($id); // Traite le formulaire et redirige vers la page d'accueil
-}
-if (isset($_POST['formDeleteMail'])) {
-    $mailController->deleteMailAction(); // Traite le formulaire et redirige vers la page d'accueil
-}
 */
 
 if (isset($_GET['page'])) {
@@ -85,7 +63,7 @@ if (isset($_GET['page'])) {
                     $user = new User($_POST['idUser'], $_POST['nomUser'], $_POST['prenomUser'], $_POST['mailUser'], '', '', '');
                     $userController->updateUserAction($user);
                 } elseif ($urlAction == "delete") {
-                }
+                    $userController->deleteUserAction();                }
             }else {
                 $userController->displayUserAction();
             }
@@ -105,8 +83,10 @@ if (isset($_GET['page'])) {
                 }elseif ($urlAction == "update") {
                     $groupe = new Groupe($_POST['idGroupe'], $_POST['libelleGroupe'], '');
                     $groupeController->updateGroupeAction($groupe);
-                } elseif ($urlAction == "delete") {
+                }elseif ($urlAction == "delete") {
                     $groupeController->deleteGroupeAction();
+                }elseif ($urlAction == "affect") {
+                    $groupeController->affecteUserGroupeAction();
                 }
             }else{
                 $groupeController->displayGroupeAction();

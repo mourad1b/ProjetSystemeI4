@@ -106,7 +106,7 @@ class MailController
     public function deleteMailAction()
     {
         $repos = new MailRepository();
-        $mail = new Mail($_GET['idMail'], $_POST['libelle'], $_POST['objet'], $_POST['corps']);
+        $mail = new Mail($_POST['idMail'], $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
 
         $repos->remove($mail); // On persiste l'objet dans la base et on récupère son id
 

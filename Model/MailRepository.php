@@ -90,7 +90,7 @@ class MailRepository
     public function remove(Mail $mail)
     {
         // Supprime le mail
-        $this->db->Sql("DELETE FROM mail WHERE id_mail = :id",
+        $this->db->Sql("DELETE FROM mail WHERE id_mail =:id",
             array('id' => $mail->getId()));
     }
 
@@ -103,7 +103,7 @@ class MailRepository
     {
         // Supprime le mail
         // todo Supprimer le mail de newsletter,... cascade
-        $this->db->Sql("DELETE FROM mail WHERE id_mail = :id",
+        $this->db->Sql("DELETE FROM mail WHERE id_mail =:id",
             array('id' => $id));
     }
 }
