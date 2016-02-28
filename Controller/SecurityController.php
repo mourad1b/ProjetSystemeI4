@@ -142,9 +142,9 @@ class SecurityController
 
 
         // Begin the session
-        if(session_id() === ""){
+        /*if(session_id() === ""){
             session_start();
-        }
+        }*/
 // Unset all of the session variables.
         session_unset();
 
