@@ -1,32 +1,35 @@
 var Groupe2 = (function() {
-
     var options = {
-        item: '<li class="list-group-item idGroupe">' +
+        item: '<li class="list-group-item">' +
+            '<span class="idGroupe" hidden="hidden"></span>' +
             '<span class="libelleGroupe"></span>' +
-            '<span><a class="glyphicon glyphicon-trash btnSupprGroupe btnSupprimer  pull-right" title="Supprimer"></a>' +
-            '<a class="glyphicon glyphicon-pencil pull-right btnModifGroupe btnModifier" title="Modifier"></a></span></li>'
+            '<span><a class="glyphicon glyphicon-trash btnDeleteGroupe btnSupprimer  pull-right" title="Supprimer"></a>' +
+            '<a class="glyphicon glyphicon-user btnAffectUserGroupe  pull-right" title="Affecter des utilisateurs à ce groupe"></a>' +
+            '<a class="glyphicon glyphicon-pencil pull-right btnUpdateGroupe btnModifier" title="Modifier"></a>' +
+            '</span></li>'
     };
 
-    var idGroupe, libelleGroupe;
+    var _url = "../Web/index.php?page=groupes";
+    var idGroupe, libelleGroupe, input_file_csv;
+    var panelFormFileAddUserGroupe = $('.panelFormFileAddUserGroupe');
     var panelFormManageGroupe = $('.panelFormManageGroupe');
+    var panelFormListGroupe = $('.panelFormListGroupe');
     var panelFormAddGroupe = $('.panelFormAddGroupe');
-
-    var formManageGroupe = $('.formManageGroupe');
-    var formActionGroupe = $('.formActionGroupe');
+    var btnManageGroupe = $('.btnManageGroupe');
 
     var loadingImg = $('#loader');
-
     var _groupesLi, groupeList;
+    var btnList = $(".list");
 
+    panelFormFileAddUserGroupe.hide();
     panelFormManageGroupe.hide();
     panelFormAddGroupe.hide();
-    //loadingImg.hide();
-    var btnAddGroupe = $(".btnAddGroupe");
-    var btnModifGroupe = $(".btnModifGroupe");
-    var btnSupprGroupe= $(".btnSupprGroupe");
+    panelFormListGroupe.hide();
+    var btnAddNewGroupe = $(".btnAddNewGroupe");
+    var btnUpdateGroupe = $(".btnUpdateGroupe");
+    var btnDeleteGroupe= $(".btnDeleteGroupe");
     var btnSubmitGroupe = $('.btnSubmitGroupe');
     var btnCancelGroupe = $('.btnCancelGroupe');
-
 
     var _loaderOn = function() {
         $('#loader').slideDown();
@@ -39,8 +42,7 @@ var Groupe2 = (function() {
     };
 
     var _getGroupes = function() {
-        _loaderOn();
-
+        //_loaderOn();
         // Lancement de l'appel ajax
         $.ajax({
             //csrf:true,
@@ -49,184 +51,256 @@ var Groupe2 = (function() {
         }).done(
             function(data) {
                _groupesLi = jQuery.parseJSON(data);
-                //console.log(_groupesLi);
                 initList();
 
             //$('#listGroupe').text(_groupesLi);
             //_displayAddFile();
-                _loaderOff();
+                //_loaderOff();
             })
     };
 
     function initList() {
-        //console.log(_mails);
         groupeList = new List('groupe-list', options, _groupesLi);
     };
 
     function cleanForm() {
         $('#inputIdGroupe').val("");
         $('#inputLibelleGroupe').val("")
-        //$('#modalContentMail').find(".key").prop('disabled', false);
+        $('#modalContentGroupe').find(".key").prop('disabled', false);
     };
 
     function fillForm() {
         li = $('.fillSource');
         $('#inputIdGroupe').val(li.find('.idGroupe').text());
         $('#inputLibelleGroupe').val(li.find('.libelleGroupe').text());
-        //$('#modalContentMail').find(".key").prop('disabled', true);
+        $('#modalContentGroupe').find(".key").prop('disabled', true);
     };
+
     function _initEvents() {
-
-        btnSupprGroupe.click(function (e) {
-            //e.stopPropagation();
+        btnManageGroupe.click(function (e) {
             e.preventDefault();
 
-            console.log('btnSupprGroupe');
-            idGroupe = $(this).parent().parent().data('idGroupe');
-            //var nomSelectUser = $(this).parent().parent().val();
-
-            var modal = bootbox.confirm({
-                //title: "Suppression du mail "+nomSelectUser,
-                message: "Êtes-vous sûr ?",
-                callback: function (result) {
-                    //var name = $('#name').val();
-                    //var answer = $("input[name='awesomeness']:checked").val()
-                    //Example.show("Hello " + name + ". You've chosen <b>" + answer + "</b>");
+            var modal = bootbox.dialog({
+                title: "Gestion des groupes",
+                message: panelFormListGroupe.show(),
+                buttons: [{
+                    label: "Quitter",
+                    className: "btn-default btnCancelGroupe"
+                }],
+                //show : false,
+                onEscape: function () {
+                    //console.log("X (exit add)");
                 }
             });
 
-            modal.on('click', '.btn-primary', function () {
-                console.log("btn suppr");
-                _loaderOn();
-                $.ajax({
-                    url: "../Web/index.php?page=groupes&action=delete&idGroupe=" + idGroupe
-                    //context: document.body
-                }).done(function () {
-                    _loaderOff();
-                    bootbox.alert("Groupe supprimé.");
-                    //todo _getGroupes ==> refresh list
-                    //$( this ).addClass( "done" );
+            modal.on('click', '.btnDeleteGroupe', function (e) {
+                e.preventDefault();
+                idGroupe = $(this).parent().parent().find('.idGroupe').text();
+
+                var modal = bootbox.confirm({
+                    //title: "Suppression du mail "+nomSelectUser,
+                    message: "Êtes-vous sûr ?",
+                    callback: function (result) {
+                        //console.log('');
+                    }
+                });
+
+                modal.on('click', '.btn-primary', function () {
+                    console.log('btnDeleteGroupe '+idGroupe);
+                    //_loaderOn();
+                    $.ajax({
+                        url: _url + "&action=delete&idGroupe=" + idGroupe,
+                        type: 'POST',
+                        data : {
+                            idGroupe: idGroupe
+                        }
+                        //context: document.body
+                    }).done(function () {
+                        //_loaderOff();
+                        bootbox.alert("Groupe supprimé.");
+                    });
                 });
             });
 
-        });
+            modal.on('click', '.btnAddNewGroupe', function (e) {
+                e.preventDefault();
+                console.log('btnAddNewGroupe');
+                cleanForm();
+                $('.inputLibelleGroupe').val("");
+                IHM.validateModal();
 
-        btnAddGroupe.click(function (e) {
-            e.preventDefault();
-            // vérifier si les champs obligatoire sont remplis
-
-            formManageGroupe.attr('name', 'formAddGroupe');
-
-            //formActionGroupe.attr('action', '../Web/index.php?page=groupes');
-            //panelFormManageGroupe.show();
-            console.log('btnAddGroupe');
-            cleanForm();
-            IHM.validateModal();
-
-            var modal = bootbox.dialog({
-                title: "Nouveau groupe",
-                message: panelFormManageGroupe.show(),
-                buttons: [{
-                    label: "Annuler",
-                    className: "btn-default btnCancelGroupe"
-                },
-                    {
-                        label: "Ajouter",
-                        className: "btn-success btnAddNewGroupe buttonValide",
-                        callback: function () {
-                            //Example.show("Hello");
-                        }
-                    }],
-                //show : false,
-                onEscape: function () {
-                    console.log("X (exit add)");
-                    //modal.modal("hide");
-                }
-            });
-
-
-            modal.on('click', '.btnAddNewGroupe', function () {
-                console.log("ajax add");
-
-                libelleGroupe = $('.libelleGroupe').val();
-                _loaderOn();
-
-                $.ajax({
-                    method: "POST",
-                    url: "../Web/index.php?page=groupes&action=create",
-                    data: {libelleGroupe: libelleGroupe}
-                    //,context: document.body
-                }).done(function (data) {
-                    groupeList.add({"idGroupe": data.idGroupe, "libelleGroupe": libelleGroupe});
-                    //$( this ).addClass( "done" );
-                    _loaderOff();
-                    bootbox.alert("Groupe ajouté.");
+                var modal = bootbox.dialog({
+                    title: "Nouveau groupe",
+                    message: panelFormManageGroupe.show(),
+                    buttons: [{
+                        label: "Annuler",
+                        className: "btn-default btnCancelGroupe"
+                    },
+                        {
+                            label: "Ajouter",
+                            className: "btn-success btnAddGroupe buttonValide",
+                            callback: function () {
+                                //Example.show("Hello");
+                            }
+                        }],
+                    //show : false,
+                    onEscape: function () {
+                        console.log("X (exit add)");
+                        //modal.modal("hide");
+                    }
                 });
 
-            });
-        });
+                modal.on('click', '.btnAddGroupe', function (e) {
+                    e.preventDefault();
+                    console.log('btnAddGroupe');
+                    libelleGroupe = $.trim($('.inputLibelleGroupe').val());
+                    //_loaderOn();
 
-        btnModifGroupe.click(function (e) {
-            e.preventDefault();
-            //console.log("formUpdateUser");
-            formManageGroupe.attr('name', 'formUpdateUser');
-            //formActionGroupe.attr('action', '../Web/index.php?page=groupes');
-            //panelFormManageGroupe.show();
+                    if(libelleGroupe == "") {
+                        bootbox.alert('Libellé est obligatoire !');
+                        //cleanForm();
+                        IHM.validateModal();
+                        return "";
+                    }
 
-            fillForm();
-            IHM.validateModal();
-
-            idGroupe = $(this).parent().parent().data('idGroupe');
-            libelleGroupe = $(this).parent().parent().data('libelle');
-            $('.libelleGroupe').val(libelleGroupe);
-
-            var modal = bootbox.dialog({
-                title: "Modification du groupe n° " + idGroupe,
-                message: panelFormManageGroupe.show(),
-                buttons: [{
-                    label: "Annuler",
-                    className: "btn-default btnCancelGroupe"
-                },
-                    {
-                        //success: {
-                        label: "Enregistrer",
-                        className: "btn-success btnUpdateGroupe buttonValide",
-                        callback: function () {
-                            //Example.show("Hello");
-                        }
-                        //}
-                    }],
-                //show : false,
-                onEscape: function () {
-                    console.log("X (exit modif)");
-                    //modal.modal("hide");
-                }
+                    $.ajax({
+                        method: "POST",
+                        url: _url + "&action=create",
+                        data: {libelleGroupe: libelleGroupe}
+                        //,context: document.body
+                    }).done(function (data) {
+                        groupeList.add({"idGroupe": data.idGroupe, "libelleGroupe": libelleGroupe});
+                        //$( this ).addClass( "done" );
+                        // _loaderOff();
+                        bootbox.alert("Groupe ajouté.");
+                    });
+                });
             });
 
+            modal.on('click', '.btnUpdateGroupe' ,function (e) {
+                e.preventDefault();
+                $("li.fillSource").removeClass('fillSource');
+                $(this).closest("li.row").addClass('fillSource');
+                fillForm();
+                idGroupe = $(this).parent().parent().find('.idGroupe').text();
 
-            // vérifier si les champs obligatoire sont remplis
-            IHM.validateModal();
+                libelleGroupe = $(this).parent().parent().find('.libelleGroupe').text();
+                $('.inputLibelleGroupe').val(libelleGroupe);
+                IHM.validateModal();
 
-            modal.on('click', '.btnUpdateGroupe', function () {
-                console.log("ajax modif");
+                var modal = bootbox.dialog({
+                    title: "Modification du groupe n° " + idGroupe,
+                    message: panelFormManageGroupe.show(),
+                    buttons: [{
+                        label: "Annuler",
+                        className: "btn-default btnCancelGroupe"
+                    },
+                        {
+                            //success: {
+                            label: "Enregistrer",
+                            className: "btn-success btnUpdateGroupe buttonValide",
+                            callback: function () {
+                                //Example.show("Hello");
+                            }
+                            //}
+                        }],
+                    //show : false,
+                    onEscape: function () {
+                        console.log("X (exit modif)");
+                        //modal.modal("hide");
+                    }
+                });
 
-                libelleGroupe = $('.libelleGroupe').val();
-                _loaderOn();
-                $.ajax({
-                    method: "POST",
-                    url: "../Web/index.php?page=groupes&action=update&idGroupe=" + idGroupe,
-                    data: {idGroupe: idGroupe, libelleGroupe: libelleGroupe}
-                    //context: document.body
-                }).done(function () {
+                modal.on('click', '.btnUpdateGroupe', function () {
+                    console.log("ajax modif");
+                    libelleGroupe = $('.inputLibelleGroupe').val();
+                    //fillForm();
+
+                    if(libelleGroupe == "") {
+                        bootbox.alert('Libellé est obligatoire !');
+                        //cleanForm();
+                        IHM.validateModal();
+                        return "";
+                    }
+                    //_loaderOn();
+
+                    console.log(idGroupe + "  " +libelleGroupe);
+                   $.ajax({
+                       url: _url + "&action=update&idGroupe=" + idGroupe,
+                       type: "POST",
+                       data: {idGroupe: idGroupe, libelleGroupe: libelleGroupe}
+                        //context: document.body
+                    }).done(function () {
                         var li = $('.fillSource');
                         li.find('.libelleGroupe').text(libelleGroupe);
-                    _loaderOff();
-                    bootbox.alert("Groupe mis à jour.");
-                    //$( this ).addClass( "done" );
+                        //_loaderOff();
+                        bootbox.alert("Groupe mis à jour.");
+                        //$( this ).addClass( "done" );
+                    });
+
+                });
+            });
+
+            modal.on('click', '.btnAffectUserGroupe', function (e) {
+                e.preventDefault();
+                $('select').multipleSelect({
+                    filter: true
+                });
+                //IHM.validateModal();
+
+                idGroupe = $(this).parent().parent().find('.idGroupe').text();
+
+                console.log(idGroupe);
+
+                var modal = bootbox.dialog({
+                    title: "Affecter des utilisateurs au groupe n° "+idGroupe,
+                    message: panelFormFileAddUserGroupe.show(),
+                    buttons: [{
+                        label: "Annuler",
+                        className: "btn-default btnCancelGroupe"
+                    },
+                        {
+                            label: "Valider",
+                            className: "btn-success btnAffectUser buttonValide",
+                            callback: function () {
+                                //Example.show("Hello");
+                            }
+                        }],
+                    //show : false,
+                    onEscape: function () {
+                        //modal.modal("hide");
+                    }
+                });
+
+                modal.on('click', '.btnAffectUser', function (e) {
+                    e.preventDefault();
+                    console.log(idGroupe);
+
+                    if("" == "") {
+                        bootbox.alert('Aucun utilisateur sélectionné.');
+                        //cleanForm();
+                        IHM.validateModal();
+                        return "";
+                    }
+
+                    /*
+                    $.ajax({
+                        method: "POST",
+                        url: _url + "&action=affect&idGroupe=" + idGroupe,
+                        data: {
+                            idGroupe: idGroupe
+                        }
+                        //,context: document.body
+                    }).done(function (data) {
+                        //$( this ).addClass( "done" );
+                        // _loaderOff();
+                        bootbox.alert("Utilisateurs affectés au groupe.");
+                    });
+                    */
+
                 });
             });
         });
-
     };
     return {
         init : function() {

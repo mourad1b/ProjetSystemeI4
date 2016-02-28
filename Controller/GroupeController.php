@@ -99,24 +99,46 @@ class GroupeController
     public function updateGroupeAction(Groupe $groupe)
     {
         $repos = new GroupeRepository();
-        $post = $_POST;
-        //$mail = new Mail($_POST['idMail'], $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
-
         $id = $repos->update($groupe); // On persiste l'objet dans la base et on récupère son id
 
         $this->indexAction('<strong>Succès !</strong> Groupe mis à jour.'); // Redirect to index
     }
 
+    /**
+     * Affetter des utilisateurs à un groupe choisi
+     * Importer les utilisateurs via un fichier .CSV
+     */
+    public function affecteUserGroupeAction()
+    {
+        $users = array();
+        $post = $_POST;
+        $files = $_FILES;
+
+        if ((isset($_FILES['file']['tmp_name'])) and ($_FILES['file']['size'] > 0)) {
+            $contents = file_get_contents($_FILES['file']['tmp_name']);
+            $name = $_FILES['file']['name'];
+            $mime = $_FILES['file']['type'];
+
+            $http = array(
+                'name'=>$name,
+                'mime' => $mime,
+                'contents'=>$contents
+            );
+
+        }else{
+
+        }
+    }
+
     public function deleteGroupeAction()
     {
         $repos = new GroupeRepository();
-        $groupe = new Groupe($_GET['idGroupe'], $_POST['libelleGroupe'], array());
+        $groupe = new Groupe($_POST['idGroupe'], $_POST['libelleGroupe'], array());
 
         $repos->remove($groupe); // On persiste l'objet dans la base et on récupère son id
 
         $this->indexAction('<strong>Succès !</strong> Groupe supprimé.'); // Redirect to index
     }
-
     /**
      * Traite le formulaire de création d'un Groupe et persiste l'objet Groupe correspondant dans la base de données.
      *

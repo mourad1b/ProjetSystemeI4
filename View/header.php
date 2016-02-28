@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../Web/styles/css/style.css">
     <link rel="stylesheet" href="../Web/styles/css/main.css">
     <link rel="stylesheet" href="../Web/styles/css/list.css">
+    <link rel="stylesheet" href="../Web/select/multiple-select.css" />
 
      <!--for auth-->
     <!--<link rel="stylesheet" href="../Web/styles/css/auth/app_reset_1.css">
@@ -28,21 +29,25 @@
 
 <!-- Included JS Files (Compressed) -->
 <script src="../Web/js/jquery.js"></script>
-<script src="../Web/styles/js/bootbox.min.js"></script>
-<script src="../Web/styles/js/bootstrap.min.js"></script>
-<script src="../Web/styles/js/script.js"></script>
 <script src="../Web/styles/js/list.min.js"></script>
+<script src="../Web/styles/js/script.js"></script>
+<script src="../Web/styles/js/bootstrap.min.js"></script>
+<script src="../Web/styles/js/bootbox.min.js"></script>
+<script src="../Web/select/multiple-select.js"></script>
 
 <!-- Includ Scripts JS -->
-<!--<script src="../Web/scripts/User2.js"></script>
-<script src="../Web/scripts/Mail2.js"></script>
+<script src="../Web/scripts/IHM.js"></script>
+<!--
+<script src="../Web/scripts/Ajax.js"></script>
 -->
-<script src="../Web/scripts/Groupe.js"></script>
+<!--
+<script src="../Web/scripts/Groupe2.js"></script>
+<script src="../Web/scripts/User2.js"></script>
+<script src="../Web/scripts/Mail2.js"></script>
 <script src="../Web/scripts/User.js"></script>
 <script src="../Web/scripts/Mail.js"></script>
 <script src="../Web/scripts/Example.js"></script>
-<script src="../Web/scripts/Ajax.js"></script>
-<script src="../Web/scripts/IHM.js"></script>
+-->
 
 <div id="header">
     <div id="header_left">
@@ -77,7 +82,6 @@
         <li>
             <a class="depliant" href="#">Administration &#9660;</a>
             <ul class="sous-menu">
-                <li><a href="index.php?page=groupes" class="radius">Gestion groupes</a></li>
                 <li><a href="index.php?page=users" class="radius">Gestion utilisateurs</a></li>
                 <li><a href="index.php?page=campagnes" class="radius">Campagnes newsletters</a></li>
             </ul>

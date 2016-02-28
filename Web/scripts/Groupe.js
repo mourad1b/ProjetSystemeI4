@@ -40,7 +40,7 @@ var Groupe = (function() {
     };
 
     var _getGroupes = function() {
-        _loaderOn();
+        //_loaderOn();
         //console.log("appel _getGroupes()");
         // Lancement de l'appel ajax
         $.ajax({
@@ -50,7 +50,7 @@ var Groupe = (function() {
         }).done(
             function(data) {
                 _groupesLi = jQuery.parseJSON(data);
-                _loaderOff();
+                //_loaderOff();
                 initList();
             })
     };

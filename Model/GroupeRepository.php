@@ -95,7 +95,7 @@ class GroupeRepository
 
     public function update(Groupe $groupe)
     {
-        $this->db->Sql("UPDATE groupe SET libelle = :libelle WHERE id_groupe = :id",
+        $this->db->Sql("UPDATE groupe SET libelle =:libelle WHERE id_groupe =:id",
             array(
                 'id' => $groupe->getId(),
                 'libelle' => $groupe->getLibelle()));
@@ -104,7 +104,7 @@ class GroupeRepository
     public function remove(Groupe $groupe)
     {
         // Supprime le mail
-        $this->db->Sql("DELETE FROM groupe WHERE id_groupe = :id",
+        $this->db->Sql("DELETE FROM groupe WHERE id_groupe =:id",
             array('id' => $groupe->getId()));
     }
 
@@ -116,7 +116,7 @@ class GroupeRepository
     public function removeUserFromGroupe(User $user)
     {
         // Suprime les user liées
-        $this->db->Sql("DELETE FROM groupe_user WHERE id_user = :id",
+        $this->db->Sql("DELETE FROM groupe_user WHERE id_user =:id",
             array('id' => $user->getId()));
     }
 }

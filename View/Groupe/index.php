@@ -1,40 +1,29 @@
 <?php
 use nsNewsletter\Model\Groupe;
+require('../View/Groupe/addGroupeForm.php');
 ?>
 
-<div class="small-6 small-centered column">
-    <?php if (isset($flash)) {
-        //var_dump($flash);
-        echo '<div data-alert class="alert-box success radius">';
-        echo $flash;
-        echo '</div>';
-    }?>
-</div>
-
-<p><strong>A Faire :</strong> Chapmp de recherche d'un utilisateur
-</p>
-
 <div id="main">
-    <div class="loading">
-        <img src="http://officedelamer.com/office/wp-content/plugins/ajax-campaign-monitor-forms/ajax-loading.gif" alt="loading" width="71" height="61"
-             id="loading"/>
-    </div>
-    <div id="pageContent">
+   <div id="pageContent">
         <!--<div id="alertMsg" class="alert-box" style="display: none;">
             <div class="close-box">x</div>
             <span class="type"></span>
             <span class="msg"></span>
         </div>-->
-        <div class="file-wrap">
+       <div>
+           <button id="btnManageGroupe"  class="btn btn-warning btnManageGroupe" data-toggle="modal" data-target="#modal">Gérer les groupes</button>
+       </div>
+
+       <div class="file-wrap">
             <div class="commit commit-tease js-details-container"></div>
             <div class="tab">
                 <div class="level1">
                     <div class="ligne">
-                        <div class="col icon">
+                        <!--<div class="col icon">
                             <span class="glyphicon glyphicon-folder-close"></span>
                             <img alt="" class="loading" height="16"
                                  src="http://officedelamer.com/office/wp-content/plugins/ajax-campaign-monitor-forms/ajax-loading.gif" width="16">
-                        </div>
+                        </div>-->
                         <div class="col content">
                             <a href="#" title="">Liste des groupes contenant des utilisateurs </a>
                         </div>
@@ -143,3 +132,4 @@ use nsNewsletter\Model\Groupe;
         <p></p>
     </div>
 </div>
+<script src="../Web/scripts/Groupe2.js"></script>
