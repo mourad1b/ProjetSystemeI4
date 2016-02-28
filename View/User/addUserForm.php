@@ -76,7 +76,7 @@
             <form class="form-horizontal addformActionUser" id="addformActionUser" enctype="multipart/form-data">
                 <input type="hidden" name="formAddUser" value="true">
                 <div class="form-group">
-                    <span class="help-block"><strong>Charger un fichier CSV * <br>(respecter le formalisme : nom; prenom; mail; telephone)</strong></span>
+                    <span class="help-block">Charger un fichier CSV * <br>(respecter le formalisme suivant : <strong>nom; prenom; mail; telephone</strong>)</span>
                     <label for="upload_file_csv" class="col-sm-3 control-label"></label>
                     <div class="col-sm-12">
                         <input type="file" class="form-control modalRequired" id="upload_file_csv" name="upload_file_csv" size="60">

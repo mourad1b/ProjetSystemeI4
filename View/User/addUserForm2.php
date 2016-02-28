@@ -29,11 +29,19 @@
         <div id="modalContent" class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Utilisateur</h4>
+                <h4 class="modal-title" id="myModalLabel">Ajout de nouveaux utilisateurs</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal formActionMail" enctype="multipart/form-data">
+                <form class="form-horizontal form addFile" id="formFile" type="file" role="form" name="formFile" enctype="multipart/form-data">
                     <div class="form-group">
+                        <span class="help-block">Charger un fichier .CSV * <br>(respecter le formalisme suivant : <strong>nom; prenom; mail; telephone</strong>)</span>
+                        <label for="upload_file_csv" class="col-sm-3 control-label"></label>
+                        <div class="col-sm-12">
+                            <input type="file" class="form-control upload_file_csv modalRequired" id="upload_file_csv" name="upload_file_csv" size="60" onchange="IHM.validateModal()">
+                            <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
+                        </div>
+                    </div>
+                    <!--<div class="form-group">
                         <label for="inputIdUser" class="col-sm-2 control-label"><strong>Numéro</strong></label>
                         <div class="col-sm-9">
                             <input id='inputIdUser' class="form-control inputIdUser key"  value=""/>
@@ -58,6 +66,7 @@
                             <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
                         </div>
                     </div>
+                    -->
                 </form>
             </div>
             <div class="modal-footer">

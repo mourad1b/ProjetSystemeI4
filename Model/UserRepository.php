@@ -140,6 +140,13 @@ class UserRepository
         //return $id;
     }
 
+    public function remove(User $user)
+    {
+        // Supprime le mail
+        $this->db->Sql("DELETE FROM users WHERE id_user =:id",
+            array('id' => $user->getId()));
+    }
+
     /**
      * Supprime de la base de donnée une offre d'emploi ainsi que les candidatures qui lui sont liées
      *
