@@ -119,7 +119,18 @@ if (isset($_GET['page'])) {
             break;
 
         case 'newsletters':
-            $newsletterController->displayNewsletterAction();
+            if (isset($_GET['action'])) {
+                $urlAction = $_GET['action'];
+                if ($urlAction == "create") {
+                    $newsletterController->addNewsletterAction();
+                }
+                }elseif($urlAction == "list") {
+                    $newsletterController->getNewslettersAction();
+                }
+            else{
+                $newsletterController->displayNewsletterAction();
+            }
+
             break;
 
         case 'options':

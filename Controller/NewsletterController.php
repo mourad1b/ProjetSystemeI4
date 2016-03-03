@@ -44,7 +44,7 @@ class NewsletterController
      * Traite le formulaire de création d'un Groupe et persiste l'objet Groupe correspondant dans la base de données.
      *
      */
-    public function handleFormAddNewsletterAction()
+    public function addNewsletterAction()
     {
         $repos = new NewsletterRepository();
 
@@ -54,6 +54,25 @@ class NewsletterController
 
         $this->displayNewsletterAction('<strong>Félicitations !</strong> Newsletter !'); // Redirect to index
 
+    }
+
+    public function  getNewslettersAction()
+    {
+        $repos = new NewsletterRepository();
+        $news = $repos->findAll();
+
+        $json = array();
+        foreach($news as $new){
+            $array = array(
+                'idNews' => $new->getId(),
+                'nom' => $new->getNom(),
+                'photo' => $new->getPhoto()
+                //'corps' => $new->getBody()
+            );
+            array_push($json, $array);
+        }
+
+        echo json_encode($json);
     }
 
 }

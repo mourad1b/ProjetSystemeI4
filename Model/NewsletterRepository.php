@@ -50,21 +50,12 @@ class NewsletterRepository
 
     public function persist(Newsletter $newsletter)
     {
-        $result = $this->db->SqlValue("Select `nom` From newsletter where `nom` = '".$newsletter->getNom()."' LIMIT 1 ");
+        //$result = $this->db->SqlValue("Select `nom` From newsletter where `nom` = '".$newsletter->getNom()."' LIMIT 1 ");
         //$req = mysql_fetch_array($result);
-
-        if ($result) {
-            echo 'Ce type de Nom existe déja';
-        }
-        else {
-
-            $this->db->Sql("INSERT INTO newsletter (nom, lien, photo, texte) VALUES(:nom,:lien,:photo,:texte)",
-                array(  'nom' => $newsletter->getNom(),
-                    'lien' => $newsletter->getLien(),
-                    'photo' => $newsletter->getPhoto(),
-                    'texte' => $newsletter->getTexte()));
-
-        }
-        return $result;
+        $this->db->Sql("INSERT INTO newsletter (nom, lien, photo, texte) VALUES(:nom,:lien,:photo,:texte)",
+            array(  'nom' => $newsletter->getNom(),
+                'lien' => $newsletter->getLien(),
+                'photo' => $newsletter->getPhoto(),
+                'texte' => $newsletter->getTexte()));
     }
 }

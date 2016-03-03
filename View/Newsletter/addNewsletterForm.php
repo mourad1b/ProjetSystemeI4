@@ -1,124 +1,71 @@
 <h3 class="text-center">Gestion des newsletters</h3>
 <br>
-<p>
-    Visualiser liste des newsletter ;
-</p>
-<p><strong>A Faire :</strong>
-</p>
+<div id="flashMessage" class="alert hidden"></div>
 
-<div class="panel panel-info">
-    <div class="panel-heading"><span><a class="glyphicon glyphicon-plus addNews btnAjouter pull-right" title="Ajouter"></a></span>
-        <h3 class="panel-title">Gestion des newsletters</h3>
-    </div>
-    <div class="panel-body">
-        <form class="form-horizontal formManageNewsletter" id="formNewsletter" role="form" enctype="multipart/form-data" action="../Web/index.php" method="post">
-            <input type="hidden" name="formManageNewsletter" value="true">
-            <ul id="listGroupe" class="list-group">
-                <?php /** @var Newsletter $newsletter */
-                foreach($newsletters as $newsletter): ?>
-                    <li class="list-group-item" id="idNewsletter" data-id="<?php echo $newsletter->getId(); ?>"
-                        value="<?php echo $newsletter->getId(); ?>">
-                        <span class=""><?php echo $newsletter->getNom(); ?></span>
-                        <span><a class="glyphicon glyphicon-trash suppNews btnSupprimer pull-right" title="Supprimer"></a>
-                        <a class="glyphicon glyphicon-pencil modifNews btnModifier pull-right" title="Modifier"></a>
-                            </span>
-                    </li>
-
-                <?php endforeach ?>
+<div class="row text-center">
+    <div class="starter-template">
+        <div id="mail-list">
+            <input class="search" />
+            <button class="sort btn btn-default" data-sort="nom">Tri par Nom</button>
+            <button id="btnNewNews" class="btn btn-warning btnNewNews" data-toggle="modal" data-target="#modal">Nouveau</button>
+            <ul class="menu list-unstyled">
+                <li class="row">
+                    <div class="id_Newsletter col-md-1">Id</div>
+                    <div class="nom col-md-3">Nom</div>
+                    <div class="photo col-md-3">Photo</div>
+                </li>
             </ul>
-        </form>
+            <ul class="list list-unstyled"></ul>
+        </div>
     </div>
 </div>
-<div id="1" class="panel panel-body" style="display:none">
-    <form class="form-horizontal" enctype="multipart/form-data" action="index.php" method="post">
-        <input type="hidden" name="formManageNewsletter" value="true">
-        <div class="form-group">
-            <label for="nomNewsletter" class="col-sm-2 control-label"><strong>Nom</strong></label>
-            <div class="col-sm-8">
-                <input type="text" class="form-control" name="nomNewsletter" placeholder="Nom du Newsletter">
+
+
+<div id="modal" class="modal fade">
+    <div class="modal-dialog">
+        <div id="modalContentMail" class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Gestion des Newsletter</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal formActionMail" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="inputNom" class="col-sm-2 control-label"><strong>Libellé<span>*</span></strong></label>
+                        <div class="col-sm-9">
+                            <input id="inputNom" class="form-control inputNom modalRequired" name="inputNom" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">
+                            <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPhoto" class="col-sm-2 control-label"><strong>Photo<span>*</span></strong></label>
+                        <div class="col-sm-9">
+                            <input class="form-control inputPhoto modalRequired" id="inputPhoto" name="inputPhoto" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">
+                            <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputLien" class="col-sm-2 control-label"><strong>Lien<span>*</span></strong></label>
+                        <div class="col-sm-9">
+                            <input class="form-control inputLien modalRequired" id="inputLien" name="inputLien" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">
+                            <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputTexte" class="col-sm-2 control-label"><strong>Lien<span>*</span></strong></label>
+                        <div class="col-sm-9">
+                            <input class="form-control inputTexte modalRequired" id="inputTexte" name="inputTexte" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">
+                            <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-success btnSubmitMail buttonValide">Valider</button>
             </div>
         </div>
-        <div class="form-group">
-            <label for="lienNewsletter" class="col-sm-2 control-label"><strong>Lien</strong></label>
-            <div class="col-sm-8">
-                <input type="text" class="form-control" name="lienNewsletter" id="lienNewsletter" placeholder="Lien">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="photoNewsletter" class="col-sm-2 control-label"><strong>Photo</strong></label>
-            <div class="col-sm-8">
-                <input type="text" class="form-control" name="photoNewsletter" id="photoNewsletter"  placeholder="Photo du newsletter">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="corpsMail" class="col-sm-2 control-label"><strong>Texte</strong></label>
-            <div class="col-sm-8">
-            <TEXTAREA NAME="texteNewsletter" ROWS="5" COLS="50"></TEXTAREA>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-1 col-sm-10">
-                <button type="submit" class="btn btn success">Soumettre</button>
-            </div>
-        </div>
-    </form>
+    </div>
 </div>
 
-
-<div class="form-group">
-    <label for="libelle" class="col-sm-2 control-label">
-        <strong>Newsletters</strong></label>
-</div>
-<select id="selectGroupe" class="col-sm-6">
-    <option hidden="hidden">Sélectionner</option>
-    <?php /** @var Newsletter $newsletter */
-    foreach($newsletters as $newsletter): ?>
-    <option id="<?php echo $newsletter->getId(); ?>"
-        value="<?php echo $newsletter->getId(); ?>"
-        data-id="<?php echo $newsletter->getId(); ?>"><?php echo $newsletter->getNom(); ?></option>
-    </br>
-<?php endforeach ?>
-</select>
-
-
-<script type="text/javascript">
-    $(function() {
-
-        var objectUsers = [];
-        var idUser, idGroupe, idNewsletter;
-        var selectGroupe = $('#selectGroupe');
-        var loadingImg = $('#loading-img');
-        var divOne = document.getElementById('1');
-
-        var addNews = $(".addNews");
-        var modifNews = $(".modifNews");
-        var supprNews = $(".supprNews");
-        var selectNewsletter = $('#idNewsletter');
-
-        loadingImg.hide();
-
-        addNews.click(function (e) {
-            e.stopPropagation();
-
-            divOne.style.display = 'block';
-            console.log("clic sur ajout ");
-            //loadingImg.show();
-                });
-
-        modifNews.click(function (e) {
-            e.stopPropagation();
-            url = "../Web/index.php?action=update";
-            idNewsletter = selectNewsletter.data('id');
-
-            console.log(idNewsletter);
-            loadingImg.show();
-            $.post(url)
-             .done(function (data) {
-                console.log(data);
-                    loadingImg.hide();
-             });
-
-
-        });
-    });
-</script>
+<script src="../Web/scripts/Newsletter.js"></script>
