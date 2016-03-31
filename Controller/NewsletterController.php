@@ -48,31 +48,56 @@ class NewsletterController
     {
         $repos = new NewsletterRepository();
 
-        $news = new Newsletter('', $_POST['nomNewsletter'], $_POST['lienNewsletter'], $_POST['photoNewsletter'], $_POST['texteNewsletter']);
+        $news = new Newsletter('', $_POST['nomNewsletter'], $_POST['contenuNewsletter'], $_POST['lienNewsletter']);
 
         $id = $repos->persist($news); // On persiste l'objet dans la base et on récupère son id
 
-        $this->displayNewsletterAction('<strong>Félicitations !</strong> Newsletter !'); // Redirect to index
+        $this->displayNewsletterAction('<strong>Succès !</strong> Newsletter créée'); // Redirect to index
 
     }
 
+    public function getNewsletterByIdAction($id)
+    {
+        $repos = new NewsletterRepository();
+        $news = $repos->find($id); // On persiste l'objet dans la base et on récupère son id
+
+        return $news;
+        //$this->indexAction(/*'<strong>Succès !</strong> Le mail a bien été créé.'*/); // Redirect to index
+    }
     public function  getNewslettersAction()
     {
         $repos = new NewsletterRepository();
-        $news = $repos->findAll();
+        $newsletters = $repos->findAll();
 
         $json = array();
-        foreach($news as $new){
+        foreach($newsletters as $newsletter){
             $array = array(
-                'idNews' => $new->getId(),
-                'nom' => $new->getNom(),
-                'photo' => $new->getPhoto()
-                //'corps' => $new->getBody()
+                'idNewsletter' => $newsletter->getId(),
+                'nom' => $newsletter->getNom(),
+                'contenu' => $newsletter->getTexte(),
+                'lien' => $newsletter->getLien()
             );
             array_push($json, $array);
         }
 
         echo json_encode($json);
+    }
+
+    public function updateNewsletterAction(Newsletter $news)
+    {
+        $repos = new NewsletterRepository();
+        $id = $repos->update($news); // On persiste l'objet dans la base et on récupère son id
+
+        $this->indexAction('<strong>Succès !</strong> Newsletter mise à jour.'); // Redirect to index
+    }
+
+    public function deleteNewsletterAction()
+    {
+        $repos = new NewsletterRepository();
+        $news = new Newsletter($_POST['idNewsletter'], $_POST['nomNewsletter'], $_POST['contenuNewsletter'], $_POST['lienNewsletter']);
+        $repos->remove($news);
+
+        $this->indexAction('<strong>Succès !</strong> Newsletter supprimée.'); // Redirect to index
     }
 
 }
