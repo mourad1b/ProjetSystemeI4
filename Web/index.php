@@ -9,6 +9,7 @@ use nsNewsletter\Controller\SecurityController;
 use nsNewsletter\Controller\UserController;
 use nsNewsletter\Controller\NewsletterController;
 use nsNewsletter\Model\Mail;
+use nsNewsletter\Model\Newsletter;
 use nsNewsletter\Model\User;
 use nsNewsletter\Model\Groupe;
 
@@ -54,6 +55,8 @@ if (isset($_GET['page'])) {
                 $urlAction = $_GET['action'];
                 if ($urlAction == "create") {
                     $userController->addUserAction();
+                }elseif($urlAction == "importer_csv") {
+                    $userController->handleFormUploadFileAction();
                 }elseif($urlAction == "list") {
                     $userController->getUsersAction();
                 }elseif($urlAction == "read") {
@@ -63,7 +66,8 @@ if (isset($_GET['page'])) {
                     $user = new User($_POST['idUser'], $_POST['nomUser'], $_POST['prenomUser'], $_POST['mailUser'], '', '', '');
                     $userController->updateUserAction($user);
                 } elseif ($urlAction == "delete") {
-                    $userController->deleteUserAction();                }
+                    $userController->deleteUserAction();
+                }
             }else {
                 $userController->displayUserAction();
             }
@@ -115,7 +119,7 @@ if (isset($_GET['page'])) {
             break;
 
         case 'campagnes':
-            $mailController->displayMailAction();
+            $groupeController->indexAction();
             break;
 
         case 'newsletters':
@@ -123,10 +127,18 @@ if (isset($_GET['page'])) {
                 $urlAction = $_GET['action'];
                 if ($urlAction == "create") {
                     $newsletterController->addNewsletterAction();
-                }
-                }elseif($urlAction == "list") {
+                } elseif ($urlAction == "list") {
                     $newsletterController->getNewslettersAction();
+                } elseif ($urlAction == "read") {
+                    $id = $_GET['idNewsletter'];
+                    $newsletterController->getNewsletterByIdAction($id);
+                } elseif ($urlAction == "update") {
+                    $news = new Newsletter($_POST['idNewsletter'], $_POST['nomNewsletter'], $_POST['texteNewsletter'], $_POST['lienNewsletter']);
+                    $newsletterController->updateNewsletterAction($news);
+                } elseif ($urlAction == "delete") {
+                    $newsletterController->deleteNewsletterAction();
                 }
+            }
             else{
                 $newsletterController->displayNewsletterAction();
             }

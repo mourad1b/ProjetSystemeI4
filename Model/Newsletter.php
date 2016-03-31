@@ -27,11 +27,6 @@ class Newsletter
     /**
      * @var
      */
-    private $id_mail;
-
-    /**
-     * @var
-     */
     private $nom;
 
     /**
@@ -42,24 +37,17 @@ class Newsletter
     /**
      * @var
      */
-    private $photo;
-
-    /**
-     * @var
-     */
     private $lien;
 
     /**
      * @param $id_groupe
      * @param $libelle
      */
-    function __construct($id_newsletter, $id_mail, $nom, $texte, $photo, $lien)
+    function __construct($id_newsletter, $nom, $texte, $lien)
     {
         $this->id_newsletter = $id_newsletter;
-        $this->id_mail = $id_mail;
         $this->nom = $nom;
         $this->texte = $texte;
-        $this->photo = $photo;
         $this->lien = $lien;
     }
 
@@ -77,22 +65,6 @@ class Newsletter
     public function setId($id)
     {
         $this->id_newsletter = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIdMail()
-    {
-        return $this->id_mail;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setIdMail($id)
-    {
-        $this->id_mail = $id;
     }
 
     /**
@@ -128,23 +100,6 @@ class Newsletter
     public function setTexte($texte)
     {
         $this->texte = $texte;
-    }
-
-
-    /**
-     * @return mixed
-     */
-    public function getPhoto()
-    {
-        return $this->photo;
-    }
-
-    /**
-     * @param mixed $photo
-     */
-    public function setPhoto($photo)
-    {
-        $this->photo = $photo;
     }
 
     /**
