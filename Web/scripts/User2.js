@@ -14,7 +14,12 @@ var User2 = (function() {
     var btnSubmitUser = $('.btnSubmitUser');
     var btnUpdateUser = $('.btnUpdateUser');
     var btnNewUser = $('.btnNewUser');
+    var btnImporterCSVUsers = $('.btnImporterCSVUsers');
     var btnList = $(".list");
+
+    var panelFormFileAddUsers = $('.panelFormFileAddUsers');
+
+    panelFormFileAddUsers.hide();
 
     function _getUsers() {
         $.ajax({
@@ -139,81 +144,85 @@ var User2 = (function() {
                             bootbox.alert("Enregistrement ok.");
                             modal.hide();
                             break;
-
-                        /*
-                         e.preventDefault();
-                         IHM.validateModal();
-
-                         idGroupe = $(this).parent().parent().find('.idGroupe').text();
-
-                         var modal = bootbox.dialog({
-                         title: "Affecter des utilisateurs au groupe n° "+idGroupe,
-                         message: panelFormFileAddUserGroupe.show(),
-                         buttons: [{
-                         label: "Annuler",
-                         className: "btn-default btnCancelGroupe"
-                         },
-                         {
-                         label: "Enregistrer",
-                         className: "btn-success btnAffectUser buttonValide",
-                         callback: function () {
-                         //Example.show("Hello");
-                         }
-                         }],
-                         //show : false,
-                         onEscape: function () {
-                         //modal.modal("hide");
-                         }
-                         });
-
-                         modal.on('click', '.btnAffectUser', function (e) {
-                         e.preventDefault();
-                         input_file_csv = $.trim($('.upload_file_csv').val());
-                         //_loaderOn();
-
-                         console.log(idGroupe);
-
-                         if($("input[type=file]")[0].files.length > 0) {
-                         var formData = $("input[type=file]")[0].files;
-                         var form_data = new FormData();
-                         form_data.append("username", "Mourad");
-                         form_data.append("accountnum", 123456);
-                         form_data.append("file", $("input[type=file]")[0].files[0]);
-
-                         console.log(formData);
-
-                         }else{
-                         if(input_file_csv == "") {
-                         bootbox.alert('Aucun fichier choisi.');
-                         //cleanForm();
-                         IHM.validateModal();
-                         return "";
-                         }
-                         }
-
-                         $.ajax({
-                         method: "POST",
-                         url: _url + "&action=affect&idGroupe=" + idGroupe,
-                         data: {
-                         idGroupe: idGroupe,
-                         formData: formData
-                         },
-                         //async: false,
-                         //cache: false,
-                         processData: false, // Important pour l'upload : indique à jQuery de ne pas traiter les données
-                         contentType: false // Important pour l'upload : ne pas configurer le contentType
-                         //,context: document.body
-                         }).done(function (data) {
-                         //$( this ).addClass( "done" );
-                         // _loaderOff();
-                         bootbox.alert("Utilisateurs affectés au groupe.");
-                         });
-
-                         });
-                         */
                     }
                 });
         });
+
+
+        btnImporterCSVUsers.click(function (e) {
+            e.preventDefault();
+            IHM.validateModal();
+            _action = "importer_csv";
+
+            var modal = bootbox.dialog({
+                title: "Importer des utilisateurs",
+                message: panelFormFileAddUsers.show(),
+                buttons: [{
+                    label: "Annuler",
+                    className: "btn-default btnCancelGroupe"
+                },
+                    {
+                        label: "Valider",
+                        className: "btn-success btnImporterCSV buttonValide",
+                        callback: function () {
+                            //Example.show("Hello");
+                        }
+                    }],
+                //show : false,
+                onEscape: function () {
+                    //modal.modal("hide");
+                }
+            });
+
+            modal.on('click', '.btnImporterCSV', function (e) {
+                e.preventDefault();
+                input_file_csv = $.trim($('.upload_file_csv').val());
+                //_loaderOn();
+
+                console.log(input_file_csv);
+
+                if($("input[type=file]")[0].files.length > 0) {
+                    var formData = $("input[type=file]")[0].files;
+                    var form_data = new FormData();
+                    form_data.append("file", $("input[type=file]")[0].files[0]);
+
+                    var $form = $(this);
+                    var formdata = (window.FormData) ? new FormData($form[0]) : null;
+                    var _data = (formdata !== null) ? formdata : $form.serialize();
+
+                    console.log(_data);
+
+                }else{
+                    if(input_file_csv == "") {
+                        bootbox.alert('Aucun fichier choisi.');
+                        //cleanForm();
+                        IHM.validateModal();
+                        return "";
+                    }
+                }
+
+                $.ajax({
+                    method: "POST",
+                    url: _url + "&action=importer_csv",
+                    data: {
+                        formData: _data
+                    },
+                    //async: false,
+                    //cache: false,
+                    processData: false, // Important pour l'upload : indique à jQuery de ne pas traiter les données
+                    contentType: false // Important pour l'upload : ne pas configurer le contentType
+                    //,context: document.body
+                }).done(function (data) {
+                    //$( this ).addClass( "done" );
+                    // _loaderOff();
+                    bootbox.alert("Utilisateurs créés");
+                });
+
+
+            });
+        });
+
+
     };
 
     return {

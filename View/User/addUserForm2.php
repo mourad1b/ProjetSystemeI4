@@ -11,6 +11,7 @@
             <button class="sort btn btn-default" data-sort="prenom">Tri par Prénom</button>
             <button class="sort btn btn-default" data-sort="mail">Tri par Mail</button>
             <button id="btnNewUser" class="btn btn-warning btnNewUser" data-toggle="modal" data-target="#modal">Nouveau</button>
+            <button id="btnImporterCSVUsers" class="btn btn-primary btnImporterCSVUsers">Importer CSV</button>
             <ul class="menu list-unstyled">
                 <li class="row">
                     <div class="idUser col-md-1">Id</div>
@@ -33,7 +34,7 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal form addFile" id="formFile" type="file" role="form" name="formFile" enctype="multipart/form-data">
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <span class="help-block">Charger un fichier .CSV * <br>(respecter le formalisme suivant : <strong>nom; prenom; mail; telephone</strong>)</span>
                         <label for="upload_file_csv" class="col-sm-3 control-label"></label>
                         <div class="col-sm-12">
@@ -41,7 +42,8 @@
                             <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
                         </div>
                     </div>
-                    <!--<div class="form-group">
+                    -->
+                    <div class="form-group">
                         <label for="inputIdUser" class="col-sm-2 control-label"><strong>Numéro</strong></label>
                         <div class="col-sm-9">
                             <input id='inputIdUser' class="form-control inputIdUser key"  value=""/>
@@ -66,7 +68,7 @@
                             <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
                         </div>
                     </div>
-                    -->
+
                 </form>
             </div>
             <div class="modal-footer">
@@ -74,6 +76,26 @@
                 <button type="button" class="btn btn-success btnSubmitUser buttonValide">Valider</button>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="panel panel-info panelFormFileAddUsers">
+    <!--<div class="panel-heading">
+        <h3 class="panel-title">Ajout des utilisateurs</h3>
+    </div>
+    -->
+    <div class="panel-body">
+        <form class="form-horizontal addformActionUser" id="addformActionUser" enctype="multipart/form-data">
+            <input type="hidden" name="formAddUser" value="true">
+            <div class="form-group">
+                <span class="help-block">Charger un fichier CSV * <br>(respecter le formalisme suivant : <strong>nom; prenom; mail; telephone</strong>)</span>
+                <label for="upload_file_csv" class="col-sm-3 control-label"></label>
+                <div class="col-sm-12">
+                    <input type="file" class="form-control modalRequired" id="upload_file_csv" name="upload_file_csv" size="60" onload="IHM.validateModal()">
+                    <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 
