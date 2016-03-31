@@ -100,6 +100,8 @@ class MailController
         $repos = new MailRepository();
         $id = $repos->update($mail);
 
+        // mail($mail->getMail(), "Confirmation de création", "Votre utilisateur a correctement été enregistrée !\nConsultez l'ensemble des mails via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\nSupprimez un mail via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\n\nVous recevrez un mail en cas de nouveau mail.");
+
         $this->indexAction('<strong>Succès !</strong> Mail mis à jour.'); // Redirect to index
     }
 
