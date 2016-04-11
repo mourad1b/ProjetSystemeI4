@@ -139,10 +139,10 @@ class UserController
 
                     $row = 0;
                     while(($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
-                        // get the values from the csv
                         $users[$row] = $data[0];
                         // inc the row
                         $row++;
+                        // get the values from the csv
                     }
                     fclose($handle);
                 }

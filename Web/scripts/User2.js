@@ -197,6 +197,8 @@ var User2 = (function() {
                         var form_data = new FormData();
                         form_data.append("file", $("input[type='file']")[0].files[0]);
 
+                        console.log($("input[type='file']")[0].files[0].length);
+
                         $.ajax({
                             //csrf:true,
                             url: _url + "&action=fileupload",
@@ -212,8 +214,10 @@ var User2 = (function() {
                                 bootbox.alert("Utilisateurs ajoutés avec succès");
                             }
                             //_getFiles();
-                        }).fail();
-                    }else bootbox.alert("Erreur Fichier (vide?)");
+                        }).fail(function(){
+                            bootbox.alert("Erreur lors du traitement du Fichier");
+                        });
+                    }
 
                 /*
                 var fileUpload = document.getElementById("filecsv");
