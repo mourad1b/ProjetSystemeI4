@@ -6,7 +6,7 @@ namespace nsNewsletter\Config;
  * DataBase
  */
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'newsletter');  // newsletter   benzaidm
+define('DB_NAME', 'newsletters');  // newsletter   benzaidm
 define('DB_USER', 'root');
 define('DB_PASS', '');
 
