@@ -32,7 +32,7 @@ class Newsletter
     /**
      * @var
      */
-    private $texte;
+    private $contenu;
 
     /**
      * @var
@@ -43,11 +43,11 @@ class Newsletter
      * @param $id_groupe
      * @param $libelle
      */
-    function __construct($id_newsletter, $nom, $texte, $lien)
+    function __construct($id_newsletter, $nom, $contenu, $lien)
     {
         $this->id_newsletter = $id_newsletter;
         $this->nom = $nom;
-        $this->texte = $texte;
+        $this->contenu = $contenu;
         $this->lien = $lien;
     }
 
@@ -91,15 +91,15 @@ class Newsletter
      */
     public function getTexte()
     {
-        return $this->texte;
+        return $this->contenu;
     }
 
     /**
-     * @param mixed $texte
+     * @param mixed $contenu
      */
-    public function setTexte($texte)
+    public function setTexte($contenu)
     {
-        $this->texte = $texte;
+        $this->contenu = $contenu;
     }
 
     /**

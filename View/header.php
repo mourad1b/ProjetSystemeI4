@@ -28,11 +28,12 @@
 <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
 <!-- Included JS Files (Compressed) -->
-<script src="../Web/js/jquery.js"></script>
-<script src="../Web/styles/js/list.min.js"></script>
-<script src="../Web/styles/js/script.js"></script>
-<script src="../Web/styles/js/bootstrap.min.js"></script>
-<script src="../Web/styles/js/bootbox.min.js"></script>
+<script src="../Web/js/jquery-1.12.3.js"></script>
+<!--<script src="../Web/js/jquery.js"></script>-->
+<script src="../Web/js/list.min.js"></script>
+<script src="../Web/js/script.js"></script>
+<script src="../Web/js/bootstrap.min.js"></script>
+<script src="../Web/js/bootbox.min.js"></script>
 <script src="../Web/select/multiple-select.js"></script>
 
 <!-- Includ Scripts JS -->

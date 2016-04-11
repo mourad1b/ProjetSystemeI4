@@ -8,7 +8,7 @@
             <input class="search" />
             <button class="sort btn btn-default" data-sort="nom">Tri par Nom</button>
             <button class="sort btn btn-default" data-sort="contenu">Tri par Contenu</button>
-            <button id="btnNewNews" class="btn btn-warning btnNewNews" data-toggle="modal" data-target="#modal">Nouveau</button>
+            <button id="btnNewNews" class="btn btn-warning btnNewNewsletter" data-toggle="modal" data-target="#modal">Nouveau</button>
             <ul class="menu list-unstyled">
                 <li class="row">
                     <div class="idNewsletter col-md-1">Id</div>
@@ -42,8 +42,9 @@
                     <div class="form-group">
                         <label for="inputContenu" class="col-sm-2 control-label"><strong>Contenu<span>*</span></strong></label>
                         <div class="col-sm-9">
-                            <textarea class="form-control inputContenu " id="inputContenu" name="inputContenu" value=""></textarea>
-                            <!--<input class="form-control inputContenu modalRequired" id="inputContenu" name="inputContenu" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">-->
+                            <!--<textarea class="form-control inputContenu " id="inputContenu" name="inputContenu" value=""></textarea>
+                            -->
+                            <input class="form-control inputContenu modalRequired" id="inputContenu" name="inputContenu" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">
                             <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
                         </div>
                     </div>
@@ -60,7 +61,6 @@
 <!-- JS -->
 <script src="../Web/scripts/Newsletter2.js"></script>
 <!-- tinymce -->
-
 <script src='https://cdn.tinymce.com/4/tinymce.min.js'></script>
 <script src='../Web/tinymce/tinymce.min.js'></script>
 

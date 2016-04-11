@@ -55,7 +55,7 @@ if (isset($_GET['page'])) {
                 $urlAction = $_GET['action'];
                 if ($urlAction == "create") {
                     $userController->addUserAction();
-                }elseif($urlAction == "importer_csv") {
+                }elseif($urlAction == "importer_users") {
                     $userController->handleFormUploadFileAction();
                 }elseif($urlAction == "list") {
                     $userController->getUsersAction();
@@ -133,7 +133,7 @@ if (isset($_GET['page'])) {
                     $id = $_GET['idNewsletter'];
                     $newsletterController->getNewsletterByIdAction($id);
                 } elseif ($urlAction == "update") {
-                    $news = new Newsletter($_POST['idNewsletter'], $_POST['nomNewsletter'], $_POST['texteNewsletter'], $_POST['lienNewsletter']);
+                    $news = new Newsletter($_POST['idNewsletter'], $_POST['nomNewsletter'], $_POST['contenuNewsletter'], $_POST['lienNewsletter']);
                     $newsletterController->updateNewsletterAction($news);
                 } elseif ($urlAction == "delete") {
                     $newsletterController->deleteNewsletterAction();

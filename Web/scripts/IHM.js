@@ -141,6 +141,7 @@ var IHM = (function() {
         validateModal : function() {
         	
         	var mustBeDisabled = false;
+			var val = null;
 
             $('.modalRequired').each(function( index ) {
             	val = $( this ).val();

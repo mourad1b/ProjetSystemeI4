@@ -1,8 +1,8 @@
-var Newsletter3 = (function() {
+var Newsletter2 = (function() {
     var options = {
         item: '<li class="row"><div class="idNewsletter col-md-1"></div><div class="nom col-md-3"></div>' +
-        '<div class="contenu col-md-3"></div><div class="lien col-md-4"></div><div class="col-md-1 text-right">' +
-        '<button class="btnUpdateUser btn btn-info btn-xs" data-toggle="modal" data-target="#modal">Modifier</button>' +
+        '<div class="contenu col-md-4"></div><div class="lien col-md-3"></div><div class="col-md-1 text-right">' +
+        '<button class="btnUpdateNewsletter btn btn-info btn-xs" data-toggle="modal" data-target="#modal">Modifier</button>' +
         '<button id="btnDeleteNewsletter" class="btnDeleteNewsletter btn btn-info btn-xs">Supprimer</button></div></li>'
     };
 
@@ -86,24 +86,24 @@ var Newsletter3 = (function() {
 
             modal.on('click', '.btn-primary', function () {
                 $.ajax({
-                        url:  _url + "&action=" + _action + '&idNewsletter=' + idNewsletter,
-                        type: 'POST',
-                        data : {
-                            Newsletter: Newsletter
-                        }
-                        //context: document.body
-                    })
-                    .done(function () {
-                        bootbox.alert("Suppression ok.");
-                        //modal.hide();
-                    });
+                    url:  _url + "&action=" + _action + '&idNewsletter=' + idNewsletter,
+                    type: 'POST',
+                    data : {
+                        idNewsletter: idNewsletter
+                    }
+                    //context: document.body
+                })
+                .done(function () {
+                    bootbox.alert("Suppression ok.");
+                    //modal.hide();
+                });
             });
         });
 
         btnSubmitNewsletter.click(function() {
             idNewsletter = $('#inputIdNewsletter').val();
             nom = $('#inputNom').val();
-            conten = $('#inputContenu').val();
+            contenu = $('#inputContenu').val();
             lien = $.trim($('#inputMail').val());
 
             if(nom == "") {
@@ -129,8 +129,8 @@ var Newsletter3 = (function() {
                         case "update":
                             var li = $('.fillSource');
                             li.find('.nom').text(nom);
-                            li.find('.contenu').text(prenom);
-                            li.find('.lien').text(mail);
+                            li.find('.contenu').text(contenu);
+                            li.find('.lien').text(lien);
                             bootbox.alert("Mise à jour ok.");
                             modal.hide();
                             break;
@@ -147,9 +147,10 @@ var Newsletter3 = (function() {
 
     return {
         init : function() {
+            //initList();
             _getNewsletters();
             _initEvents();
         }
     };
 })();
-$(document).ready(Newsletter3.init());
+$(document).ready(Newsletter2.init());

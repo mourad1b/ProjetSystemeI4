@@ -31,7 +31,7 @@ class NewsletterRepository
             exit('Utilisateur non trouvé');
         }
 
-        return new Newsletter($raw['id_newsletter'], $raw['nom'], $raw['texte'], $raw['lien']);
+        return new Newsletter($raw['id_newsletter'], $raw['nom'], $raw['contenu'], $raw['lien']);
     }
 
     public function findAll()
@@ -42,7 +42,7 @@ class NewsletterRepository
         $hydrated = array();
 
         foreach ($raw as $news) {
-            $hydrated[] = new Newsletter($news['id_newsletter'], $news['nom'], $news['texte'], $news['lien']);
+            $hydrated[] = new Newsletter($news['id_newsletter'], $news['nom'], $news['contenu'], $news['lien']);
         }
 
         return $hydrated;
@@ -52,19 +52,19 @@ class NewsletterRepository
     {
         //$result = $this->db->SqlValue("Select `nom` From newsletter where `nom` = '".$newsletter->getNom()."' LIMIT 1 ");
         //$req = mysql_fetch_array($result);
-        $this->db->Sql("INSERT INTO newsletter (nom, texte, lien) VALUES(:nom,:texte,:lien)",
+        $this->db->Sql("INSERT INTO newsletter (nom, contenu, lien) VALUES(:nom,:contenu,:lien)",
             array(  'nom' => $newsletter->getNom(),
-                'texte' => $newsletter->getTexte(),
+                'contenu' => $newsletter->getTexte(),
                 'lien' => $newsletter->getLien()));
     }
 
     public function update(Newsletter $news)
     {
-        $this->db->Sql("UPDATE newsletter SET nom =:nom, texte =:texte, lien=:lien WHERE id_newsletter=:id",
+        $this->db->Sql("UPDATE newsletter SET nom =:nom, contenu =:contenu, lien=:lien WHERE id_newsletter=:id",
             array(
                 'id' => $news->getId(),
                 'nom' => $news->getNom(),
-                'texte' => $news->getTexte(),
+                'contenu' => $news->getTexte(),
                 'lien' => $news->getLien()));
 
         //$id = $this->db->lastInsertId();
