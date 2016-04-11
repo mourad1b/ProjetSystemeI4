@@ -163,7 +163,7 @@ var User2 = (function() {
                 },
                     {
                         label: "Valider",
-                        className: "btn-success btnImporterCSV buttonValide",
+                        className: "btn-success btnImporterCSV uploadButton buttonValide",
                         callback: function () {
                             //Example.show("Hello");
                         }
@@ -193,6 +193,29 @@ var User2 = (function() {
                         return false;
                     }
 
+                    if($("input[type='file']")[0].files.length > 0) {
+                        var form_data = new FormData();
+                        form_data.append("file", $("input[type='file']")[0].files[0]);
+
+                        $.ajax({
+                            //csrf:true,
+                            url: _url + "&action=fileupload",
+                            processData: false, // Important pour l'upload
+                            contentType: false, // Important pour l'upload
+                            data: form_data,
+                            type: "POST"
+                        }).done(function ( jqXHR , textStatus) {
+                            var upload = $('.addFile').find('.uploadButton');
+                            upload.addClass('disabled');
+                            if (textStatus == "success") {
+                                $('.btn-file :file').parents('.input-group').find(':text').val('');
+                                bootbox.alert("Utilisateurs ajoutés avec succès");
+                            }
+                            //_getFiles();
+                        }).fail();
+                    }else bootbox.alert("Erreur Fichier (vide?)");
+
+                /*
                 var fileUpload = document.getElementById("filecsv");
                 var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv)$/;
 
@@ -226,28 +249,7 @@ var User2 = (function() {
                         return false;
                     }
                 }
-
-                $.ajax({
-                    type: 'POST',
-                    url: _url + "&action=importer_users",
-                    data: file_data,
-                    //async: false,
-                    /*xhr: function() {
-                        myXhr = $.ajaxSettings.xhr();
-                        return myXhr;
-                    },*/
-                    cache: false,
-                    processData: false, // Important pour l'upload : indique à jQuery de ne pas traiter les données
-                    contentType: false // Important pour l'upload : ne pas configurer le contentType
-                    //,context: document.body
-
-                }).success(function (data) {
-                    bootbox.alert("Utilisateurs créés.");
-                }).error(function (data) {
-                    bootbox.alert("Erreur lors du traitement du fichier CSV.");
-                });
-
-
+                */
 
             });
         });

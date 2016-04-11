@@ -55,7 +55,7 @@ if (isset($_GET['page'])) {
                 $urlAction = $_GET['action'];
                 if ($urlAction == "create") {
                     $userController->addUserAction();
-                }elseif($urlAction == "importer_users") {
+                }elseif($urlAction == "fileupload") {
                     $userController->handleFormUploadFileAction();
                 }elseif($urlAction == "list") {
                     $userController->getUsersAction();

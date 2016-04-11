@@ -126,10 +126,10 @@ class UserController
     {
         $users = array();
         // check there are no errors
-        if($_FILES['upload_file_csv']['error'] == 0){
-            $name = $_FILES['upload_file_csv']['name'];
-            $fileinfo = pathinfo($_FILES['upload_file_csv']['name']);
-            $tmpName = $_FILES['upload_file_csv']['tmp_name'];
+        if($_FILES['file']['error'] == 0){
+            $name = $_FILES['file']['name'];
+            $fileinfo = pathinfo($_FILES['file']['name']);
+            $tmpName = $_FILES['file']['tmp_name'];
 
             // check the file is a csv
             if($fileinfo['extension'] == 'csv'){

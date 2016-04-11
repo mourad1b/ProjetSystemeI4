@@ -37,9 +37,9 @@
                 <form class="form-horizontal form addNewUser" id="addNewUser" enctype="multipart/form-data">
                     <!--<div class="form-group">
                         <span class="help-block">Charger un fichier .CSV * <br>(respecter le formalisme suivant : <strong>nom; prenom; mail; telephone</strong>)</span>
-                        <label for="upload_file_csv" class="col-sm-3 control-label"></label>
+                        <label for="filecsv" class="col-sm-3 control-label"></label>
                         <div class="col-sm-12">
-                            <input type="file" class="form-control upload_file_csv modalRequired" id="upload_file_csv" name="upload_file_csv" size="60" onchange="IHM.validateModal()">
+                            <input type="file" class="form-control filecsv modalRequired" id="filecsv" name="filecsv" size="60" onchange="IHM.validateModal()">
                             <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
                         </div>
                     </div>
