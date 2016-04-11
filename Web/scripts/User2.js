@@ -14,12 +14,12 @@ var User2 = (function() {
     var btnSubmitUser = $('.btnSubmitUser');
     var btnUpdateUser = $('.btnUpdateUser');
     var btnNewUser = $('.btnNewUser');
-    var btnImporterCSVUsers = $('.btnImporterCSVUsers');
+    var btnImporterUsers = $('.btnImporterUsers');
     var btnList = $(".list");
 
-    var panelFormFileAddUsers = $('.panelFormFileAddUsers');
+    var panelImporterUsers = $('.panelImporterUsers');
 
-    panelFormFileAddUsers.hide();
+    panelImporterUsers.hide();
 
     function _getUsers() {
         $.ajax({
@@ -149,14 +149,14 @@ var User2 = (function() {
         });
 
 
-        btnImporterCSVUsers.click(function (e) {
+        btnImporterUsers.click(function (e) {
             e.preventDefault();
             IHM.validateModal();
-            _action = "importer_csv";
+            _action = "importer_users";
 
             var modal = bootbox.dialog({
                 title: "Importer des utilisateurs",
-                message: panelFormFileAddUsers.show(),
+                message: panelImporterUsers.show(),
                 buttons: [{
                     label: "Annuler",
                     className: "btn-default btnCancelGroupe"
@@ -176,47 +176,77 @@ var User2 = (function() {
 
             modal.on('click', '.btnImporterCSV', function (e) {
                 e.preventDefault();
-                input_file_csv = $.trim($('.upload_file_csv').val());
+                filecsv = $.trim($('.filecsv').val());
                 //_loaderOn();
 
-                console.log(input_file_csv);
+                // The event listener for the file upload
+                //document.getElementById('filecsv').addEventListener('change', upload, false);
 
-                if($("input[type=file]")[0].files.length > 0) {
-                    var formData = $("input[type=file]")[0].files;
-                    var form_data = new FormData();
-                    form_data.append("file", $("input[type=file]")[0].files[0]);
 
-                    var $form = $(this);
-                    var formdata = (window.FormData) ? new FormData($form[0]) : null;
-                    var _data = (formdata !== null) ? formdata : $form.serialize();
 
-                    console.log(_data);
 
-                }else{
-                    if(input_file_csv == "") {
-                        bootbox.alert('Aucun fichier choisi.');
-                        //cleanForm();
-                        IHM.validateModal();
-                        return "";
+               // $("#filecsv").change(function(e) {
+                   var ext = $("input#filecsv").val().split(".").pop().toLowerCase();
+
+                    if($.inArray(ext, ["csv"]) == -1) {
+                        bootbox.alert('Télécharger un fichier CSV.');
+                        return false;
+                    }
+
+                var fileUpload = document.getElementById("filecsv");
+                var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv)$/;
+
+                var file_data= null;
+                if (regex.test(fileUpload.value.toLowerCase())) {
+                    var reader = new FileReader();
+                    if (typeof (FileReader) != "undefined") {
+                        reader.onload = function (e) {
+                            var table = document.createElement("table");
+                            var rows = e.target.result.split("\n");
+                            for (var i = 0; i < rows.length; i++) {
+                                var row = table.insertRow(-1);
+                                var cells = rows[i].split(",");
+                                for (var j = 0; j < cells.length; j++) {
+                                    var cell = row.insertCell(-1);
+                                    cell.innerHTML = cells[j];
+                                }
+                            }
+                            var dvCSV = document.getElementById("resultcsv");
+                            dvCSV.innerHTML = "";
+                            dvCSV.appendChild(table);
+
+                        }
+                        reader.readAsText(fileUpload.files[0]);
+                        file_data = $("#filecsv").prop("files")[0];
+                        console.log(file_data);
+                        file_data = fileUpload.files[0];
+
+                    } else {
+                        bootbox.alert("Ce navigateur ne supporte pas HTML5.");
+                        return false;
                     }
                 }
 
                 $.ajax({
-                    method: "POST",
-                    url: _url + "&action=importer_csv",
-                    data: {
-                        formData: _data
-                    },
+                    type: 'POST',
+                    url: _url + "&action=importer_users",
+                    data: file_data,
                     //async: false,
-                    //cache: false,
+                    /*xhr: function() {
+                        myXhr = $.ajaxSettings.xhr();
+                        return myXhr;
+                    },*/
+                    cache: false,
                     processData: false, // Important pour l'upload : indique à jQuery de ne pas traiter les données
                     contentType: false // Important pour l'upload : ne pas configurer le contentType
                     //,context: document.body
-                }).done(function (data) {
-                    //$( this ).addClass( "done" );
-                    // _loaderOff();
-                    bootbox.alert("Utilisateurs créés");
+
+                }).success(function (data) {
+                    bootbox.alert("Utilisateurs créés.");
+                }).error(function (data) {
+                    bootbox.alert("Erreur lors du traitement du fichier CSV.");
                 });
+
 
 
             });
