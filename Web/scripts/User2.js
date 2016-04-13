@@ -61,6 +61,7 @@ var User2 = (function() {
             cleanForm();
             IHM.validateModal();
             _action = "create";
+
         });
 
         btnList.on("click",".btnUpdateUser", function(e) {
@@ -100,7 +101,7 @@ var User2 = (function() {
                 })
                     .done(function () {
                         bootbox.alert("Suppression ok.");
-                        //modal.hide();
+                        //_getUsers();
                     });
             });
         });
@@ -138,11 +139,13 @@ var User2 = (function() {
                             li.find('.mail').text(mail);
                             bootbox.alert("Mise à jour ok.");
                             modal.hide();
+                            //_getUsers();
                             break;
                         case "create":
                             userList.add({"idUser": data.idUser, "nomUser": nom, "prenomUser": prenom, "mailUser":mail});
                             bootbox.alert("Enregistrement ok.");
                             modal.hide();
+                            //_getUsers();
                             break;
                     }
                 });
@@ -183,8 +186,6 @@ var User2 = (function() {
                 //document.getElementById('filecsv').addEventListener('change', upload, false);
 
 
-
-
                // $("#filecsv").change(function(e) {
                    var ext = $("input#filecsv").val().split(".").pop().toLowerCase();
 
@@ -196,8 +197,6 @@ var User2 = (function() {
                     if($("input[type='file']")[0].files.length > 0) {
                         var form_data = new FormData();
                         form_data.append("file", $("input[type='file']")[0].files[0]);
-
-                        console.log($("input[type='file']")[0].files[0].length);
 
                         $.ajax({
                             //csrf:true,
@@ -213,7 +212,7 @@ var User2 = (function() {
                                 $('.btn-file :file').parents('.input-group').find(':text').val('');
                                 bootbox.alert("Utilisateurs ajoutés avec succès");
                             }
-                            //_getFiles();
+                           // _getUsers();
                         }).fail(function(){
                             bootbox.alert("Erreur lors du traitement du Fichier");
                         });

@@ -51,11 +51,9 @@ var Groupe2 = (function() {
         }).done(
             function(data) {
                _groupesLi = jQuery.parseJSON(data);
-                initList();
-
-            //$('#listGroupe').text(_groupesLi);
-            //_displayAddFile();
-                //_loaderOff();
+                if(_groupesLi != 0){
+                    initList();
+                }
             })
     };
 
@@ -125,7 +123,7 @@ var Groupe2 = (function() {
             modal.on('click', '.btnAddNewGroupe', function (e) {
                 e.preventDefault();
                 console.log('btnAddNewGroupe');
-                cleanForm();
+                //cleanForm();
                 $('.inputLibelleGroupe').val("");
                 IHM.validateModal();
 
@@ -179,8 +177,8 @@ var Groupe2 = (function() {
 
             modal.on('click', '.btnUpdateGroupe' ,function (e) {
                 e.preventDefault();
-                $("li.fillSource").removeClass('fillSource');
-                $(this).closest("li.row").addClass('fillSource');
+                //$("li.fillSource").removeClass('fillSource');
+                //$(this).closest("li.row").addClass('fillSource');
                 fillForm();
                 idGroupe = $(this).parent().parent().find('.idGroupe').text();
 
@@ -283,7 +281,7 @@ var Groupe2 = (function() {
                         return "";
                     }
 
-                    /*
+
                     $.ajax({
                         method: "POST",
                         url: _url + "&action=affect&idGroupe=" + idGroupe,
@@ -296,7 +294,7 @@ var Groupe2 = (function() {
                         // _loaderOff();
                         bootbox.alert("Utilisateurs affectés au groupe.");
                     });
-                    */
+
 
                 });
             });
