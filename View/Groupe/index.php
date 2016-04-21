@@ -50,7 +50,7 @@ require('../View/Groupe/addGroupeForm.php');
                             </div>
                         </div>
                         <?php /** @var User $user */ foreach($users as $user): ?>
-                            <?php if($user->getIdGroupe() == $groupe->getId()): ?>
+                            <?php //if($user->getIdGroupe() == $groupe->getId()): ?>
                             <div class="level3">
                                 <div class="ligne">
                                     <div class="col icon">
@@ -113,7 +113,7 @@ require('../View/Groupe/addGroupeForm.php');
                                 </div>
 
                             </div>
-                            <?php endif; ?>
+                            <?php //endif; ?>
                         <?php endforeach; ?>
                     </div>
                     <?php endforeach; ?>
