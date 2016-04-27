@@ -34,11 +34,12 @@ $newsletterController = new NewsletterController();
  */
 
 
-if (isset($_POST['formLogin_token'])){
+//@todo décommenter pour l'authentification
+ /* if (isset($_POST['formLogin_token'])){
     //var_dump("index traitement form : " );
     //var_dump($_POST['formLogin_token']);
     $securityController->handleFormLoginAction(); // Traite le formulaire et redirige vers la page d'accueil
-}
+}*/
 /*
 if (isset($_POST['formManageNewsletter'])){
    // var_dump("traitement form Modif News: " );
@@ -163,13 +164,14 @@ if (isset($_GET['page'])) {
             header('Location: index.php');
     }
 } else {
-    if(session_id()===""){
+   /* if(session_id()===""){
         session_start();
         //var_dump("index  : " );
         //var_dump($_SESSION['formLogin_token']);
-    }
+    }*/
     if(isset($_SESSION['formLogin_token'])){
-       // var_dump("formLogin_token  : " );
+        session_start();
+        //var_dump("formLogin_token  : " );
         //var_dump($_SESSION['formLogin_token']);
         $securityController->displayLoginAction();
     }else{

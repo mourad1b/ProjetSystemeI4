@@ -61,12 +61,16 @@
             <h2><!--EPSI--></h2>
         </div>
     </div>
+
+    <?php // if(isset($_POST['formLogin_token'])):
+    //@todo authentification ?>
     <div id="header_right">
-        <p>Bienvenue, <b id="userWelcome" data-idUser="">Nom Prenom</b></p>
+        <p>Bienvenue, <b id="userWelcome" data-idUser=""><?php //echo $_POST['_username']; ?></b></p>
 
         <p><a href="index.php?page=options">Options</a> | <a
                 href="index.php?page=Login">Déconnexion</a></p>
     </div>
+    <?php //endif; ?>
 </div> <!--- header -->
 
 <div id="menu">
@@ -80,6 +84,8 @@
         <li><a href="index.php?page=newsletters" class="radius">Newsletters</a></li>
         <li><a href="index.php?page=mails" class="radius">Mails</a></li>
 
+        <?php //if(isset($_POST['formLogin_token'])):
+        //@todo authentification ?>
         <li>
             <a class="depliant" href="#">Administration &#9660;</a>
             <ul class="sous-menu">
@@ -87,6 +93,7 @@
                 <li><a href="index.php?page=campagnes" class="radius">Campagnes newsletters</a></li>
             </ul>
         </li>
+        <?php //endif; ?>
     </ul>
 </div>
 <br>

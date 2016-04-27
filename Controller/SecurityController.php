@@ -118,8 +118,8 @@ class SecurityController
                 $userLogged = $repos->findWhere($where);
 
 
-                //var_dump("userLogged");
-                //var_dump($userLogged);
+                var_dump("userLogged");
+                var_dump($userLogged);
 
                 /*** unset the form token session variable ***/
                 unset($_SESSION['formLogin_token']);
