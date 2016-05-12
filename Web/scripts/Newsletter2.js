@@ -33,6 +33,13 @@ var Newsletter2 = (function() {
         newsletterList = new List('newsletter-list', options, _newsletters);
     };
 
+    function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    };
+
     function cleanForm() {
         $('#inputIdNewsletter').val("");
         $('#inputNom').val("");
@@ -103,8 +110,9 @@ var Newsletter2 = (function() {
         btnSubmitNewsletter.click(function() {
             idNewsletter = $('#inputIdNewsletter').val();
             nom = $('#inputNom').val();
-            contenu = $('#inputContenu').val();
-            lien = $.trim($('#inputMail').val());
+            tinyMCE.triggerSave();
+            contenu = $("#inputContenu").val();
+            lien = $.trim($('#inputLien').val());
 
             if(nom == "") {
                 bootbox.alert('Nom est obligatoire !');
@@ -135,7 +143,7 @@ var Newsletter2 = (function() {
                             modal.hide();
                             break;
                         case "create":
-                            userList.add({"idNewsletter": data.idNewsletter, "nomNewsletter": nom, "contenuNewsletter": contenu, "lienNewsletter":lien});
+                            newsletterList.add({"idNewsletter": data.idNewsletter, "nomNewsletter": nom, "contenuNewsletter": contenu, "lienNewsletter":lien});
                             bootbox.alert("Enregistrement ok.");
                             modal.hide();
                             break;

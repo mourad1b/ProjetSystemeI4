@@ -42,12 +42,13 @@
                     <div class="form-group">
                         <label for="inputContenu" class="col-sm-2 control-label"><strong>Contenu<span>*</span></strong></label>
                         <div class="col-sm-9">
-                            <!--<textarea class="form-control inputContenu " id="inputContenu" name="inputContenu" value=""></textarea>
-                            -->
-                            <input class="form-control inputContenu modalRequired" id="inputContenu" name="inputContenu" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">
+                            <textarea class="form-control inputContenu " id="inputContenu" name="inputContenu" value=""></textarea>
+
+<!--                            <input class="form-control inputContenu modalRequired" id="inputContenu" name="inputContenu" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">-->
                             <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
-                        </div>
+                        </div
                     </div>
+
                 </form>
             </div>
             <div class="modal-footer">
