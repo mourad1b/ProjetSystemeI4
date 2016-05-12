@@ -1,5 +1,6 @@
 <?php
 use nsNewsletter\Model\Groupe;
+use nsNewsletter\Model\GroupeUserRepository;
 require('../View/Groupe/addGroupeForm.php');
 ?>
 
@@ -50,7 +51,15 @@ require('../View/Groupe/addGroupeForm.php');
                             </div>
                         </div>
                         <?php /** @var User $user */ foreach($users as $user): ?>
-                            <?php //if($user->getIdGroupe() == $groupe->getId()): ?>
+                            <?php
+
+
+                                $raw =array('id_user' => $user->getId(),'id_groupe' => $groupe->getId());
+
+
+                            $rep = new GroupeUserRepository();
+
+                            if($rep->findGroupOfUser($raw) == 1): ?>
                             <div class="level3">
                                 <div class="ligne">
                                     <div class="col icon">
@@ -113,7 +122,7 @@ require('../View/Groupe/addGroupeForm.php');
                                 </div>
 
                             </div>
-                            <?php //endif; ?>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </div>
                     <?php endforeach; ?>

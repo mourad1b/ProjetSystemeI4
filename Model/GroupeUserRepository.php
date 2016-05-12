@@ -26,7 +26,7 @@ class GroupeUserRepository
     {
         $id_user = $ids['$id_user'];
         $id_groupe = $ids['$id_groupe'];
-        $raw = $this->db->SqlLine('SELECT ug.* WHERE ug.id_user = :id_user AND ug.id_groupe = :id_groupe GROUP BY u.id_user ORDER BY u.id_user DESC', array('id_groupe' => $id_groupe, 'id_user' => $id_user, ));
+        $raw = $this->db->SqlLine('SELECT ug.* WHERE ug.id_user =:id_user AND ug.id_groupe =:id_groupe GROUP BY u.id_user ORDER BY u.id_user DESC', array('id_groupe' => $id_groupe, 'id_user' => $id_user, ));
 
         if ($raw == null) {
             header('HTTP/1.0 404 Not Found');
@@ -34,6 +34,15 @@ class GroupeUserRepository
         }
 
         return new GroupeUser($raw['id_user'], $raw['id_groupe']);
+    }
+    public function findGroupOfUser($ids)
+    {
+        $id_user = $ids['id_user'];
+        $id_groupe = $ids['id_groupe'];
+        $raw = $this->db->SqlValue('SELECT * FROM groupe_user WHERE id_user=:id_user AND id_groupe=:id_groupe',array('id_groupe' => $id_groupe, 'id_user' => $id_user));
+        if (empty($raw) )
+            return 0;
+        return 1;
     }
 
     public function findAll()
