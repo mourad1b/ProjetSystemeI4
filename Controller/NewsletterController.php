@@ -87,7 +87,6 @@ class NewsletterController
     {
         $repos = new NewsletterRepository();
         $id = $repos->update($news); // On persiste l'objet dans la base et on récupère son id
-
         $this->indexAction('<strong>Succès !</strong> Newsletter mise à jour.'); // Redirect to index
     }
 

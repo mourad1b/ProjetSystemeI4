@@ -45,7 +45,7 @@ var Newsletter2 = (function() {
         $('#inputNom').val("");
         $('#inputContenu').val("");
         $('#inputLien').val("");
-        $('#modalContent').find(".key").prop('disabled', true);
+        $('#modalContentNews').find(".key").prop('disabled', true);
     };
 
     function fillForm() {
@@ -54,7 +54,7 @@ var Newsletter2 = (function() {
         $('#inputNom').val(li.find('.nom').text());
         $('#inputContenu').val(li.find('.contenu').text());
         $('#inputLien').val(li.find('.lien').text());
-        $('#modalContent').find(".key").prop('disabled', true);
+        $('#modalContentNews').find(".key").prop('disabled', true);
     };
 
     function _initEvents() {
@@ -110,9 +110,9 @@ var Newsletter2 = (function() {
         btnSubmitNewsletter.click(function() {
             idNewsletter = $('#inputIdNewsletter').val();
             nom = $('#inputNom').val();
-            tinyMCE.triggerSave();
-            contenu = $("#inputContenu").val();
+            contenu = $("textarea#inputContenu").val();
             lien = $.trim($('#inputLien').val());
+            tinyMCE.triggerSave();
 
             if(nom == "") {
                 bootbox.alert('Nom est obligatoire !');
@@ -143,7 +143,7 @@ var Newsletter2 = (function() {
                             modal.hide();
                             break;
                         case "create":
-                            newsletterList.add({"idNewsletter": data.idNewsletter, "nomNewsletter": nom, "contenuNewsletter": contenu, "lienNewsletter":lien});
+                            newsletterList.add({"idNewsletter": idNewsletter, "nomNewsletter": nom, "contenuNewsletter": contenu, "lienNewsletter":lien});
                             bootbox.alert("Enregistrement ok.");
                             modal.hide();
                             break;

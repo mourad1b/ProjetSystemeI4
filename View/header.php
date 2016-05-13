@@ -81,7 +81,7 @@
 <div id="bg_sousmenu">
     <ul id="nav">
         <li><a href="index.php" class="radius">Groupes</a></li>
-        <li><a href="index.php?page=newsletters" class="radius">Newsletters</a></li>
+        <li><a href="index.php?page=newsletters" class="radius">Templates</a></li>
         <li><a href="index.php?page=mails" class="radius">Mails</a></li>
 
         <?php //if(isset($_POST['formLogin_token'])):

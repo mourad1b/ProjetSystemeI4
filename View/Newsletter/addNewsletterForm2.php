@@ -33,6 +33,12 @@
             <div class="modal-body">
                 <form class="form-horizontal formActionNews" enctype="multipart/form-data">
                     <div class="form-group">
+                        <label for="inputIdNewsletter" class="col-sm-2 control-label"><strong>Numéro</strong></label>
+                        <div class="col-sm-9">
+                            <input id='inputIdNewsletter' class="form-control inputIdNewsletter key" value=""/>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="inputNom" class="col-sm-2 control-label"><strong>Libellé<span>*</span></strong></label>
                         <div class="col-sm-9">
                             <input id="inputNom" class="form-control inputNom modalRequired" name="inputNom" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">
@@ -42,7 +48,7 @@
                     <div class="form-group">
                         <label for="inputContenu" class="col-sm-2 control-label"><strong>Contenu<span>*</span></strong></label>
                         <div class="col-sm-9">
-                            <textarea class="form-control inputContenu " id="inputContenu" name="inputContenu" value=""></textarea>
+                            <textarea class="form-control inputContenu " id="inputContenu" name="inputContenu" value="" style="width:100%"></textarea>
 
 <!--                            <input class="form-control inputContenu modalRequired" id="inputContenu" name="inputContenu" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">-->
                             <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
