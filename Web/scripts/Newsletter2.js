@@ -6,7 +6,7 @@ var Newsletter2 = (function() {
         '<button id="btnDeleteNewsletter" class="btnDeleteNewsletter btn btn-info btn-xs">Supprimer</button></div></li>'
     };
 
-    var _newsletters, newsletterList, li, idNewsletter, nom, contenu, lien;
+    var _newsletters, newsletterList, _newslettersNewList, li, idNewsletter, nom, contenu, lien;
     var _url = "../Web/index.php?page=newsletters";
 
     var _action;
@@ -24,20 +24,20 @@ var Newsletter2 = (function() {
             .done(function(data) {
                 //data = [{"id":"2","nom":"BEN","prenom":"Mourad","mail":"mourad_ben@test.com"}, {"id":"3","nom":"Loue","prenom":"Arnauld","mail":"Ar.loue@test.net"},{"id":"5","nom":"toto","prenom":"titi","mail":"toto.titi@test-auth.fr"}];
                 _newsletters = jQuery.parseJSON(data);
-                //console.log(_users);
+
+                if(_action =="create"){
+                    $.each( _newsletters, function( key, value ) {
+                       if(key == (_newsletters.length-1)){
+                           newsletterList.add({idNewsletter: value.idNewsletter, nom: value.nom, "contenu": value.contenu, "lien":value.lien});
+                       }
+                    });
+                }
                 initList();
             });
     };
 
     function initList() {
         newsletterList = new List('newsletter-list', options, _newsletters);
-    };
-
-    function test_input($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
     };
 
     function cleanForm() {
@@ -102,17 +102,20 @@ var Newsletter2 = (function() {
                 })
                 .done(function () {
                     bootbox.alert("Suppression ok.");
-                    //modal.hide();
+                    modal.hide();
+                    newsletterList.remove({"idNewsletter": idNewsletter, "nomNewsletter": nom, "contenuNewsletter": contenu, "lienNewsletter":lien});
+                    _getNewsletters();
                 });
             });
         });
 
         btnSubmitNewsletter.click(function() {
+            tinyMCE.triggerSave(); //  pour la creation de template
             idNewsletter = $('#inputIdNewsletter').val();
             nom = $('#inputNom').val();
             contenu = $("textarea#inputContenu").val();
             lien = $.trim($('#inputLien').val());
-            tinyMCE.triggerSave();
+            tinyMCE.triggerSave();  //  pour la modification du template
 
             if(nom == "") {
                 bootbox.alert('Nom est obligatoire !');
@@ -121,7 +124,7 @@ var Newsletter2 = (function() {
                 return "";
             }
 
-            $.ajax({
+            Ajax.now({
                     //csrf: true,
                     url : _url + "&action=" + _action +  ((_action === 'update') ? '&idNewsletter=' + idNewsletter : ''),
                     type: 'POST',
@@ -141,11 +144,13 @@ var Newsletter2 = (function() {
                             li.find('.lien').text(lien);
                             bootbox.alert("Mise à jour ok.");
                             modal.hide();
+                            //_getNewsletters();
                             break;
+
                         case "create":
-                            newsletterList.add({"idNewsletter": idNewsletter, "nomNewsletter": nom, "contenuNewsletter": contenu, "lienNewsletter":lien});
                             bootbox.alert("Enregistrement ok.");
                             modal.hide();
+                            _getNewsletters();
                             break;
                     }
                 });

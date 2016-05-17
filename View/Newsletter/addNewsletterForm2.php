@@ -48,7 +48,7 @@
                     <div class="form-group">
                         <label for="inputContenu" class="col-sm-2 control-label"><strong>Contenu<span>*</span></strong></label>
                         <div class="col-sm-9">
-                            <textarea class="form-control inputContenu " id="inputContenu" name="inputContenu" value="" style="width:100%"></textarea>
+                            <textarea class="form-control inputContenu " id="inputContenu" name="inputContenu" value=""></textarea>
 
 <!--                            <input class="form-control inputContenu modalRequired" id="inputContenu" name="inputContenu" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">-->
                             <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
@@ -67,6 +67,7 @@
 
 <!-- JS -->
 <script src="../Web/scripts/Newsletter2.js"></script>
+<script src="../Web/scripts/Ajax.js"></script>
 <!-- tinymce -->
 <script src='https://cdn.tinymce.com/4/tinymce.min.js'></script>
 <script src='../Web/tinymce/tinymce.min.js'></script>

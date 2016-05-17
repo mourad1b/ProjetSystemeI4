@@ -133,10 +133,7 @@ require('../View/Groupe/addGroupeForm.php');
     <!-- PageContent -->
     <div id="menu_right">
         <h1>Informations</h1>
-
-        <p>=> sur l'utilisateur ??</p>
-
-        <p> => sur la newsletters ??</p>
+        <p> => Historique des campagnes newsletters </p>
 
         <p></p>
     </div>
