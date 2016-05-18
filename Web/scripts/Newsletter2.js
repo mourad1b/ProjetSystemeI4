@@ -56,8 +56,7 @@ var Newsletter2 = (function() {
         $('#inputLien').val(li.find('.lien').text());
         $('#modalContentNews').find(".key").prop('disabled', true);
         var ed = tinyMCE.get('inputContenu');
-        console.log(ed.setContent("'"+li.find('.contenu').text()+"'"));
-        //tinyMCE.setContent(li.find('.contenu').text());  //  pour la modification du template
+        ed.setContent(li.find('.contenu').text());
     };
 
     function _initEvents() {
