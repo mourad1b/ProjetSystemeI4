@@ -88,11 +88,18 @@ class UserController
 
         $to_email = $user->getMail();
         $from_email = $user->getMail();
-        $subject = "Confirmation de création";
-        $message =  "Votre utilisateur a correctement été enregistrée !\nConsultez l'ensemble des mails via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\nSupprimez un mail via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\n\nVous recevrez un mail en cas de nouveau mail.";
+        //$subject = "Confirmation de création";
+        //$message =  "Votre utilisateur a correctement été enregistrée !\nConsultez l'ensemble des mails via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\nSupprimez un mail via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\n\nVous recevrez un mail en cas de nouveau mail.";
 
+        /*$subject = "Un petit coucou";
+        $message =  "Coucou, Un petit coucou depuis mon appli ;-)";
+
+        $mail = new MailSenderController();
+        $mail->send($to_email, $subject, $message, array());
+        */
         //$send = $this->sendMail($to_email, $from_email, $subject, $message);
         //$send = $this->send();
+
         $this->indexAction('<strong>Succès !</strong> Utilisateur mis à jour.'); // Redirect to index
     }
 
@@ -172,7 +179,7 @@ class UserController
         }
     }
 
-    public function sendMail($to, $from_user, $from_email,
+    public function sendMai($to, $from_user, $from_email,
         $subject = '(No subject)', $message = '')
     {
         $from_user = "=?UTF-8?B?".base64_encode($from_user)."?=";
