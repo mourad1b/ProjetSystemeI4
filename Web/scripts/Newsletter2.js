@@ -27,9 +27,9 @@ var Newsletter2 = (function() {
 
                 if(_action =="create"){
                     $.each( _newsletters, function( key, value ) {
-                       if(key == (_newsletters.length-1)){
-                           newsletterList.add({idNewsletter: value.idNewsletter, nom: value.nom, "contenu": value.contenu, "lien":value.lien});
-                       }
+                        if(key == (_newsletters.length-1)){
+                            newsletterList.add({idNewsletter: value.idNewsletter, nom: value.nom, "contenu": value.contenu, "lien":value.lien});
+                        }
                     });
                 }
                 initList();
@@ -52,9 +52,12 @@ var Newsletter2 = (function() {
         li = $('.fillSource');
         $('#inputIdNewsletter').val(li.find('.idNewsletter').text());
         $('#inputNom').val(li.find('.nom').text());
-        $('#inputContenu').val(li.find('.contenu').text());
+        $('textarea#inputContenu').val(li.find('.contenu').text());
         $('#inputLien').val(li.find('.lien').text());
         $('#modalContentNews').find(".key").prop('disabled', true);
+        var ed = tinyMCE.get('inputContenu');
+        console.log(ed.setContent("'"+li.find('.contenu').text()+"'"));
+        //tinyMCE.setContent(li.find('.contenu').text());  //  pour la modification du template
     };
 
     function _initEvents() {
@@ -93,19 +96,19 @@ var Newsletter2 = (function() {
 
             modal.on('click', '.btn-primary', function () {
                 $.ajax({
-                    url:  _url + "&action=" + _action + '&idNewsletter=' + idNewsletter,
-                    type: 'POST',
-                    data : {
-                        idNewsletter: idNewsletter
-                    }
-                    //context: document.body
-                })
-                .done(function () {
-                    bootbox.alert("Suppression ok.");
-                    modal.hide();
-                    newsletterList.remove({"idNewsletter": idNewsletter, "nomNewsletter": nom, "contenuNewsletter": contenu, "lienNewsletter":lien});
-                    _getNewsletters();
-                });
+                        url:  _url + "&action=" + _action + '&idNewsletter=' + idNewsletter,
+                        type: 'POST',
+                        data : {
+                            idNewsletter: idNewsletter
+                        }
+                        //context: document.body
+                    })
+                    .done(function () {
+                        bootbox.alert("Suppression ok.");
+                        modal.hide();
+                        newsletterList.remove({"idNewsletter": idNewsletter, "nomNewsletter": nom, "contenuNewsletter": contenu, "lienNewsletter":lien});
+                        _getNewsletters();
+                    });
             });
         });
 
@@ -144,6 +147,9 @@ var Newsletter2 = (function() {
                             li.find('.lien').text(lien);
                             bootbox.alert("Mise à jour ok.");
                             modal.hide();
+                            console.log(contenu);
+
+                            tinyMCE.triggerSave();  //  pour la modification du template
                             //_getNewsletters();
                             break;
 
