@@ -6,7 +6,7 @@ var Newsletter2 = (function() {
         '<button id="btnDeleteNewsletter" class="btnDeleteNewsletter btn btn-info btn-xs">Supprimer</button></div></li>'
     };
 
-    var _newsletters, newsletterList, _newslettersNewList, li, idNewsletter, nom, contenu, lien;
+    var _newsletters, newsletterList, li, idNewsletter, nom, contenu, lien;
     var _url = "../Web/index.php?page=newsletters";
 
     var _action;
@@ -24,10 +24,26 @@ var Newsletter2 = (function() {
             .done(function(data) {
                 //data = [{"id":"2","nom":"BEN","prenom":"Mourad","mail":"mourad_ben@test.com"}, {"id":"3","nom":"Loue","prenom":"Arnauld","mail":"Ar.loue@test.net"},{"id":"5","nom":"toto","prenom":"titi","mail":"toto.titi@test-auth.fr"}];
                 _newsletters = jQuery.parseJSON(data);
+                var ed = tinyMCE.get('inputContenu');
+                //ed.setContent(value.contenu); // contenu html
 
                 if(_action =="create"){
                     $.each( _newsletters, function( key, value ) {
                         if(key == (_newsletters.length-1)){
+                            //@todo pouvoir ajouter un contenu formaté en balise html !!! => facile pour les template existants !
+                            /*var parser = new tinymce.html.DomParser({validate: true});
+                            var rootNode = parser.parse(value.contenu);
+                            */
+                            //var rootNode = new tinymce.html.Serializer().serialize(new tinymce.html.DomParser().parse('<p>text</p>'));
+                            //console.log(rootNode);
+
+                            /*
+                            var writer = new tinymce.html.Writer({indent: true});
+                            var parser = new tinymce.html.SaxParser(writer).parse('<p><br></p>');
+                            console.log(writer.getContent());
+                            */
+
+                            //console.log(tinyMCE.activeEditor.getContent());
                             newsletterList.add({idNewsletter: value.idNewsletter, nom: value.nom, "contenu": value.contenu, "lien":value.lien});
                         }
                     });
@@ -56,7 +72,7 @@ var Newsletter2 = (function() {
         $('#inputLien').val(li.find('.lien').text());
         $('#modalContentNews').find(".key").prop('disabled', true);
         var ed = tinyMCE.get('inputContenu');
-        ed.setContent(li.find('.contenu').text());
+        ed.setContent(li.find('.contenu').text()); // contenu html
     };
 
     function _initEvents() {
