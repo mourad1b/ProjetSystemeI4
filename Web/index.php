@@ -3,15 +3,18 @@
 namespace nsNewsletter\Web;
 
 use nsNewsletter\Autoloader;
+use nsNewsletter\Controller\CampagneController;
 use nsNewsletter\Controller\GroupeController;
 use nsNewsletter\Controller\MailController;
 use nsNewsletter\Controller\SecurityController;
+use nsNewsletter\Controller\TemplateController;
 use nsNewsletter\Controller\UserController;
 use nsNewsletter\Controller\NewsletterController;
 use nsNewsletter\Model\Mail;
 use nsNewsletter\Model\Newsletter;
 use nsNewsletter\Model\User;
 use nsNewsletter\Model\Groupe;
+
 
 /**
  * Autoloading
@@ -24,6 +27,8 @@ $groupeController = new GroupeController();
 $mailController = new MailController();
 $securityController = new SecurityController();
 $newsletterController = new NewsletterController();
+$campagneController = new CampagneController();
+$templateController = new TemplateController();
 
 /***********
  * Routing *
@@ -120,7 +125,11 @@ if (isset($_GET['page'])) {
             break;
 
         case 'campagnes':
-            $groupeController->indexAction();
+            $campagneController->displayGroupeAction();
+            break;
+
+        case 'templates':
+            $templateController->displayTemplateAction();
             break;
 
         case 'newsletters':

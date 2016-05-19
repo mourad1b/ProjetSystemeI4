@@ -21,6 +21,29 @@
     <link rel="stylesheet" href="../Web/styles/css/auth/app_bootstrap.min_2.css">
 -->
 
+    <!-- ==========================Pour la vue des templates ================================-->
+    <!-- Themify Icons
+    <link rel="stylesheet" href="../Web/cssTemplates/css/themify-icons.css">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../Web/cssTemplates/css/bootstrap.css">
+
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="../Web/css/cssTemplates/owl.carousel.min.css">
+    <link rel="stylesheet" href="../Web/css/cssTemplates/owl.theme.default.min.css">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="../Web/css/cssTemplates/magnific-popup.css">
+    <!-- Superfish -->
+    <link rel="stylesheet" href="../Web/css/cssTemplates/superfish.css">
+    <!-- Easy Responsive Tabs -->
+    <link rel="stylesheet" href="../Web/css/cssTemplates/easy-responsive-tabs.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="../Web/css/cssTemplates/animate.css">
+    <!-- Theme Style -->
+    <link rel="stylesheet" href="../Web/css/cssTemplates/style.css">
+
+    <!-- ==========================fin Pour la vue des templates ================================-->
+
 </head>
 
 <body>
@@ -81,16 +104,17 @@
 <div id="bg_sousmenu">
     <ul id="nav">
         <li><a href="index.php" class="radius">Groupes</a></li>
-        <li><a href="index.php?page=newsletters" class="radius">Templates</a></li>
-        <li><a href="index.php?page=mails" class="radius">Mails</a></li>
+        <li><a href="index.php?page=campagnes" class="radius">Campagnes</a></li>
+        <li><a href="index.php?page=templates" class="radius">Templates</a></li>
 
         <?php //if(isset($_POST['formLogin_token'])):
         //@todo authentification ?>
         <li>
             <a class="depliant" href="#">Administration &#9660;</a>
             <ul class="sous-menu">
-                <li><a href="index.php?page=users" class="radius">Gestion utilisateurs</a></li>
-                <li><a href="index.php?page=campagnes" class="radius">Campagnes newsletters</a></li>
+                <li><a href="index.php?page=newsletters" class="radius">Gestion Templates</a></li>
+                <li><a href="index.php?page=mails" class="radius">Mails</a></li>
+                <li><a href="index.php?page=users" class="radius">Utilisateurs</a></li>
             </ul>
         </li>
         <?php //endif; ?>
