@@ -1,6 +1,6 @@
 <h3 class="text-center" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
     xmlns="http://www.w3.org/1999/html">Gestion des groupes</h3>
-
+<br>
 <div class="panels">
     <div class="panel panel-info panelFormListGroupe">
         <div class="panel-heading">
