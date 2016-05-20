@@ -14,6 +14,7 @@ use nsNewsletter\Model\Mail;
 use nsNewsletter\Model\Newsletter;
 use nsNewsletter\Model\User;
 use nsNewsletter\Model\Groupe;
+use nsNewsletter\Model\Campagne;
 
 
 /**
@@ -125,7 +126,24 @@ if (isset($_GET['page'])) {
             break;
 
         case 'campagnes':
-            $campagneController->displayGroupeAction();
+            if (isset($_GET['action'])) {
+                $urlAction = $_GET['action'];
+                if ($urlAction == "create") {
+                    $campagneController->addCampagneAction();
+                }elseif($urlAction == "read") {
+                    $id = $_GET['idCampagne'];
+                    $campagneController->getCampagneByIdAction($id);
+                }elseif($urlAction == "list") {
+                    $campagneController->getCampagnesAction();
+                }elseif ($urlAction == "update") {
+                    $campagne= new Campagne($_POST['idCampagne'], $_POST['libelleCampagne'], $_POST['objetCampagne'], $_POST['idNewsletter'], $_POST['idGroupe'], $_POST['mailUser']);
+                    $campagneController->updateCampagneAction($campagne);
+                } elseif ($urlAction == "delete") {
+                    $campagneController->deleteCampagneAction();
+                }
+            }else{
+                $campagneController->displayCampagneAction();
+            }
             break;
 
         case 'templates':

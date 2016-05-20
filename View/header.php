@@ -25,9 +25,9 @@
     <!-- Themify Icons
     <link rel="stylesheet" href="../Web/cssTemplates/css/themify-icons.css">
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="../Web/cssTemplates/css/bootstrap.css">
-
+    <!-- Bootstrap
+    <link rel="stylesheet" href="../Web/css/cssTemplates/bootstrap.css">
+    -->
     <!-- Owl Carousel -->
     <link rel="stylesheet" href="../Web/css/cssTemplates/owl.carousel.min.css">
     <link rel="stylesheet" href="../Web/css/cssTemplates/owl.theme.default.min.css">
