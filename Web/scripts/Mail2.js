@@ -24,6 +24,13 @@ var Mail2 = (function() {
             .done(function(data) {
                 //data = [{"id":"2","nom":"BEN","prenom":"Mourad","mail":"mourad_ben@test.com"}, {"id":"3","nom":"Loue","prenom":"Arnauld","mail":"Ar.loue@test.net"},{"id":"5","nom":"toto","prenom":"titi","mail":"toto.titi@test-auth.fr"}];
                 _mails = jQuery.parseJSON(data);
+                if(_action =="create"){
+                    $.each( _mails, function( key, value ) {
+                        if (key == (_mails.length - 1)) {
+                            mailList.add({"idMail": value.idMail, "libelle": value.libelle, "objet": value.objet, "corps":value.corps});
+                        }
+                    });
+                }
                 initList();
             });
     };
@@ -97,10 +104,10 @@ var Mail2 = (function() {
             //context: document.body
              })
                  .done(function () {
-                     //mailList.add({"idMail": idMail, "libelleMail": libelle, "objetMail": objet, "corpsMail":corps});
-                     //mailList.add();
+                     mailList.remove({"idMail": idMail, "libelleMail": libelle, "objetMail": objet, "corpsMail":corps});
+                     modal.hide();
                      bootbox.alert("Suppression ok.");
-                     //modal.hide();
+                     _getMails();
                 });
              });
         });
@@ -152,9 +159,9 @@ var Mail2 = (function() {
                             modal.hide();
                             break;
                         case "create":
-                            mailList.add({"idMail": idMail, "libelleMail": libelle, "objetMail": objet, "corpsMail":corps});
                             bootbox.alert("Enregistrement ok.");
                             modal.hide();
+                            _getMails();
                             break;
                     }
                 });

@@ -29,7 +29,13 @@ var User2 = (function() {
             .done(function(data) {
                 //data = [{"id":"2","nom":"BEN","prenom":"Mourad","mail":"mourad_ben@test.com"}, {"id":"3","nom":"Loue","prenom":"Arnauld","mail":"Ar.loue@test.net"},{"id":"5","nom":"toto","prenom":"titi","mail":"toto.titi@test-auth.fr"}];
                 _users = jQuery.parseJSON(data);
-                //console.log(_users);
+                if(_action =="create"){
+                    $.each( _users, function( key, value ) {
+                        if (key == (_users.length - 1)) {
+                            userList.add({"idUser": value.idUser, "nom": value.nom, "prenom": value.prenom, "mail":value.mail});
+                        }
+                    });
+                }
                 initList();
             });
     };
@@ -101,7 +107,9 @@ var User2 = (function() {
                 })
                     .done(function () {
                         bootbox.alert("Suppression ok.");
-                        //_getUsers();
+                        modal.hide();
+                        userList.remove({"idUser": idUser, "nomUser": nom, "prenomUser": prenom, "mailUser":mail});
+                        _getUsers();
                     });
             });
         });
@@ -142,10 +150,9 @@ var User2 = (function() {
                             //_getUsers();
                             break;
                         case "create":
-                            userList.add({"idUser": data.idUser, "nomUser": nom, "prenomUser": prenom, "mailUser":mail});
                             bootbox.alert("Enregistrement ok.");
                             modal.hide();
-                            //_getUsers();
+                            _getUsers();
                             break;
                     }
                 });

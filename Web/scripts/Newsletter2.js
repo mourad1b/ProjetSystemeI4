@@ -162,8 +162,6 @@ var Newsletter2 = (function() {
                             li.find('.lien').text(lien);
                             bootbox.alert("Mise à jour ok.");
                             modal.hide();
-                            console.log(contenu);
-
                             tinyMCE.triggerSave();  //  pour la modification du template
                             //_getNewsletters();
                             break;
