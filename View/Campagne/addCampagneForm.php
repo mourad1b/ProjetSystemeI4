@@ -26,7 +26,7 @@
         <div id="modalContentCampagne" class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Gestion des templates</h4>
+                <h4 class="modal-title" id="myModalLabel">Gestion des Campagnes</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal formActionCampagne" enctype="multipart/form-data">
@@ -58,14 +58,22 @@
                     <div class="form-group">
                         <label for="inputTemplate" class="col-sm-2 control-label"><strong>Template<span>*</span></strong></label>
                         <div class="col-sm-9">
-                            <input class="form-control inputTemplate modalRequired" id="inputTemplate" name="inputTemplate" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">
-                            <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
+                            <select class="form-control inputTemplate modalRequired" id="inputTemplate" name="inputTemplate" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">
+                                <option></option>
+                                <option>Template 1</option>
+                                <option>Template 2</option>
+                            </select>
+                                <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputGroupe" class="col-sm-2 control-label"><strong>Groupe<span>*</span></strong></label>
                         <div class="col-sm-9">
-                            <input class="form-control inputGroupe modalRequired" id="inputGroupe" name="inputGroupe" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">
+                            <select class="form-control inputGroupe modalRequired" id="inputGroupe" name="inputGroupe" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">
+                                <option></option>
+                                <option>Groupe 1</option>
+                                <option>Groupe 2</option>
+                            </select>
                             <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
                         </div>
                     </div>
