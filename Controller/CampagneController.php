@@ -8,6 +8,7 @@ namespace nsNewsletter\Controller;
 use nsNewsletter\Model\Campagne;
 use nsNewsletter\Model\CampagneRepository;
 use nsNewsletter\Model\NewsletterRepository;
+use nsNewsletter\Controller\MailSenderController;
 
 
 class CampagneController
@@ -95,6 +96,16 @@ class CampagneController
         $campagne = $repos->find($id); // On persiste l'objet dans la base et on récupère son id
 
         return $campagne;
+    }
+
+    public function sendCampagneAction(Campagne $campagne)
+    {
+        $repos = new MailSenderController();
+        $id = $repos->send($campagne);
+
+        // campagne($campagne->getCampagne(), "Confirmation de création", "Votre utilisateur a correctement été enregistrée !\nConsultez l'ensemble des campagnes via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\nSupprimez un campagne via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\n\nVous recevrez un campagne en cas de nouveau campagne.");
+
+        $this->indexAction('<strong>Succès !</strong> Campagne mis à jour.'); // Redirect to index
     }
 
     public function addCampagneAction()

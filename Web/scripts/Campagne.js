@@ -91,6 +91,13 @@ var Campagne = (function() {
             _action = "update";
         });
 
+        btnList.on("click",".btnSendCampagne", function(e) {
+            e.preventDefault();
+            clearForm();
+            IHM.validateModal();
+            _action = "send";
+        });
+
         btnList.on("click",".btnDeleteCampagne", function(e) {
             e.preventDefault();
             //var contentPanelId = $(e.target)[0].id;
@@ -139,7 +146,7 @@ var Campagne = (function() {
 
             Ajax.now({
                     //csrf: true,
-                    url : _url + "&action=" + _action +  ((_action === 'update') ? '&idCampagne=' + idCampagne : ''),
+                    url : _url + "&action=" + _action +  ((_action === 'update' || _action ==="send") ? '&idCampagne=' + idCampagne : ''),
                     type: 'POST',
                     data : {
                         idCampagne: idCampagne,
@@ -160,6 +167,12 @@ var Campagne = (function() {
 
                         case "create":
                             bootbox.alert("Enregistrement ok.");
+                            modal.hide();
+                            _getCampagnes();
+                            break;
+
+                        case "send":
+                            bootbox.alert("Mail envoyé.");
                             modal.hide();
                             _getCampagnes();
                             break;

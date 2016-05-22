@@ -139,6 +139,10 @@ if (isset($_GET['page'])) {
                 }elseif ($urlAction == "update") {
                     $campagne= new Campagne($_POST['idCampagne'], $_POST['libelleCampagne'], $_POST['objetCampagne'], $_POST['idNewsletter'], $_POST['idGroupe'], $_POST['mailUser']);
                     $campagneController->updateCampagneAction($campagne);
+                }elseif ($urlAction == "send") {
+                    $campagne= new Campagne($_POST['idCampagne'], $_POST['libelleCampagne'], $_POST['objetCampagne'], $_POST['idNewsletter'], $_POST['idGroupe'], $_POST['mailUser']);
+                    $params = array();
+                    $campagneController->sendCampagneAction($campagne, $params);
                 } elseif ($urlAction == "delete") {
                     $campagneController->deleteCampagneAction();
                 }
