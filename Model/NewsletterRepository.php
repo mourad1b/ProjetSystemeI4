@@ -24,11 +24,11 @@ class NewsletterRepository
      */
     public function find($id)
     {
-        $raw = $this->db->SqlLine('SELECT n.* WHERE id_newsletter = :id GROUP BY n.id_newsletter ORDER BY n.id_newsletter DESC', array('id' => $id));
+        $raw = $this->db->SqlLine('SELECT n.* FROM newsletter n WHERE id_newsletter =:id GROUP BY n.id_newsletter ORDER BY n.id_newsletter DESC', array('id' => $id));
 
         if ($raw == null) {
             header('HTTP/1.0 404 Not Found');
-            exit('Utilisateur non trouvé');
+            exit('Template non trouvé');
         }
 
         return new Newsletter($raw['id_newsletter'], $raw['nom'], $raw['contenu'], $raw['lien']);

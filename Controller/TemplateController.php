@@ -5,9 +5,7 @@
 
 namespace nsNewsletter\Controller;
 
-use nsNewsletter\Model\Groupe;
-use nsNewsletter\Model\GroupeRepository;
-use nsNewsletter\Model\UserRepository;
+use nsNewsletter\Model\CampagneRepository;
 
 
 class TemplateController
@@ -35,5 +33,13 @@ class TemplateController
 
     }
 
+    public function getCampagneByIdAction($id)
+    {
+        $repos = new CampagneRepository();
+        $news = $repos->find($id); // On persiste l'objet dans la base et on récupère son id
+
+        return $news;
+        //$this->indexAction(/*'<strong>Succès !</strong> Le mail a bien été créé.'*/); // Redirect to index
+    }
 }
 

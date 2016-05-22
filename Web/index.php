@@ -130,9 +130,10 @@ if (isset($_GET['page'])) {
                 $urlAction = $_GET['action'];
                 if ($urlAction == "create") {
                     $campagneController->addCampagneAction();
-                }elseif($urlAction == "read") {
+                }elseif($urlAction == "affiche") {
                     $id = $_GET['idCampagne'];
                     $campagneController->getCampagneByIdAction($id);
+                    $campagneController->afficheCampagneAction($id);
                 }elseif($urlAction == "list") {
                     $campagneController->getCampagnesAction();
                 }elseif ($urlAction == "update") {
@@ -147,7 +148,17 @@ if (isset($_GET['page'])) {
             break;
 
         case 'templates':
-            $templateController->displayTemplateAction();
+            if (isset($_GET['action'])) {
+                $urlAction = $_GET['action'];
+                if ($urlAction == "create") {
+                } elseif ($urlAction == "list") {
+                } elseif ($urlAction == "update") {
+                } elseif ($urlAction == "delete") {
+                }
+            }
+            else{
+                $templateController->displayTemplateAction();
+            }
             break;
 
         case 'newsletters':
@@ -170,7 +181,6 @@ if (isset($_GET['page'])) {
             else{
                 $newsletterController->displayNewsletterAction();
             }
-
             break;
 
         case 'options':

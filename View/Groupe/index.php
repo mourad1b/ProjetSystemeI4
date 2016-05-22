@@ -52,12 +52,8 @@ require('../View/Groupe/addGroupeForm.php');
                         </div>
                         <?php /** @var User $user */ foreach($users as $user): ?>
                             <?php
-
-
                                 $raw =array('id_user' => $user->getId(),'id_groupe' => $groupe->getId());
-
-
-                            $rep = new GroupeUserRepository();
+                                $rep = new GroupeUserRepository();
 
                             if($rep->findGroupOfUser($raw) == 1): ?>
                             <div class="level3">
@@ -133,9 +129,15 @@ require('../View/Groupe/addGroupeForm.php');
     <!-- PageContent -->
     <div id="menu_right">
         <h1>Informations</h1>
-        <p> => Historique des campagnes newsletters </p>
+        <div> Derniers numéros :</div>
+        <ul class="list-group" style="color: #171a1d;">
+            <?php /**@var \nsNewsletter\Model\Campagne $campagne */ foreach($campagnes as $campagne): ?>
+            <li class="hrefDisplayCampagne" id="hrefDisplayCampagne" data-id="<?php echo $campagne->getId();?>">
+                <a href="<?php echo PATH_TO_FRONT_CONTROLLER . "?page=campagnes&action=affiche&idCampagne=" . $campagne->getId(); ?>" class="list-group-item" style="color: #63707d;">NL-<?php echo $campagne->getId(); ?></a></li>
+        <?php endforeach; ?>
+        </ul>
 
-        <p></p>
     </div>
 </div>
 <script src="../Web/scripts/Groupe2.js"></script>
+<script src="../Web/scripts/Campagne.js"></script>

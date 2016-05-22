@@ -15,6 +15,7 @@ var Campagne = (function() {
     var btnUpdateCampagne = $('.btnUpdateCampagne');
     var btnNewCampagne = $('.btnNewCampagne');
     var btnList = $(".list");
+    var btnDisplayCampagne = $('.hrefDisplayCampagne');
 
     function _getCampagnes() {
         $.ajax({
@@ -48,7 +49,6 @@ var Campagne = (function() {
                         }
                     });
                 }
-                console.log(_campagnes);
                 initList();
             });
     };
@@ -127,10 +127,8 @@ var Campagne = (function() {
         });
 
         btnSubmitCampagne.click(function() {
-            //tinyMCE.triggerSave(); //  pour la creation de template
             idCampagne = $('#inputIdCampagne').val();
             libelle = $('#inputLibelle').val();
-            //tinyMCE.triggerSave();  //  pour la modification du template
 
             if(libelle == "") {
                 bootbox.alert('Libelle est obligatoire !');
@@ -169,6 +167,25 @@ var Campagne = (function() {
                 });
         });
 
+        btnDisplayCampagne.click(function() {
+            idCampagne = $('.hrefDisplayCampagne').data('id');
+            console.log("display campagne : "+idCampagne);
+
+            //$(".afficheCampagne").append("<p>TEST</p>");
+
+            /*Ajax.now({
+                    //csrf: true,
+                    url : _url + '&action=read&idCampagne=' + idCampagne,
+                    type: 'POST',
+                    data : {
+                        idCampagne: idCampagne
+                    }
+                })
+                .done(function(data) {
+                    $.("#afficheCampagne").text("TEST");
+                });
+                */
+        });
     };
 
     return {

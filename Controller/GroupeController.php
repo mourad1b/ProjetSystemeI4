@@ -5,6 +5,8 @@
 
 namespace nsNewsletter\Controller;
 
+use nsNewsletter\Model\Campagne;
+use nsNewsletter\Model\CampagneRepository;
 use nsNewsletter\Model\Groupe;
 use nsNewsletter\Model\GroupeRepository;
 use nsNewsletter\Model\UserRepository;
@@ -26,6 +28,10 @@ class GroupeController
 
         $reposUser = new UserRepository();
         $users = $reposUser->findUsersInGroupeUser();
+
+
+        $repoCamagnes = new CampagneRepository();
+        $campagnes = $repoCamagnes->findAll();
 
         //$userLogged = $reposUser->findWhere();
 

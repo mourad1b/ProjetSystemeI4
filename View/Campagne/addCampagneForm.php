@@ -8,7 +8,7 @@
             <input class="search" />
             <button class="sort btn btn-default" data-sort="libelle">Tri par Nom</button>
             <button id="btnNewCampagne" class="btn btn-warning btnNewCampagne" data-toggle="modal" data-target="#modal">Nouveau</button>
-            <button id="btnSendCampagne" class="btn btn-primary btnSendCampagne" data-toggle="modal" data-target="#modal">Envoyer</button>
+            <button id="btnSendCampagne" class="btn btn-primary btnSendCampagne" data-toggle="modal" data-target="#modal">Envoyer par mail</button>
             <ul class="menu list-unstyled">
                 <li class="row">
                     <div class="idCampagne col-md-3">Id</div>
@@ -26,7 +26,7 @@
         <div id="modalContentCampagne" class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Gestion des Campagnes</h4>
+                <h4 class="modal-title" id="myModalLabel">Campagnes - Envoi par mail</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal formActionCampagne" enctype="multipart/form-data">
@@ -58,7 +58,7 @@
                     <div class="form-group">
                         <label for="inputTemplate" class="col-sm-2 control-label"><strong>Template<span>*</span></strong></label>
                         <div class="col-sm-9">
-                            <select class="form-control inputTemplate modalRequired" id="inputTemplate" name="inputTemplate" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">
+                            <select class="form-control inputTemplate modalRequired" id="inputTemplate" name="inputTemplate" value="" onchange="IHM.validateModal()">
                                 <option></option>
                                 <option>Template 1</option>
                                 <option>Template 2</option>
@@ -69,7 +69,7 @@
                     <div class="form-group">
                         <label for="inputGroupe" class="col-sm-2 control-label"><strong>Groupe<span>*</span></strong></label>
                         <div class="col-sm-9">
-                            <select class="form-control inputGroupe modalRequired" id="inputGroupe" name="inputGroupe" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">
+                            <select class="form-control inputGroupe modalRequired" id="inputGroupe" name="inputGroupe" value="" onchange="IHM.validateModal()">
                                 <option></option>
                                 <option>Groupe 1</option>
                                 <option>Groupe 2</option>

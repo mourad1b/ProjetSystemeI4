@@ -7,6 +7,7 @@ namespace nsNewsletter\Controller;
 
 use nsNewsletter\Model\Campagne;
 use nsNewsletter\Model\CampagneRepository;
+use nsNewsletter\Model\NewsletterRepository;
 
 
 class CampagneController
@@ -27,7 +28,7 @@ class CampagneController
     }
 
     /**
-     * Affiche le détail d'une offre d'emploi
+     * Affiche le détail d'une campagne
      */
     public function displayCampagneAction()
     {
@@ -38,6 +39,17 @@ class CampagneController
         require_once('../View/Campagne/displayCampagne.php');
         require_once('../View/footer.php');
 
+    }
+
+    public function afficheCampagneAction($id)
+    {
+        $reposCamp = new CampagneRepository();
+        $campagne = $reposCamp->find($id);
+
+        $reposNews = new NewsletterRepository();
+        $newsletter = $reposNews->find($campagne->getIdNewsletter());
+
+        require_once('../View/Campagne/afficheCampagne.php');
     }
 
 
@@ -80,12 +92,9 @@ class CampagneController
     public function getCampagneByIdAction($id)
     {
         $repos = new CampagneRepository();
-        //$campagne = new Campagne($_POST['idCampagne'], $_POST['libelleCampagne'], $_POST['objetCampagne'], $_POST['corpsCampagne']);
-
         $campagne = $repos->find($id); // On persiste l'objet dans la base et on récupère son id
 
         return $campagne;
-        //$this->indexAction(/*'<strong>Succès !</strong> Le campagne a bien été créé.'*/); // Redirect to index
     }
 
     public function addCampagneAction()

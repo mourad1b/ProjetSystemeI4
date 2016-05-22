@@ -24,11 +24,11 @@ class CampagneRepository
      */
     public function find($id)
     {
-        $raw = $this->db->SqlLine('SELECT m.* WHERE id_campagne = :id GROUP BY m.id_campagne ORDER BY m.id_campagne DESC', array('id' => $id));
+        $raw = $this->db->SqlLine('SELECT c.* FROM campagne c WHERE id_campagne =:id GROUP BY c.id_campagne ORDER BY c.id_campagne DESC', array('id' => $id));
 
         if ($raw == null) {
             header('HTTP/1.0 404 Not Found');
-            exit('Utilisateur non trouvé');
+            exit('Campagne non trouvee');
         }
 
         return new Campagne($raw['id_campagne'], $raw['id_newsletter'], $raw['id_groupe'], $raw['libelle'], $raw['objet'], $raw['mail_user']);
@@ -36,7 +36,7 @@ class CampagneRepository
 
     public function findAll()
     {
-        $stmt = "SELECT m.* FROM campagne m";
+        $stmt = "SELECT m.* FROM campagne m ORDER BY m.id_campagne DESC";
 
         $raw = $this->db->SqlArray($stmt);
         $hydrated = array();
