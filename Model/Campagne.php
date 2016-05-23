@@ -57,14 +57,14 @@ class Campagne
      * @param $libelle
      * @param $objet
      */
-    function __construct($id_campagne, $id_newsletter, $id_groupe, $libelle, $objet, $mail_user )
+    function __construct($id_campagne,  $libelle, $objet, $id_newsletter, $id_groupe, $mail_user )
     {
         $this->id_campagne = $id_campagne;
+        $this->setLibelle($libelle);
+        $this->setObjet($objet);
         $this->id_newsletter = $id_newsletter;
         $this->id_groupe = $id_groupe;
         $this->mail_user = $mail_user;
-        $this->setLibelle($libelle);
-        $this->setObjet($objet);
     }
 
     /**

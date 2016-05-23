@@ -137,12 +137,15 @@ if (isset($_GET['page'])) {
                 }elseif($urlAction == "list") {
                     $campagneController->getCampagnesAction();
                 }elseif ($urlAction == "update") {
-                    $campagne= new Campagne($_POST['idCampagne'], $_POST['libelleCampagne'], $_POST['objetCampagne'], $_POST['idNewsletter'], $_POST['idGroupe'], $_POST['mailUser']);
+                    $campagne= new Campagne($_POST['idCampagne'], $_POST['libelleCampagne'], $_POST['objetCampagne'], $_POST['idTemplate'], $_POST['idGroupe'], $_POST['destinataire']);
                     $campagneController->updateCampagneAction($campagne);
                 }elseif ($urlAction == "send") {
-                    $campagne= new Campagne($_POST['idCampagne'], $_POST['libelleCampagne'], $_POST['objetCampagne'], $_POST['idNewsletter'], $_POST['idGroupe'], $_POST['mailUser']);
-                    $params = array();
-                    $campagneController->sendCampagneAction($campagne, $params);
+                    $params = array(
+                       'idCampagne'=>$_POST['idCampagne'], 'libelleCampagne'=>$_POST['libelleCampagne'], 'objetCampagne'=>$_POST['objetCampagne'], 'idTemplate'=>$_POST['idTemplate'], 'idGroupe'=>$_POST['idGroupe'], 'destinataire'=>$_POST['destinataire']
+                    );
+                    //@todo insert new campagne
+                    //$campagneController->addCampagneAction();
+                    $campagneController->sendCampagneAction($params);
                 } elseif ($urlAction == "delete") {
                     $campagneController->deleteCampagneAction();
                 }

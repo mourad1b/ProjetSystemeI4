@@ -6,7 +6,7 @@ var Campagne = (function() {
         + '<button id="btnDeleteCampagne" class="btnDeleteCampagne btn btn-info btn-xs">Supprimer</button></div></li>'
     };
 
-    var _campagnes, campagneList, li, idCampagne, libelle, contenu, lien;
+    var _campagnes, campagneList, li, idCampagne, libelle, objet, destinataire, idTemplate, idGroupe;
     var _url = "../Web/index.php?page=campagnes";
 
     var _action;
@@ -16,6 +16,17 @@ var Campagne = (function() {
     var btnNewCampagne = $('.btnNewCampagne');
     var btnList = $(".list");
     var btnDisplayCampagne = $('.hrefDisplayCampagne');
+    var btnSendMailCampagne = $('.btnSendMailCampagne');
+
+    var _loaderOn = function() {
+        $('#loaderr').slideDown();
+        $('#modalContentCampagne').slideUp();
+    };
+    var _loaderOff = function() {
+        $('#loaderr').slideUp();
+        $('#modalContentCampagne').slideDown();
+        $("body").addClass('modal-open');
+    };
 
     function _getCampagnes() {
         $.ajax({
@@ -25,27 +36,10 @@ var Campagne = (function() {
             .done(function(data) {
                 //data = [{"id":"2","libelle":"BEN","prenom":"Mourad","mail":"mourad_ben@test.com"}, {"id":"3","nom":"Loue","prenom":"Arnauld","mail":"Ar.loue@test.net"},{"id":"5","nom":"toto","prenom":"titi","mail":"toto.titi@test-auth.fr"}];
                 _campagnes = jQuery.parseJSON(data);
-                //var ed = tinyMCE.get('inputContenu');
-                //ed.setContent(value.contenu); // contenu html
-
                 if(_action =="create"){
                     $.each( _campagnes, function( key, value ) {
                         if(key == (_campagnes.length-1)){
-                            //@todo pouvoir ajouter un contenu formaté en balise html !!! => facile pour les template existants !
-                            /*var parser = new tinymce.html.DomParser({validate: true});
-                            var rootNode = parser.parse(value.contenu);
-                            */
-                            //var rootNode = new tinymce.html.Serializer().serialize(new tinymce.html.DomParser().parse('<p>text</p>'));
-                            //console.log(rootNode);
-
-                            /*
-                            var writer = new tinymce.html.Writer({indent: true});
-                            var parser = new tinymce.html.SaxParser(writer).parse('<p><br></p>');
-                            console.log(writer.getContent());
-                            */
-
-                            //console.log(tinyMCE.activeEditor.getContent());
-                            campagneList.add({idCampagne: value.idCampagne, libelle: value.libelle});
+                            campagneList.add({idCampagne: value.idCampagne, libelle: value.libelle, objet: value.objet, idTemplate: value.idTemplate, idGroupe: value.idGroupe, destinataire: value.destinataire});
                         }
                     });
                 }
@@ -98,6 +92,15 @@ var Campagne = (function() {
             _action = "send";
         });
 
+        btnSendMailCampagne.click(function(e) {
+            e.preventDefault();
+            $("li.fillSource").removeClass('fillSource');
+            $(this).closest("li.row").addClass('fillSource');
+            fillForm();
+            IHM.validateModal();
+            _action = "send";
+        });
+
         btnList.on("click",".btnDeleteCampagne", function(e) {
             e.preventDefault();
             //var contentPanelId = $(e.target)[0].id;
@@ -127,7 +130,7 @@ var Campagne = (function() {
                     .done(function () {
                         bootbox.alert("Suppression ok.");
                         modal.hide();
-                        campagneList.remove({"idCampagne": idCampagne, "libelleCampagne": libelle});
+                        campagneList.remove({"idCampagne": idCampagne, "libelle": libelle, "objet": objet, "idTemplate": idTemplate, "idGroupe": idGroupe, "destinataire": destinataire});
                         _getCampagnes();
                     });
             });
@@ -136,6 +139,10 @@ var Campagne = (function() {
         btnSubmitCampagne.click(function() {
             idCampagne = $('#inputIdCampagne').val();
             libelle = $('#inputLibelle').val();
+            objet = $('#inputObjet').val();
+            destinataire = $('#inputDestinataire').val();
+            idTemplate = $( "#inputSelectTemplate option:selected" ).data('id');
+            idGroupe = $('#inputSelectGroupe option:selected').data('id');
 
             if(libelle == "") {
                 bootbox.alert('Libelle est obligatoire !');
@@ -144,16 +151,23 @@ var Campagne = (function() {
                 return "";
             }
 
+            //_loaderOn();
+
             Ajax.now({
                     //csrf: true,
-                    url : _url + "&action=" + _action +  ((_action === 'update' || _action ==="send") ? '&idCampagne=' + idCampagne : ''),
+                    url : _url + "&action=" + _action +  ((_action === 'update') ? '&idCampagne=' + idCampagne : ''),
                     type: 'POST',
                     data : {
-                        idCampagne: idCampagne,
-                        libelleCampagne: libelle
+                        idCampagne : idCampagne,
+                        libelleCampagne : libelle,
+                        objetCampagne : objet,
+                        idTemplate : idTemplate,
+                        idGroupe : idGroupe,
+                        destinataire : destinataire
                     }
                 })
                 .done(function(data) {
+                   // _loaderOn();
                     switch(_action) {
                         case "update":
                             var li = $('.fillSource');
@@ -174,10 +188,14 @@ var Campagne = (function() {
                         case "send":
                             bootbox.alert("Mail envoyé.");
                             modal.hide();
-                            _getCampagnes();
+                            //_loaderOff();
                             break;
                     }
-                });
+
+                 }); /*.always(function() {
+                    _loaderOff();
+                 });*/
+
         });
 
         btnDisplayCampagne.click(function() {

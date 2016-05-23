@@ -8,6 +8,8 @@ namespace nsNewsletter\Controller;
 use nsNewsletter\Model\Campagne;
 use nsNewsletter\Model\CampagneRepository;
 use nsNewsletter\Model\NewsletterRepository;
+use nsNewsletter\Model\GroupeUserRepository;
+use nsNewsletter\Model\UserRepository;
 use nsNewsletter\Controller\MailSenderController;
 
 
@@ -78,11 +80,11 @@ class CampagneController
         foreach($campagnes as $campagne){
             $array = array(
                 'idCampagne' => $campagne->getId(),
-                'idNewsletter' => $campagne->getObjet(),
-                'idGroupe' => $campagne->getObjet(),
-                'userMail' => $campagne->getObjet(),
                 'libelle' => $campagne->getLibelle(),
                 'objet' => $campagne->getObjet(),
+                'idTemplate' => $campagne->getIdNewsletter(),
+                'idGroupe' => $campagne->getIdGroupe(),
+                'destinataire' => $campagne->getMailUser(),
             );
             array_push($json, $array);
         }
@@ -98,12 +100,50 @@ class CampagneController
         return $campagne;
     }
 
-    public function sendCampagneAction(Campagne $campagne)
+    public function sendCampagneAction($params)
     {
-        $repos = new MailSenderController();
-        $id = $repos->send($campagne);
+        /*
+        $idCampagne = $params['idCampagne'];
+        $libelle = $params['libelleCampagne'];
+        $objet = $params['objetCampagne'];
+        $destinataire = $params['destinataire'];
+        $idTemplate = $params['idTemplate'];
+        $idGroupe = $params['idGroupe'];
 
-        // campagne($campagne->getCampagne(), "Confirmation de création", "Votre utilisateur a correctement été enregistrée !\nConsultez l'ensemble des campagnes via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\nSupprimez un campagne via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\n\nVous recevrez un campagne en cas de nouveau campagne.");
+        $groupeusers = array();
+        $users = array();
+        $news = array();
+        $newsletterContent = array();
+
+        // erreur
+        if(!empty($idTemplate)) {
+            $repoNews = new NewsletterRepository();
+            $news = $repoNews->find($idTemplate);
+            $newsletterContent = $news->getTexte();
+        }
+        if(!empty($idGroupe)) {
+            $repoGU = new GroupeUserRepository();
+            $groupeusers = $repoGU->findUsersByIdGroupe($idGroupe);
+
+            $repoUser = new UserRepository();
+            foreach($groupeusers as $groupeuser){
+                $rows[] = $repoUser->find($groupeuser->getIdUser());
+            }
+
+            if (!empty($rows) ){
+                foreach($rows as $row){
+                    $users[]= $row->getMail();
+                }
+            }
+        }
+
+
+        if (!empty($users) ) {
+            $params['users'] = $users;
+
+            $repoMS = new MailSenderController();
+            $mailSend = $repoMS->send($objet, $newsletterContent, $destinataire, $params);
+        }*/
 
         $this->indexAction('<strong>Succès !</strong> Campagne mis à jour.'); // Redirect to index
     }
@@ -111,7 +151,7 @@ class CampagneController
     public function addCampagneAction()
     {
         $repos = new CampagneRepository();
-        $campagne = new Campagne('', $_POST['libelleCampagne'], $_POST['objetCampagne'], $_POST['idNewsletter'], $_POST['idGroupe'], $_POST['userMail']);
+        $campagne = new Campagne('', $_POST['libelleCampagne'], $_POST['objetCampagne'], $_POST['idTemplate'], $_POST['idGroupe'], $_POST['destinataire']);
 
         $id = $repos->persist($campagne); // On persiste l'objet dans la base et on récupère son id
 
@@ -131,7 +171,7 @@ class CampagneController
     public function deleteCampagneAction()
     {
         $repos = new CampagneRepository();
-        $campagne = new Campagne($_POST['idCampagne'], $_POST['libelleCampagne'], $_POST['objetCampagne'], $_POST['idNewsletter'], $_POST['idGroupe'], $_POST['userMail']);
+        $campagne = new Campagne($_POST['idCampagne'], $_POST['libelleCampagne'], $_POST['objetCampagne'], $_POST['idTemplate'], $_POST['idGroupe'], $_POST['destinataire']);
 
         $repos->remove($campagne); // On persiste l'objet dans la base et on récupère son id
 

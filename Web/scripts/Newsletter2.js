@@ -73,7 +73,7 @@ var Newsletter2 = (function() {
         $('#modalContentNews').find(".key").prop('disabled', true);
         var ed = tinyMCE.get('inputContenu');
         ed.setContent(li.find('.contenu').text()); // contenu html
-    };
+};
 
     function _initEvents() {
         btnNewNewsletter.click(function (e) {

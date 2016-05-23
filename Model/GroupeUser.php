@@ -44,7 +44,7 @@ class GroupeUser
      */
     public function getIdGroupe()
     {
-        return $this->$id_groupe;
+        return $this->id_groupe;
     }
 
     /**
@@ -60,7 +60,7 @@ class GroupeUser
      */
     public function getIdUser()
     {
-        return $this->$id_user;
+        return $this->id_user;
     }
 
     /**

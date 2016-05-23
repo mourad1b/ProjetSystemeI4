@@ -31,18 +31,18 @@ class CampagneRepository
             exit('Campagne non trouvee');
         }
 
-        return new Campagne($raw['id_campagne'], $raw['id_newsletter'], $raw['id_groupe'], $raw['libelle'], $raw['objet'], $raw['mail_user']);
+        return new Campagne($raw['id_campagne'], $raw['libelle'], $raw['objet'], $raw['id_newsletter'], $raw['id_groupe'], $raw['mail_user']);
     }
 
     public function findAll()
     {
-        $stmt = "SELECT m.* FROM campagne m ORDER BY m.id_campagne DESC";
+        $stmt = "SELECT m.* FROM campagne m";
 
         $raw = $this->db->SqlArray($stmt);
         $hydrated = array();
 
         foreach ($raw as $campagne) {
-            $hydrated[] = new Campagne($campagne['id_campagne'], $campagne['id_newsletter'], $campagne['id_groupe'],  $campagne['libelle'], $campagne['objet'], $campagne['mail_user']);
+            $hydrated[] = new Campagne($campagne['id_campagne'], $campagne['libelle'], $campagne['objet'], $campagne['id_newsletter'], $campagne['id_groupe'],   $campagne['mail_user']);
         }
 
         return $hydrated;
@@ -56,25 +56,12 @@ class CampagneRepository
      */
     public function persist(Campagne $campagne)
     {
-
-        $result = $this->db->SqlValue("SELECT libelle FROM campagne WHERE libelle = '".$campagne->getLibelle()."' LIMIT 1 ");
-        //$req = mysql_fetch_array($result);
-
-        if ($result) {
-            echo 'Ce type de campagne existe déja';
-        }
-        else {
-            $this->db->Sql("INSERT INTO campagne (libelle, objet, id_newsletter, id_groupe, mail_user) VALUES(:libelle,:objet,:id_newsletter,:id_groupe,:mail_user)",
-            array(  'id' => $campagne->getId(),
-                    'libelle' => $campagne->getLibelle(),
+        $this->db->Sql("INSERT INTO campagne (libelle, objet, id_newsletter, id_groupe, mail_user) VALUES(:libelle,:objet,:id_newsletter,:id_groupe,:mail_user)",
+            array(  'libelle' => $campagne->getLibelle(),
                     'objet' => $campagne->getObjet(),
                     'id_newsletter' => $campagne->getIdNewsletter(),
                     'id_groupe' => $campagne->getIdGroupe(),
                     'mail_user' => $campagne->getMailUser()));
-        }
-        return $result;
-        //$id = $this->db->lastInsertId();
-        //return $id;
     }
 
     public function update(Campagne $campagne)

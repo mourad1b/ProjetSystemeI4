@@ -24,7 +24,8 @@ class NewsletterRepository
      */
     public function find($id)
     {
-        $raw = $this->db->SqlLine('SELECT n.* FROM newsletter n WHERE id_newsletter =:id GROUP BY n.id_newsletter ORDER BY n.id_newsletter DESC', array('id' => $id));
+        $raw = $this->db->SqlLine('SELECT n.* FROM newsletter n WHERE id_newsletter =:id', array('id' => $id));
+        // GROUP BY n.id_newsletter ORDER BY n.id_newsletter DESC
 
         if ($raw == null) {
             header('HTTP/1.0 404 Not Found');

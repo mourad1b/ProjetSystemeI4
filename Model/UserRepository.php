@@ -24,7 +24,7 @@ class UserRepository
      */
     public function find($id)
     {
-        $raw = $this->db->SqlLine('SELECT u.* WHERE id_user = :id GROUP BY u.id_user ORDER BY u.id_user DESC', array('id' => $id));
+        $raw = $this->db->SqlLine('SELECT u.* FROM users u WHERE id_user =:id', array('id' => $id));
 
         if ($raw == null) {
             header('HTTP/1.0 404 Not Found');
@@ -32,6 +32,16 @@ class UserRepository
         }
 
         return new User($raw['id_user'], $raw['nom'], $raw['prenom'], $raw['mail'],  $raw['telephone'], $raw['id_groupe'], $raw['groupe_libelle']);
+    }
+
+    public function findUsersByIds($ids)
+    {
+        $id_user = $ids['id_user'];
+        $id_groupe = $ids['id_groupe'];
+        $raw = $this->db->SqlValue('SELECT * FROM groupe_user WHERE id_user=:id_user AND id_groupe=:id_groupe',array('id_groupe' => $id_groupe, 'id_user' => $id_user));
+        if (empty($raw) )
+            return 0;
+        return 1;
     }
 
     public function findAll()

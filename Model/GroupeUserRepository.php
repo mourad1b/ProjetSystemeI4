@@ -58,4 +58,16 @@ class GroupeUserRepository
 
         return $hydrated;
     }
+
+    public function findUsersByIdGroupe($id)
+    {
+        $raw = $this->db->SqlLine("SELECT ug.* FROM groupe_user ug WHERE id_groupe =:id", array('id' => $id));
+        $hydrated = array();
+
+        foreach ($raw as $usergroupe) {
+            $hydrated[] = new GroupeUser($usergroupe['id_user'], $usergroupe['id_groupe']);
+        }
+
+        return $hydrated;
+    }
 }

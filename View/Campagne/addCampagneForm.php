@@ -8,7 +8,7 @@
             <input class="search" />
             <button class="sort btn btn-default" data-sort="libelle">Tri par Nom</button>
             <button id="btnNewCampagne" class="btn btn-warning btnNewCampagne" data-toggle="modal" data-target="#modal">Nouveau</button>
-            <button id="btnSendCampagne" class="btn btn-primary btnSendCampagne" data-toggle="modal" data-target="#modal">Envoyer par mail</button>
+            <button id="btnSendMailCampagne" class="btn btn-primary btnSendMailCampagne" data-toggle="modal" data-target="#modal">Envoyer par mail</button>
             <ul class="menu list-unstyled">
                 <li class="row">
                     <div class="idCampagne col-md-3">Id</div>
@@ -28,6 +28,10 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Campagnes - Envoi par mail</h4>
             </div>
+            <div class="loader text-center" id="loaderr" style="display: none">
+                <img src="../Web/styles/img/loading-img.gif" alt="loading">
+                <br><span>Chargement des données...</span>
+            </div>
             <div class="modal-body">
                 <form class="form-horizontal formActionCampagne" enctype="multipart/form-data">
                     <div class="form-group">
@@ -46,35 +50,39 @@
                     <div class="form-group">
                         <label for="inputObjet" class="col-sm-2 control-label"><strong>Objet</strong></label>
                         <div class="col-sm-9">
-                            <input id="inputLibelle" class="form-control inputLibelle" name="inputLibelle" value="">
+                            <input id="inputObjet" class="form-control inputObjet" name="inputObjet" value="">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputContenu" class="col-sm-2 control-label"><strong>Destinataire</strong></label>
+                        <label for="inputDestinataire" class="col-sm-2 control-label"><strong>Destinataire</strong></label>
                         <div class="col-sm-9">
-                            <input class="form-control inputContenu" id="inputContenu" name="inputContenu" value=""">
+                            <input class="form-control inputDestinataire" id="inputDestinataire" name="inputDestinataire" value=""">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputTemplate" class="col-sm-2 control-label"><strong>Template<span>*</span></strong></label>
                         <div class="col-sm-9">
-                            <select class="form-control inputTemplate modalRequired" id="inputTemplate" name="inputTemplate" value="" onchange="IHM.validateModal()">
+                            <select class="form-control inputSelectTemplate " id="inputSelectTemplate" name="inputSelectTemplate" value="">
                                 <option></option>
-                                <option>Template 1</option>
-                                <option>Template 2</option>
+                                <option id="3" data-id="3" value="3">Template 3</option>
+                                <option id="5" data-id="5" value="5">Template 5</option>
                             </select>
-                                <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
+                            <!--modalRequired onchange="IHM.validateModal()">
+                            <span class="glyphicon glyphicon-warning-sign form-control-feedback " title="Champ obligatoire" data-placement="left" style="display:none;"></span>
+                            -->
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputGroupe" class="col-sm-2 control-label"><strong>Groupe<span>*</span></strong></label>
                         <div class="col-sm-9">
-                            <select class="form-control inputGroupe modalRequired" id="inputGroupe" name="inputGroupe" value="" onchange="IHM.validateModal()">
+                            <select class="form-control inputSelectGroupe" id="inputSelectGroupe" name="inputSelectGroupe">
                                 <option></option>
-                                <option>Groupe 1</option>
-                                <option>Groupe 2</option>
+                                <option id="3" data-id="3" value="">Groupe 3</option>
+                                <option id="2" data-id="2" value="">Groupe 2</option>
                             </select>
+                            <!--modalRequired onchange="IHM.validateModal()">
                             <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
+                            -->
                         </div>
                     </div>
                 </form>
@@ -86,6 +94,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- JS -->
 <script src="../Web/scripts/Campagne.js"></script>
