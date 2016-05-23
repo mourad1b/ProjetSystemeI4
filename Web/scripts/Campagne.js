@@ -19,11 +19,11 @@ var Campagne = (function() {
     var btnSendMailCampagne = $('.btnSendMailCampagne');
 
     var _loaderOn = function() {
-        $('#loaderr').slideDown();
+        $('#loader').slideDown();
         $('#modalContentCampagne').slideUp();
     };
     var _loaderOff = function() {
-        $('#loaderr').slideUp();
+        $('#loader').slideUp();
         $('#modalContentCampagne').slideDown();
         $("body").addClass('modal-open');
     };
@@ -151,7 +151,7 @@ var Campagne = (function() {
                 return "";
             }
 
-            //_loaderOn();
+            _loaderOn();
 
             Ajax.now({
                     //csrf: true,
@@ -192,9 +192,10 @@ var Campagne = (function() {
                             break;
                     }
 
-                 }); /*.always(function() {
+                 })
+                .always(function() {
                     _loaderOff();
-                 });*/
+                 });
 
         });
 

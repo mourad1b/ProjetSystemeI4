@@ -102,7 +102,7 @@ class CampagneController
 
     public function sendCampagneAction($params)
     {
-        /*
+
         $idCampagne = $params['idCampagne'];
         $libelle = $params['libelleCampagne'];
         $objet = $params['objetCampagne'];
@@ -138,12 +138,10 @@ class CampagneController
         }
 
 
-        if (!empty($users) ) {
-            $params['users'] = $users;
+        $params['users'] = $users;
 
-            $repoMS = new MailSenderController();
-            $mailSend = $repoMS->send($objet, $newsletterContent, $destinataire, $params);
-        }*/
+        $repoMS = new MailSenderController();
+        $mailSend = $repoMS->send($objet, $newsletterContent, $destinataire, $params);
 
         $this->indexAction('<strong>Succès !</strong> Campagne mis à jour.'); // Redirect to index
     }

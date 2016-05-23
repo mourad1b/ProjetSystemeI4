@@ -144,7 +144,7 @@ if (isset($_GET['page'])) {
                        'idCampagne'=>$_POST['idCampagne'], 'libelleCampagne'=>$_POST['libelleCampagne'], 'objetCampagne'=>$_POST['objetCampagne'], 'idTemplate'=>$_POST['idTemplate'], 'idGroupe'=>$_POST['idGroupe'], 'destinataire'=>$_POST['destinataire']
                     );
                     //@todo insert new campagne
-                    //$campagneController->addCampagneAction();
+                    $campagneController->addCampagneAction();
                     $campagneController->sendCampagneAction($params);
                 } elseif ($urlAction == "delete") {
                     $campagneController->deleteCampagneAction();

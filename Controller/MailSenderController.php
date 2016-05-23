@@ -24,8 +24,10 @@ class MailSenderController
 
         $mail->setFrom('news.projet@hotmail.com', 'Projet Service Newsletter');
         //$mail->addAddress('news.projet@hotmail.com', 'Mourad');               // Add a recipient
-        $mail->addAddress($mail_destinataire);                                  // Name is optional
 
+        if(!empty($mail_destinataire)){
+            $mail->addAddress($mail_destinataire);                                  // Name is optional
+        }
 
         if(!empty($params['users'])) {
             foreach ($params['users'] as $mailUser) {
