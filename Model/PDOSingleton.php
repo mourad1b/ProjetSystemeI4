@@ -35,7 +35,14 @@ class PDOSingleton
      */
     private function __construct($dsn, $username = null, $password = null, $driver_options = null)
     {
-        $this->PDOInstance = new \PDO($dsn, $username, $password, $driver_options);
+		try{
+			$this->PDOInstance = new \PDO($dsn, $username, $password, $driver_options);
+		} catch (\PDOException $e){
+			die('<h1>Impossible de se connecter a la basede donnees!</h1>');
+			//echo $e->getMessage();
+		}
+		
+			
     }
 
     /**
@@ -46,7 +53,7 @@ class PDOSingleton
     public static function getConnect()
     {
         if (is_null(self::$instance)) {
-            self::$instance = new self("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS, array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+            self::$instance = new self("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS, array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES UTF8'));
 
         }
 

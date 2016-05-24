@@ -5,10 +5,18 @@ namespace nsNewsletter\Config;
 /**
  * DataBase
  */
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'newsletters');  // newsletter   benzaidm
+define('DB_HOST', 'mysql.montpellier.epsi.fr:5206');	// mysql.montpellier.epsi.fr:5206
+														// Port interne= 3306 externe=5206
+define('DB_NAME', 'newsletters');
+define('DB_USER', 'appnewsletter');						// prenom.nom
+define('DB_PASS', 'Epsi2015');							// epsiMotDePasseEpsi
+
+/*
+define('DB_HOST', 'localhost');	
+define('DB_NAME', 'newsletters');
 define('DB_USER', 'root');
 define('DB_PASS', '');
+*/
 
 /**
  * Link generation
