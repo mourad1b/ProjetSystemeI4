@@ -64,8 +64,6 @@
                         <div class="col-sm-9">
                             <select class="form-control inputSelectTemplate " id="inputSelectTemplate" name="inputSelectTemplate" value="">
                                 <option></option>
-                                <option id="3" data-id="3" value="3">Template 3</option>
-                                <option id="5" data-id="5" value="5">Template 5</option>
                             </select>
                             <!--modalRequired onchange="IHM.validateModal()">
                             <span class="glyphicon glyphicon-warning-sign form-control-feedback " title="Champ obligatoire" data-placement="left" style="display:none;"></span>
@@ -77,8 +75,6 @@
                         <div class="col-sm-9">
                             <select class="form-control inputSelectGroupe" id="inputSelectGroupe" name="inputSelectGroupe">
                                 <option></option>
-                                <option id="3" data-id="3" value="">Groupe 3</option>
-                                <option id="2" data-id="2" value="">Groupe 2</option>
                             </select>
                             <!--modalRequired onchange="IHM.validateModal()">
                             <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
@@ -98,6 +94,7 @@
 
 <!-- JS -->
 <script src="../Web/scripts/Campagne.js"></script>
+</script>
 <script src="../Web/scripts/Ajax.js"></script>
 <script src="../Web/scripts/Example.js"></script>
 <!-- tinymce

@@ -47,6 +47,35 @@ var Campagne = (function() {
             });
     };
 
+    var _templates = null;
+    var _groupes = null;
+    function  _getTemplatesAndGroupes () {
+        $.ajax({
+                url : "../Web/index.php?page=newsletters" + "&action=list",
+                type: 'POST'
+            })
+            .done(function(data) {
+                _templates = jQuery.parseJSON(data);
+                //console.log(_templates);
+
+                $.each( _templates, function( key, value ) {
+                     $('#inputSelectTemplate').append("<option data-id='"+value.idNewsletter+"'>"+value.nom+"</option>");
+                });
+            });
+
+        $.ajax({
+                url : "../Web/index.php?page=groupes" + "&action=list",
+                type: 'POST'
+            })
+            .done(function(data) {
+                _groupes = jQuery.parseJSON(data);
+                $.each( _groupes, function( key, value ) {
+                    $('#inputSelectGroupe').append("<option data-id='"+value.idGroupe+"'>"+value.libelleGroupe+"</option>");
+                });
+            });
+
+    };
+
     function initList() {
         campagneList = new List('campagne-list', options, _campagnes);
     };
@@ -201,7 +230,7 @@ var Campagne = (function() {
 
         btnDisplayCampagne.click(function() {
             idCampagne = $('.hrefDisplayCampagne').data('id');
-            console.log("display campagne : "+idCampagne);
+            //console.log("display campagne : "+idCampagne);
 
             //$(".afficheCampagne").append("<p>TEST</p>");
 
@@ -225,6 +254,8 @@ var Campagne = (function() {
             //initList();
             _getCampagnes();
             _initEvents();
+
+            _getTemplatesAndGroupes();
         }
     };
 })();
