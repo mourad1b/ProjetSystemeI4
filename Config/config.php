@@ -26,4 +26,4 @@ define('DB_PASS', '');
 
 // Spécifie le chemin pour la génération du lien lors de l'envoie du mail
 define('PATH_TO_FRONT_CONTROLLER', 'http://'.$_SERVER['HTTP_HOST'] . $_SERVER["PHP_SELF"]); // Le front controleur est toujours celui à prendre les paramètres $_GET On les envoie donc à lui pour le mail
-//define('PATH_TO_FRONT_CONTROLLER', 'http://localhost/Cours/TP04/Newsletter/Web/index.php'); //Dans les autres cas le définir à la main
+//define('PATH_TO_FRONT_CONTROLLER', 'http://localhost/Cours/Newsletter/Web/index.php'); //Dans les autres cas le définir à la main

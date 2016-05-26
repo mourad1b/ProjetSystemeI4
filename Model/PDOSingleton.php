@@ -18,6 +18,10 @@ class PDOSingleton
      */
     private static $instance;
 
+	private $dsn;
+	private	$username;
+	private	$password;
+	private	$driver_options;
     /**
      * PDO object Instance
      */
@@ -33,8 +37,14 @@ class PDOSingleton
      *
 *@return \nsNewsletter\Model\PDOSingleton PDOInstance
      */
-    private function __construct($dsn, $username = null, $password = null, $driver_options = null)
+    private function __construct($dsn = null, $username = null, $password = null, $driver_options = null)
     {
+		if($this->dsn != null){
+			$this->dsn = $dsn;
+			$this->username = $username;
+			$this->password = $password;
+			$this->driver_options = $driver_options;
+		}	
 		try{
 			$this->PDOInstance = new \PDO($dsn, $username, $password, $driver_options);
 		} catch (\PDOException $e){
