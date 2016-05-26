@@ -29,7 +29,7 @@ var Campagne = (function() {
     };
 
     function _getCampagnes() {
-        $.ajax({
+       $.ajax({
                 url : _url + "&action=list",
                 type: 'POST'
             })
@@ -144,11 +144,13 @@ var Campagne = (function() {
                 message: "Êtes-vous sûr ?",
                 callback: function (result) {
                     //Example.show("Hello");
+
                 }
             });
 
             modal.on('click', '.btn-primary', function () {
-                $.ajax({
+                _loaderOn();
+                Ajax.now({
                         url:  _url + "&action=" + _action + '&idCampagne=' + idCampagne,
                         type: 'POST',
                         data : {
@@ -158,10 +160,15 @@ var Campagne = (function() {
                     })
                     .done(function () {
                         bootbox.alert("Suppression ok.");
-                        modal.hide();
                         campagneList.remove({"idCampagne": idCampagne, "libelle": libelle, "objet": objet, "idTemplate": idTemplate, "idGroupe": idGroupe, "destinataire": destinataire});
                         _getCampagnes();
+                        modal.hide();
+                        _loaderOff();
+                    })
+                    .always(function() {
+                    _loaderOff();
                     });
+                    
             });
         });
 

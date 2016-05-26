@@ -94,12 +94,8 @@
 
 <!-- JS -->
 <script src="../Web/scripts/Campagne.js"></script>
-</script>
 <script src="../Web/scripts/Ajax.js"></script>
 <script src="../Web/scripts/Example.js"></script>
-<!-- tinymce
-<script src='https://cdn.tinymce.com/4/tinymce.min.js'></script>
--->
 <script src='../Web/tinymce/tinymce.min.js'></script>
 
 <script type="text/javascript">
@@ -170,6 +166,4 @@
          ]*/
 
     });
-
-
 </script>

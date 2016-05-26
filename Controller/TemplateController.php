@@ -6,6 +6,7 @@
 namespace nsNewsletter\Controller;
 
 use nsNewsletter\Model\CampagneRepository;
+use nsNewsletter\Model\NewsletterRepository;
 
 
 class TemplateController
@@ -27,6 +28,9 @@ class TemplateController
      */
     public function displayTemplateAction()
     {
+        $repo = new NewsletterRepository();
+        $newsletters = $repo->findAll();
+
         require_once('../View/header.php');
         require_once('../View/Template/displayTemplate.php');
         require_once('../View/footer.php');
