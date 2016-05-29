@@ -55,7 +55,7 @@
                     </div>
                     <div class="form-group">
                         <label for="inputDestinataire" class="col-sm-2 control-label"><strong>Destinataire</strong></label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-9">
                             <input class="form-control inputDestinataire" id="inputDestinataire" name="inputDestinataire" value=""">
                         </div>
                     </div>

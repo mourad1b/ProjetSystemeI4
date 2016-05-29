@@ -33,7 +33,7 @@ class GroupeUserRepository
             exit('Utilisateur non trouvé');
         }
 
-        return new GroupeUser($raw['id_user'], $raw['id_groupe']);
+        return new GroupeUser($raw['id_groupe'], $raw['id_user']);
     }
     public function findGroupOfUser($ids)
     {
@@ -47,13 +47,13 @@ class GroupeUserRepository
 
     public function findAll()
     {
-        $stmt = "SELECT ug.* FROM groupe_user ug";
+        $stmt = "SELECT ug.* FROM groupe_user ug ORDER BY ug.id_groupe DESC";
 
         $raw = $this->db->SqlArray($stmt);
         $hydrated = array();
 
         foreach ($raw as $usergroupe) {
-            $hydrated[] = new GroupeUser($usergroupe['id_user'], $usergroupe['id_groupe']);
+            $hydrated[] = new GroupeUser($usergroupe['id_groupe'], $usergroupe['id_user']);
         }
 
         return $hydrated;
@@ -61,11 +61,11 @@ class GroupeUserRepository
 
     public function findUsersByIdGroupe($id)
     {
-        $raw = $this->db->SqlLine("SELECT ug.* FROM groupe_user ug WHERE id_groupe =:id", array('id' => $id));
+        $raw = $this->db->SqlArray("SELECT ug.* FROM groupe_user ug WHERE id_groupe =:id ORDER BY id_user DESC", array('id' => $id));
         $hydrated = array();
 
         foreach ($raw as $usergroupe) {
-            $hydrated[] = new GroupeUser($usergroupe['id_user'], $usergroupe['id_groupe']);
+            $hydrated[] = new GroupeUser($usergroupe['id_groupe'], $usergroupe['id_user']);
         }
 
         return $hydrated;

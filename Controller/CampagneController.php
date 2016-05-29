@@ -116,7 +116,7 @@ class CampagneController
         $newsletterContent = array();
 
         // erreur
-        if(!empty($idTemplate)) {
+        if(!empty($idNewsletter)) {
             $repoNews = new NewsletterRepository();
             $news = $repoNews->find($idNewsletter);
             $newsletterContent = $news->getTexte();

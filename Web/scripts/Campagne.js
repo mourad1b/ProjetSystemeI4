@@ -131,12 +131,12 @@ var Campagne = (function() {
             _action = "update";
         });
 
-        /*btnList.on("click",".btnSendCampagne", function(e) {
+        btnList.on("click",".btnSendCampagne", function(e) {
             e.preventDefault();
             clearForm();
             IHM.validateModal();
             _action = "send";
-        });*/
+        });
 
         btnSendMailCampagne.click(function(e) {
             e.preventDefault();

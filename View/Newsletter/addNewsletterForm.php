@@ -25,8 +25,8 @@
         </div>
     </div>
 <!--</div>-->
+<button id="btnNewNewsletter" class="btn btn-warning btnNewNewsletter" style="text-align: right" data-toggle="modal" data-target="#modal">Nouveau</button>
 <div class="fh5co-cards">
-    <button id="btnNewNewsletter" class="btn btn-warning btnNewNewsletter" style="text-align: center" data-toggle="modal" data-target="#modal">Nouveau</button>
     <div class="container-fluid">
         <div class="row animate-box">
             <div class="row">

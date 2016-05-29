@@ -35,6 +35,7 @@ class GroupeUser
      */
     function __construct($id_groupe, $id_user)
     {
+        $this->id_groupe = $id_groupe;
         $this->id_user = $id_user;
     }
 
