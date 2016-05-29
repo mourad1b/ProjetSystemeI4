@@ -8,11 +8,12 @@ var Template = (function() {
         item: '<div class="col-lg-3 col-md-6 col-sm-6 animate-box bodyHtmlTemplate"><a class="fh5co-card" href="#"> ' +
         '<img src="" alt="" class="img-responsive" style="text-align: center">' +
         '<div class="fh5co-card-body" style="height: 300px"></div> ' +
-        '<button class="btnUpdateTemplate btn btn-info btn-xs" data-toggle="modal" data-target="#modal">Utiliser</button></a></div>'
+        '<button class="btnUseTemplate btn btn-info btn-xs" data-toggle="modal" data-target="#modal">Utiliser</button></a></div>'
     };
 
     var _newsletters, newsletterList, li, idTemplate, nom, contenu, lien;
-    var _url = "../Web/index.php?page=newsletters";
+    var _urlTemplates = "../Web/index.php?page=templates";
+    var _urlNewsletters = "../Web/index.php?page=newsletters";
 
     var _action;
     var modal = $('#modal');
@@ -23,9 +24,20 @@ var Template = (function() {
     var btnList = $(".list");
     var _templates;
 
+    var _loaderOn = function() {
+        $('#loader').slideDown();
+        $('#modalContentCampagne').slideUp();
+    };
+    var _loaderOff = function() {
+        $('#loader').slideUp();
+        $('#modalContentCampagne').slideDown();
+        $("body").addClass('modal-open');
+    };
+
     function _getNewsletters() {
+        //_loaderOn();
         $.ajax({
-                url : _url + "&action=list",
+                url : _urlNewsletters + "&action=list",
                 type: 'POST'
             })
             .done(function(data) {
@@ -33,31 +45,29 @@ var Template = (function() {
                 _newsletters = jQuery.parseJSON(data);
                 var ed = tinyMCE.get('inputContenu');
                 //ed.setContent(value.contenu); // contenu html
-
-
                 if(_action =="create"){
                     $.each( _newsletters, function( key, value ) {
                         if(key == (_newsletters.length-1)){
                             //console.log(tinyMCE.activeEditor.getContent());
-                            newsletterList.add({idNewsletter: value.idNewsletter, nom: value.nom, "contenu": value.contenu, "lien":value.lien});
+                            newsletterList.add({idTemplate: value.idTemplate, nom: value.nom, "contenu": value.contenu, "lien":value.lien});
                         }
                     });
                 }
                 initList();
+            })
+            .always(function(){
+                //_loaderOff();
             });
-    };
-
-    function initList() {
-        newsletterList = new List('newsletter-list', options, _newsletters);
     };
 
     function _getTemplates() {
         var contenuTemplate = null;
+        //_loaderOn();
         $.ajax({
-                url : _url + "&action=list",
+                url : _urlTemplates + "&action=list",
                 type: 'POST'
             })
-            .done(function(data) {
+                .done(function(data) {
                 //data = [{"id":"2","nom":"BEN","prenom":"Mourad","mail":"mourad_ben@test.com"}, {"id":"3","nom":"Loue","prenom":"Arnauld","mail":"Ar.loue@test.net"},{"id":"5","nom":"toto","prenom":"titi","mail":"toto.titi@test-auth.fr"}];
                 _newsletters = jQuery.parseJSON(data);
                 var ed = tinyMCE.get('inputContenu');
@@ -71,21 +81,26 @@ var Template = (function() {
                             + '<img src="" alt="'+ value.nom+'" class="img-responsive" style="text-align: center"> '
                             + '<div class="fh5co-card-body bodyHtmlTemplate"  style="height: 300px"> '
                             + value.contenu + '</div>'
-                            + '<button class="btnUpdateTemplate btn btn-default" data-id="'+ value.idNewsletter + '" data-toggle="modal" data-target="#modal">Utiliser ce modèle</button></a></div>';
+                            + '<button class="btnUseTemplate btn btn-default" data-id="'+ value.idTemplate + '" data-toggle="modal" data-target="#modal">Utiliser ce modèle</button></a></div>';
 
                         $("#bodyHtmlContenuTemplate").append(contenuTemplate);
 
-                    if(_action =="update"){
-                            console.log(ed);
-                            console.log('idTemplate update : '+idTemplate);
-                        }
+                    if(_action =="create"){
+                            //console.log(ed);
+                            console.log('idTemplate use : '+idTemplate);
+                           // _getNewsletters();
+                    }
 
-                    //}
                 });
-
-
-
+            })
+            .always(function(){
+                //_loaderOff();
             });
+    };
+
+
+    function initList() {
+        newsletterList = new List('newsletter-list', options, _newsletters);
     };
 
     function cleanForm() {
@@ -108,17 +123,17 @@ var Template = (function() {
     };
 
     function _initEvents() {
-        btnList.on("click",".btnUpdateTemplate", function(e) {
+
+        btnList.on("click",".btnUseTemplate", function(e) {
             e.preventDefault();
             idTemplate = $(this).data('id');
             $("li.fillSource").removeClass('fillSource');
             $(this).closest("li.row").addClass('fillSource');
             fillForm();
 
-            console.log(_newsletters);
             $.each( _newsletters, function( key, value ) {
-                if(value.idNewsletter == idTemplate){
-                    console.log('idTemplate submit: '+idTemplate);
+                if(value.idTemplate == idTemplate){
+                    $('#inputIdTemplate').val(value.idTemplate);
                     $('#inputNom').val(value.nom);
                     $('textarea#inputContenu').val(value.contenu);
                     var ed = tinyMCE.get('inputContenu');
@@ -126,10 +141,8 @@ var Template = (function() {
                 }
             });
 
-
-
             IHM.validateModal();
-            _action = "update";
+            _action = "create";
         });
 
         btnSubmitTemplate.click(function() {
@@ -147,9 +160,10 @@ var Template = (function() {
                 return "";
             }
 
-            $.ajax({
+            //_loaderOn();
+            Ajax.now({
                     //csrf: true,
-                    url : _url + "&action=" + _action +  ((_action === 'update') ? '&idNewsletter=' + idTemplate : ''),
+                    url : _urlNewsletters + "&action=" + _action +  ((_action === 'create') ? '&idNewsletter=' + idTemplate : ''),
                     type: 'POST',
                     data : {
                         idNewsletter: idTemplate,
@@ -181,6 +195,9 @@ var Template = (function() {
                             _getNewsletters();
                             break;
                     }
+                })
+                .always(function(){
+                    //_loaderOff();
                 });
         });
 
@@ -193,9 +210,9 @@ var Template = (function() {
         bodyHtmlTemplate.click(function (e) {
             var idTemplate = $('.btnUpdateIdTemplate').data('id');
             //$('#dataTemplate').data('id');
-            console.log("Edit Modal Template : " + idTemplate);
             //_getTemplates();
 
+            //_loaderOn();
             $.ajax({
                     url: "../Web/index.php?page=newsletters" + "&action=list",
                     type: 'POST'
@@ -210,6 +227,9 @@ var Template = (function() {
                      }
                      });
                      */
+                })
+                .always(function(){
+                    //_loaderOff();
                 });
         });
     };
