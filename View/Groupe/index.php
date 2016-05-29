@@ -10,11 +10,6 @@ use nsNewsletter\Model\GroupeUserRepository;
             <span class="type"></span>
             <span class="msg"></span>
         </div>-->
-       <div>
-           <button id="btnManageGroupe"  class="btn btn-warning btnManageGroupe" data-toggle="modal" data-target="#modal">Gérer les groupes</button>
-       </div>
-
-
        <div class="file-wrap">
             <div class="commit commit-tease js-details-container"></div>
             <div class="tab">
