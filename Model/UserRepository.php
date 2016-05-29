@@ -31,7 +31,7 @@ class UserRepository
             exit('Utilisateur non trouvé');
         }
 
-        return new User($raw['id_user'], $raw['nom'], $raw['prenom'], $raw['mail'],  $raw['telephone'], $raw['id_groupe'], $raw['groupe_libelle']);
+        return new User($raw['id_user'], $raw['nom'], $raw['prenom'], $raw['mail'],  $raw['telephone'], $raw['etat'], $raw['accuse']);
     }
 
     public function findUsersByIds($ids)
@@ -52,14 +52,8 @@ class UserRepository
         $hydrated = array();
 
         foreach ($raw as $user) {
-            $id_groupe = array(); $groupe_libelle = array();
-            if(isset($user['id_groupe'])){
-                $id_groupe = $user['id_groupe'];
-            }
-            if(isset($user['groupe_libelle'])){
-                $groupe_libelle = $user['id_groupe'];
-            }
-            $hydrated[] = new User($user['id_user'], $user['nom'], $user['prenom'], $user['mail'], $user['telephone'], $id_groupe, $groupe_libelle  );
+
+            $hydrated[] = new User($user['id_user'], $user['nom'], $user['prenom'], $user['mail'], $user['telephone'], '', ''  );
         }
 
         return $hydrated;
@@ -92,7 +86,7 @@ class UserRepository
 
         $hydrated = array();
         foreach ($raw as $user) {
-            $hydrated[] = new User($user['id_user'], $user['nom'], $user['prenom'], $user['mail'], $user['telephone'], $user['id_groupe'], $user['groupe_libelle']);
+            $hydrated[] = new User($user['id_user'], $user['nom'], $user['prenom'], $user['mail'], $user['telephone'], $user['etat'], $user['accuse']);
         }
 
         return $hydrated;
@@ -112,7 +106,7 @@ class UserRepository
         $hydrated = array();
 
         foreach ($raw as $user) {
-            $hydrated[] = new User($user['id_user'], $user['nom'], $user['prenom'], $user['mail'], $user['telephone'], $user['id_groupe'], $user['groupe_libelle']);
+            $hydrated[] = new User($user['id_user'], $user['nom'], $user['prenom'], $user['mail'], $user['telephone'], $user['etat'], $user['accuse']);
         }
 
         return $hydrated;

@@ -39,7 +39,9 @@ class GroupeUserRepository
     {
         $id_user = $ids['id_user'];
         $id_groupe = $ids['id_groupe'];
-        $raw = $this->db->SqlValue('SELECT * FROM groupe_user WHERE id_user=:id_user AND id_groupe=:id_groupe',array('id_groupe' => $id_groupe, 'id_user' => $id_user));
+        $raw = $this->db->SqlValue('SELECT * FROM groupe_user WHERE id_user=:id_user AND id_groupe=:id_groupe',
+            array(  'id_groupe' => $id_groupe,
+                    'id_user' => $id_user));
         if (empty($raw) )
             return 0;
         return 1;
@@ -57,6 +59,21 @@ class GroupeUserRepository
         }
 
         return $hydrated;
+    }
+
+    public function persist($idGroupe, $users)
+    {
+        $results = array();
+        foreach($users as $user){
+            $this->db->Sql(
+                "INSERT INTO groupe_user (id_groupe, id_user) VALUES(:idGroupe, :idUser)",
+                array(  'idGroupe' => $idGroupe,
+                        'idUser' => $user)
+            );
+            $results[] = $this->db->lastInsertId();
+        }
+
+        return $results;
     }
 
     public function findUsersByIdGroupe($id)

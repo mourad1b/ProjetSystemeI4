@@ -5,12 +5,13 @@ namespace nsNewsletter\Web;
 use nsNewsletter\Autoloader;
 use nsNewsletter\Controller\CampagneController;
 use nsNewsletter\Controller\GroupeController;
+use nsNewsletter\Controller\GroupeUserController;
 use nsNewsletter\Controller\MailController;
 use nsNewsletter\Controller\SecurityController;
 use nsNewsletter\Controller\TemplateController;
 use nsNewsletter\Controller\UserController;
 use nsNewsletter\Controller\NewsletterController;
-use nsNewsletter\Model\Mail;
+use nsNewsletter\Model\GroupeUserRepository;
 use nsNewsletter\Model\Newsletter;
 use nsNewsletter\Model\User;
 use nsNewsletter\Model\Groupe;
@@ -30,6 +31,7 @@ $securityController = new SecurityController();
 $newsletterController = new NewsletterController();
 $campagneController = new CampagneController();
 $templateController = new TemplateController();
+$groupeUserController = new GroupeUserController();
 
 /***********
  * Routing *
@@ -83,9 +85,12 @@ if (isset($_GET['page'])) {
         case 'groupes':
             if (isset($_GET['action'])) {
                 $urlAction = $_GET['action'];
-
                 if ($urlAction == "create") {
-                    $groupeController->addGroupeAction();
+                    $idGroupe = $groupeController->addGroupeAction();
+                    if(!empty($_POST['idUsers'])){
+                        $_POST['idGroupe'] = $idGroupe;
+                        $groupeUserController->affecteUsersToGroupeAction();
+                    }
                 }elseif($urlAction == "read") {
                     $id = $_GET['idGroupe'];
                     $groupeController->getGroupeByIdAction($id);
@@ -94,10 +99,16 @@ if (isset($_GET['page'])) {
                 }elseif ($urlAction == "update") {
                     $groupe = new Groupe($_POST['idGroupe'], $_POST['libelleGroupe'], '');
                     $groupeController->updateGroupeAction($groupe);
+                    if(!empty($_POST['idUsers'])){
+                        $groupeUserController->affecteUsersToGroupeAction();
+                    }
                 }elseif ($urlAction == "delete") {
                     $groupeController->deleteGroupeAction();
                 }elseif ($urlAction == "affect") {
-                    $groupeController->affecteUserGroupeAction();
+                    if(!empty($_POST['idUsers'])){
+                        $_POST['idGroupe'] = $_POST['idGroupeAffect'];
+                        $groupeUserController->affecteUsersToGroupeAction();
+                    }
                 }
             }else{
                 $groupeController->displayGroupeAction();

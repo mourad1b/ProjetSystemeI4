@@ -13,10 +13,11 @@ var Groupe3 = (function() {
     var modal = $('#modal');
     var modalAffect = $('#modalAffect');
     var btnSubmitGroupe = $('.btnSubmitGroupe');
+    var btnSubmitAffectGroupe = $('.btnSubmitAffectGroupe');
     var btnUpdateGroupe = $('.btnUpdateGroupe');
     var btnNewGroupe = $('.btnNewGroupe');
     var btnList = $(".list");
-    var btnParametresGroupe = $('.btnParametresGroupe');
+    var btnAffectationGroupe = $('.btnAffectationGroupe');
 
     var _loaderOn = function() {
         $('#loader').slideDown();
@@ -58,7 +59,7 @@ var Groupe3 = (function() {
     };
 
     var _users = null;
-    function  _getUsersForGroupes () {
+    function  _getUsersForAffectToGroupes () {
         //_loaderOn();
         $.ajax({
                 url : "../Web/index.php?page=users" + "&action=list",
@@ -118,12 +119,12 @@ var Groupe3 = (function() {
             _action = "update";
         });
 
-        btnParametresGroupe.click(function(e) {
+        btnAffectationGroupe.click(function(e) {
             e.preventDefault();
             $("li.fillSource").removeClass('fillSource');
             $(this).closest("li.row").addClass('fillSource');
             fillForm();
-            IHM.validateModal();
+            //IHM.validateModal();
             _action = "affect";
         });
 
@@ -170,29 +171,35 @@ var Groupe3 = (function() {
             idGroupe = $('#inputIdGroupe').val();
             libelleGroupe = $('#inputLibelle').val();
 
-            if(libelleGroupe == "") {
-                bootbox.alert('Libelle est obligatoire !');
-                //cleanForm();
-                IHM.validateModal();
-                return "";
-            }
-
-            console.log(_action);
-
             var idUsers = [];
-            $('#inputSelectUsers :selected').each(function(i, selected){
+            var idGroupeAffect = $('#inputSelectGroupeAffect :selected').data('id');
+
+            $('#inputSelectUsersAffect :selected').each(function(i, selected){
                 idUsers[i] = $(selected).data('id');
             });
-            console.log(idUsers);
+
+            if(_action=="create" && libelleGroupe == "") {
+                bootbox.alert('Libelle est obligatoire !');
+                //cleanForm();
+                //IHM.validateModal();
+                return "";
+            }
+            if(_action=="affect" && (idUsers.length == 0 || idGroupeAffect == "")) {
+                bootbox.alert('Sélection Groupe et Utilisateur obligatoire !');
+                //cleanForm();
+                //IHM.validateModal();
+                return "";
+            }
 
 
             //_loaderOn();
             Ajax.now({
                     //csrf: true,
-                    url : _url + "&action=" + _action +  ((_action === 'update') ? '&idGroupe=' + idGroupe : ''),
+                    url : _url + "&action=" + _action +  ((_action === 'update') || (_action === 'affect') ? '&idGroupe=' + idGroupe : ''),
                     type: 'POST',
                     data : {
                         idGroupe : idGroupe,
+                        idGroupeAffect : idGroupeAffect,
                         libelleGroupe : libelleGroupe,
                         idUsers : idUsers
                     }
@@ -217,7 +224,7 @@ var Groupe3 = (function() {
                         break;
 
                     case "affect":
-                        bootbox.alert("Mail envoyé.");
+                        bootbox.alert("Affectation ok.");
                         modal.hide();
                         //_loaderOff();
                         break;
@@ -235,7 +242,7 @@ var Groupe3 = (function() {
             //initList();
             _getGroupes();
             _initEvents();
-            _getUsersForGroupes();
+            _getUsersForAffectToGroupes();
         }
     };
 })();
