@@ -33,11 +33,13 @@ var Groupe2 = (function() {
 
     var _loaderOn = function() {
         $('#loader').slideDown();
-        $('#panelFormListGroupe').slideUp();
+        //$('#panelFormListGroupe').slideUp();
+        $('#modalContentGroupe').slideUp();
     };
     var _loaderOff = function() {
         $('#loader').slideUp();
-        $('#panelFormListGroupe').slideDown();
+        //$('#panelFormListGroupe').slideDown();
+        $('#modalContentGroupe').slideDown();
         $("body").addClass('modal-open');
     };
 
@@ -54,7 +56,9 @@ var Groupe2 = (function() {
                 if(_groupesLi != 0){
                     initList();
                 }
-            })
+            }).always(function(){
+                //_loaderOff();
+            });
     };
 
     function initList() {
@@ -105,7 +109,7 @@ var Groupe2 = (function() {
 
                 modal.on('click', '.btn-primary', function () {
                     console.log('btnDeleteGroupe '+idGroupe);
-                    //_loaderOn();
+                    ////_loaderOn();
                     $.ajax({
                         url: _url + "&action=delete&idGroupe=" + idGroupe,
                         type: 'POST',
@@ -114,7 +118,7 @@ var Groupe2 = (function() {
                         }
                         //context: document.body
                     }).done(function () {
-                        //_loaderOff();
+                        ////_loaderOff();
                         bootbox.alert("Groupe supprimé.");
                     });
                 });
@@ -152,7 +156,7 @@ var Groupe2 = (function() {
                     e.preventDefault();
                     console.log('btnAddGroupe');
                     libelleGroupe = $.trim($('.inputLibelleGroupe').val());
-                    //_loaderOn();
+                    ////_loaderOn();
 
                     if(libelleGroupe == "") {
                         bootbox.alert('Libellé est obligatoire !');
@@ -169,7 +173,7 @@ var Groupe2 = (function() {
                     }).done(function (data) {
                         groupeList.add({"idGroupe": data.idGroupe, "libelleGroupe": libelleGroupe});
                         //$( this ).addClass( "done" );
-                        // _loaderOff();
+                        // //_loaderOff();
                         bootbox.alert("Groupe ajouté.");
                     });
                 });
@@ -220,7 +224,7 @@ var Groupe2 = (function() {
                         IHM.validateModal();
                         return "";
                     }
-                    //_loaderOn();
+                    ////_loaderOn();
 
                     console.log(idGroupe + "  " +libelleGroupe);
                    $.ajax({
@@ -231,7 +235,7 @@ var Groupe2 = (function() {
                     }).done(function () {
                         var li = $('.fillSource');
                         li.find('.libelleGroupe').text(libelleGroupe);
-                        //_loaderOff();
+                        ////_loaderOff();
                         bootbox.alert("Groupe mis à jour.");
                         //$( this ).addClass( "done" );
                     });
@@ -291,7 +295,7 @@ var Groupe2 = (function() {
                         //,context: document.body
                     }).done(function (data) {
                         //$( this ).addClass( "done" );
-                        // _loaderOff();
+                        // //_loaderOff();
                         bootbox.alert("Utilisateurs affectés au groupe.");
                     });
 

@@ -36,7 +36,7 @@ class GroupeRepository
 
     public function findAll()
     {
-        $stmt = "SELECT g.* FROM groupe g";
+        $stmt = "SELECT g.* FROM groupe g ORDER BY id_groupe DESC";
 
         $raw = $this->db->SqlArray($stmt);
         $hydrated = array();

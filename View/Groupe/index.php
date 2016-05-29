@@ -1,7 +1,6 @@
 <?php
 use nsNewsletter\Model\Groupe;
 use nsNewsletter\Model\GroupeUserRepository;
-require('../View/Groupe/addGroupeForm.php');
 ?>
 
 <div id="main">
@@ -14,6 +13,7 @@ require('../View/Groupe/addGroupeForm.php');
        <div>
            <button id="btnManageGroupe"  class="btn btn-warning btnManageGroupe" data-toggle="modal" data-target="#modal">Gérer les groupes</button>
        </div>
+
 
        <div class="file-wrap">
             <div class="commit commit-tease js-details-container"></div>
@@ -132,9 +132,12 @@ require('../View/Groupe/addGroupeForm.php');
         <div> Derniers numéros :</div>
         <ul class="list-group" style="color: #171a1d;">
             <?php /**@var \nsNewsletter\Model\Campagne $campagne */ foreach($campagnes as $campagne): ?>
-            <li class="hrefDisplayCampagne" id="hrefDisplayCampagne" data-id="<?php echo $campagne->getId();?>">
-                <a href="<?php echo PATH_TO_FRONT_CONTROLLER . "?page=campagnes&action=affiche&idCampagne=" . $campagne->getId(); ?>" class="list-group-item" style="color: #63707d;">NL-<?php echo $campagne->getId(); ?></a></li>
-        <?php endforeach; ?>
+                <?php if(!empty($campagne->getIdNewsletter()) && (!empty($campagne->getIdGroupe() || !empty($campagne->getMailUser())))): ?>
+                    <li class="hrefDisplayCampagne" id="hrefDisplayCampagne" data-id="<?php echo $campagne->getId();?>">
+                    <a href="<?php echo PATH_TO_FRONT_CONTROLLER . "?page=campagnes&action=affiche&idCampagne=" . $campagne->getId(); ?>
+                    " class="list-group-item" style="color: #63707d;">NL-<?php echo $campagne->getId().'-'.$campagne->getLibelle(); ?></a></li>
+                <?php endif; ?>
+            <?php endforeach; ?>
         </ul>
 
     </div>

@@ -12,15 +12,14 @@ var Groupe = (function() {
     var panelFormManageGroupe = $('.panelFormManageGroupe');
     var panelFormAddGroupe = $('.panelFormAddGroupe');
 
-    var formManageGroupe = $('.formManageGroupe');
-    var formActionGroupe = $('.formActionGroupe');
-
     var loadingImg = $('#loader');
 
     var _groupesLi, groupeList;
 
-    panelFormManageGroupe.hide();
-    panelFormAddGroupe.hide();
+    //var formManageGroupe = $('.formManageGroupe');
+    //var formActionGroupe = $('.formActionGroupe');
+    //panelFormManageGroupe.hide();
+    //panelFormAddGroupe.hide();
     //loadingImg.hide();
     var btnAddGroupe = $(".btnAddGroupe");
     var btnModifGroupe = $(".btnModifGroupe");
@@ -40,7 +39,7 @@ var Groupe = (function() {
     };
 
     var _getGroupes = function() {
-        //_loaderOn();
+        ////_loaderOn();
         //console.log("appel _getGroupes()");
         // Lancement de l'appel ajax
         $.ajax({
@@ -50,7 +49,7 @@ var Groupe = (function() {
         }).done(
             function(data) {
                 _groupesLi = jQuery.parseJSON(data);
-                //_loaderOff();
+                ////_loaderOff();
                 initList();
             })
     };
@@ -92,13 +91,13 @@ var Groupe = (function() {
             });
 
             modal.on('click', '.btn-primary', function () {
-               _loaderOn();
+               //_loaderOn();
                 $.ajax({
                     url: "../Web/index.php?page=groupes&action=delete&idGroupe=" + idGroupe
                     //context: document.body
                 }).done(function () {
                     //groupeList.remove({"idGroupe": data.idGroupe, "libelleGroupe": libelleGroupe});
-                    _loaderOff();
+                    //_loaderOff();
                     //@todo gérer le refresh avec _getGroupes()
                     //location.reload();
                     _getGroupes();
@@ -142,7 +141,7 @@ var Groupe = (function() {
                     return"";
                 }
 
-                _loaderOn();
+                //_loaderOn();
                 $.ajax({
                     method: "POST",
                     url: "../Web/index.php?page=groupes&action=create",
@@ -150,7 +149,7 @@ var Groupe = (function() {
                     //,context: document.body
                 }).done(function (data) {
                     //groupeList.add({"idGroupe": data.idGroupe, "libelleGroupe": libelleGroupe});
-                    _loaderOff();
+                    //_loaderOff();
                     _getGroupes();
                     bootbox.alert("Groupe ajouté.");
                     //location.reload();
@@ -198,14 +197,14 @@ var Groupe = (function() {
                  return "";
                  }
 
-                _loaderOn();
+                //_loaderOn();
                 $.ajax({
                     method: "POST",
                     url: "../Web/index.php?page=groupes&action=update&idGroupe=" + idGroupe,
                     data: {idGroupe: idGroupe, libelleGroupe: libelleGroupe}
                     //context: document.body
                 }).done(function () {
-                    _loaderOff();
+                    //_loaderOff();
 
                     _getGroupes();
                     bootbox.alert("Groupe mis à jour.");

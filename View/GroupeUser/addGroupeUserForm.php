@@ -4,7 +4,7 @@
     <div class="row">
         <div class="large-12 columns">
             <label>
-                <strong> VUE => Ajouter des groupe</strong>
+                <strong> VUE => Ajouter des groupes</strong>
                 <input type="text" name="libelle" id="libelle" value="Nom du groupe"/>
                 <input type="submit" class="radius button success" value="Ajouter"/>
             </label>
