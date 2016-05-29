@@ -90,15 +90,12 @@ class UserController
         $from_email = $user->getMail();
         //$subject = "Confirmation de création";
         //$message =  "Votre utilisateur a correctement été enregistrée !\nConsultez l'ensemble des mails via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\nSupprimez un mail via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\n\nVous recevrez un mail en cas de nouveau mail.";
-
         $subject = "Un petit coucou";
         $message =  "Coucou, Un petit coucou depuis mon appli ;-)";
 
-        $mail = new MailSenderController();
+        /*$mail = new MailSenderController();
         $mail->send($to_email, $subject, $message, array());
-
-        //$send = $this->sendMail($to_email, $from_email, $subject, $message);
-        //$send = $this->send();
+        */
 
         $this->indexAction('<strong>Succès !</strong> Utilisateur mis à jour.'); // Redirect to index
     }
@@ -122,9 +119,6 @@ class UserController
 
         $user = new User('', $_POST['nom'], $_POST['prenom'], $_POST['mail'], '', '', '');
         $id = $repos->persist($user); // On persiste l'objet dans la base et on récupère son id
-
-        // Envoie du mail sans header et tout car trop long pour l'exercice qui servira une fois -> SwiftMailer pour le futur
-        //mail($user->getMail(), "Confirmation de création", "Votre utilisateur a correctement été enregistrée !\nConsultez l'ensemble des utilisateurs via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\nSupprimez l'offre d'emploi et les candidature liées via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\n\nVous recevrez un mail en cas de nouveau candidat.");
 
         $this->indexAction('<strong>Succès :</strong> les utilisateurs ont bien été créés.'); // Redirect to index
     }
@@ -177,71 +171,6 @@ class UserController
             $this->indexAction('<strong>Succès :</strong> les utilisateurs ont bien été créés.'); // Redirect to index
 
         }
-    }
-
-    public function sendMai($to, $from_user, $from_email,
-        $subject = '(No subject)', $message = '')
-    {
-        $from_user = "=?UTF-8?B?".base64_encode($from_user)."?=";
-        $subject = "=?UTF-8?B?".base64_encode($subject)."?=";
-
-        $headers = "From: $from_user <$from_email>\r\n".
-            "MIME-Version: 1.0" . "\r\n" .
-            "Content-type: text/html; charset=UTF-8" . "\r\n";
-
-        return mail($to, $subject, $message, $headers);
-    }
-
-    public function send(){
-        $mail = 'mourad_bzd@hotmail.fr'; // Déclaration de l'adresse de destination.
-        if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $mail)) // On filtre les serveurs qui rencontrent des bogues.
-        {
-            $passage_ligne = "\r\n";
-        }
-        else
-        {
-            $passage_ligne = "\n";
-        }
-        //=====Déclaration des messages au format texte et au format HTML.
-        $message_txt = "Salut à tous, voici un e-mail envoyé par un script PHP.";
-        $message_html = "<html><head></head><body><b>Salut à tous</b>, voici un e-mail envoyé par un <i>script PHP</i>.</body></html>";
-        //==========
-
-        //=====Création de la boundary
-        $boundary = "-----=".md5(rand());
-        //==========
-
-        //=====Définition du sujet.
-        $sujet = "Hey mon ami !";
-        //=========
-
-        //=====Création du header de l'e-mail.
-        $header = "From: \"Mourad Benzaid\"<".$mail.">".$passage_ligne;
-        $header.= "Reply-to: \"Mourad Benzaid\" <".$mail.">".$passage_ligne;
-        $header.= "MIME-Version: 1.0".$passage_ligne;
-        $header.= "Content-Type: multipart/alternative;".$passage_ligne." boundary=\"$boundary\"".$passage_ligne;
-        //==========
-
-        //=====Création du message.
-        $message = $passage_ligne."--".$boundary.$passage_ligne;
-        //=====Ajout du message au format texte.
-        $message.= "Content-Type: text/plain; charset=\"ISO-8859-1\"".$passage_ligne;
-        $message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
-        $message.= $passage_ligne.$message_txt.$passage_ligne;
-        //==========
-        $message.= $passage_ligne."--".$boundary.$passage_ligne;
-        //=====Ajout du message au format HTML
-        $message.= "Content-Type: text/html; charset=\"ISO-8859-1\"".$passage_ligne;
-        $message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
-        $message.= $passage_ligne.$message_html.$passage_ligne;
-        //==========
-        $message.= $passage_ligne."--".$boundary."--".$passage_ligne;
-        $message.= $passage_ligne."--".$boundary."--".$passage_ligne;
-        //==========
-
-        //=====Envoi de l'e-mail.
-        return mail($mail,$sujet,$message,$header);
-        //==========
     }
 
 }

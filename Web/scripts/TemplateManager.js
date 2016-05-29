@@ -40,7 +40,7 @@ var TemplateManager = (function() {
 
             if(_action =="create"){
                 $.each( _newsletters, function( key, value ) {
-                    if(key == (_newsletters.length-1)){
+                    if(key == 0){
                         //@todo pouvoir ajouter un contenu formaté en balise html !!! => facile pour les template existants !
                         /*var parser = new tinymce.html.DomParser({validate: true});
                         var rootNode = parser.parse(value.contenu);

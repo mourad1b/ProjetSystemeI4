@@ -38,9 +38,9 @@ var Campagne = (function() {
                 //data = [{"id":"2","libelle":"BEN","prenom":"Mourad","mail":"mourad_ben@test.com"}, {"id":"3","nom":"Loue","prenom":"Arnauld","mail":"Ar.loue@test.net"},{"id":"5","nom":"toto","prenom":"titi","mail":"toto.titi@test-auth.fr"}];
                 _campagnes = jQuery.parseJSON(data);
                 if(_action =="create"){
-                    console.log("_action : "+_action);
+                    console.log(_campagnes);
                     $.each( _campagnes, function( key, value ) {
-                        if(1+key == _campagnes.length){
+                        if(key == _campagnes.length){
                             campagneList.add({idCampagne: value.idCampagne, libelle: value.libelle, objet: value.objet, idNewsletter: value.idNewsletter, idGroupe: value.idGroupe, destinataire: value.destinataire});
                         }
                     });

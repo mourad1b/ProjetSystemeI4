@@ -43,7 +43,7 @@ var User2 = (function() {
                 _users = jQuery.parseJSON(data);
                 if(_action =="create"){
                     $.each( _users, function( key, value ) {
-                        if (key == (_users.length - 1)) {
+                        if (key == 0) {
                             userList.add({"idUser": value.idUser, "nom": value.nom, "prenom": value.prenom, "mail":value.mail});
                         }
                     });
@@ -188,7 +188,7 @@ var User2 = (function() {
         btnImporterUsers.click(function (e) {
             e.preventDefault();
             IHM.validateModal();
-            _action = "importer_users";
+            _action = "importerCSV";
 
             var modal = bootbox.dialog({
                 title: "Importer des utilisateurs",
@@ -234,7 +234,7 @@ var User2 = (function() {
                         //_loaderOn();
                         $.ajax({
                             //csrf:true,
-                            url: _url + "&action=fileupload",
+                            url: _url + "&action=importerCSV",
                             processData: false, // Important pour l'upload
                             contentType: false, // Important pour l'upload
                             data: form_data,

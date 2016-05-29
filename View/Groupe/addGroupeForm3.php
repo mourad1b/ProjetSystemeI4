@@ -6,13 +6,15 @@
     <div class="starter-template">
         <div id="groupe-list">
             <input class="search" />
-            <button class="sort btn btn-default" data-sort="libelle">Tri par Nom</button>
+            <button class="sort btn btn-default" data-sort="libelleGroupe">Tri par Libelle</button>
             <button id="btnNewGroupe" class="btn btn-warning btnNewGroupe" data-toggle="modal" data-target="#modal">Nouveau</button>
-            <button id="btnParametresGroupe" class="btn btn-primary btnParametresGroupe" data-toggle="modal" data-target="#modal">Paramètres</button>
+            <button id="btnParametresGroupe" class="btn btn-primary btnParametresGroupe" data-toggle="modal" data-target="#modal">Affectation</button>
+
             <ul class="menu list-unstyled">
                 <li class="row">
-                    <div class="idGroupe col-md-3">Id</div>
-                    <div class="libelle col-md-6">Libelle</div>
+                    <div class="idGroupe col-md-2">Id</div>
+                    <div class="libelleGroupe col-md-5">Libelle</div>
+                    <div class="nbUsers col-md-2">Nb Utilisateurs</div>
                 </li>
             </ul>
             <ul class="list list-unstyled"></ul>
@@ -20,17 +22,12 @@
     </div>
 </div>
 
-
 <div id="modal" class="modal fade">
     <div class="modal-dialog">
         <div id="modalContentGroupe" class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Paramètres Groupes</h4>
-            </div>
-            <div class="loader text-center" id="loaderr" style="display: none">
-                <img src="../Web/styles/img/loading-img.gif" alt="loading">
-                <br><span>Chargement des données...</span>
+                <h4 class="modal-title" id="myModalLabel">Gestion des Groupes</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal formActionGroupe" enctype="multipart/form-data">
@@ -47,34 +44,21 @@
                             <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputObjet" class="col-sm-2 control-label"><strong>Objet</strong></label>
+                    <!--<div class="form-group">
+                        <label for="inputSelectGroupes" class="col-sm-2 control-label"><strong>Groupes<span>*</span></strong></label>
                         <div class="col-sm-9">
-                            <input id="inputObjet" class="form-control inputObjet" name="inputObjet" value="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputDestinataire" class="col-sm-2 control-label"><strong>Destinataire</strong></label>
-                        <div class="col-sm-9">
-                            <input class="form-control inputDestinataire" id="inputDestinataire" name="inputDestinataire" value=""">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputTemplate" class="col-sm-2 control-label"><strong>Template<span>*</span></strong></label>
-                        <div class="col-sm-9">
-                            <select class="form-control inputSelectTemplate " id="inputSelectTemplate" name="inputSelectTemplate" value="">
-                                <option></option>
+                            <select multiple="multiple" class="inputSelectGroupes" id="inputSelectGroupes" name="inputSelectGroupes">
                             </select>
-                            <!--modalRequired onchange="IHM.validateModal()">
-                            <span class="glyphicon glyphicon-warning-sign form-control-feedback " title="Champ obligatoire" data-placement="left" style="display:none;"></span>
-                            -->
                         </div>
-                    </div>
+                    </div>-->
                     <div class="form-group">
-                        <label for="inputGroupe" class="col-sm-2 control-label"><strong>Groupe<span>*</span></strong></label>
+                        <label for="inputSelectUsers" class="col-sm-2 control-label"><strong>Utilisateurs<span>*</span></strong></label>
                         <div class="col-sm-9">
-                            <select class="form-control inputSelectGroupe" id="inputSelectGroupe" name="inputSelectGroupe">
-                                <option></option>
+                            <select multiple="multiple" class="inputSelectUsers" id="inputSelectUsers" name="inputSelectUsers">
+                                <option value='7' data-id='7'>mourad_bzd@hotmail.fr</option>
+                                <option value='4' data-id='4'>mourad.benzaid@epsi.fr</option>
+                                <option value='2' data-id='2'>mourad1benzaid@gmail.com</option>
+                                <option value='1' data-id='1'>mb@mourad-benzaid.fr</option>
                             </select>
                             <!--modalRequired onchange="IHM.validateModal()">
                             <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
@@ -91,8 +75,11 @@
     </div>
 </div>
 
-
 <!-- JS -->
 <script src="../Web/scripts/Groupe3.js"></script>
 <script src="../Web/scripts/Ajax.js"></script>
 <script src="../Web/scripts/Example.js"></script>
+<script>
+    $('select#inputSelectUsers').multipleSelect(/*{filter: true}*/);
+    //$('select').multipleSelect({filter: true});
+</script>
