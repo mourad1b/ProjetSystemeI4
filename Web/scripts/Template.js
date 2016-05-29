@@ -47,7 +47,7 @@ var Template = (function() {
                 //ed.setContent(value.contenu); // contenu html
                 if(_action =="create"){
                     $.each( _newsletters, function( key, value ) {
-                        if(key == (_newsletters.length-1)){
+                        if(key == 0){
                             //console.log(tinyMCE.activeEditor.getContent());
                             newsletterList.add({idTemplate: value.idTemplate, nom: value.nom, "contenu": value.contenu, "lien":value.lien});
                         }
