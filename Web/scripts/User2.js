@@ -21,7 +21,19 @@ var User2 = (function() {
 
     panelImporterUsers.hide();
 
+    var _loaderOn = function() {
+        $('#loader').slideDown();
+        $('#modalContentCampagne').slideUp();
+    };
+    var _loaderOff = function() {
+        $('#loader').slideUp();
+        $('#modalContentCampagne').slideDown();
+        $("body").addClass('modal-open');
+    };
+
+
     function _getUsers() {
+        //_loaderOn();
         $.ajax({
             url : _url + "&action=list",
             type: 'POST'
@@ -37,6 +49,10 @@ var User2 = (function() {
                     });
                 }
                 initList();
+                //_loaderOff();
+            })
+            .always(function(){
+                //_loaderOff();
             });
     };
 
@@ -97,7 +113,8 @@ var User2 = (function() {
             });
 
             modal.on('click', '.btn-primary', function () {
-                $.ajax({
+                //_loaderOn();
+                Ajax.now({
                     url:  _url + "&action=" + _action + '&idUser=' + idUser,
                     type: 'POST',
                     data : {
@@ -105,13 +122,17 @@ var User2 = (function() {
                     }
                     //context: document.body
                 })
-                    .done(function () {
-                        bootbox.alert("Suppression ok.");
-                        modal.hide();
-                        userList.remove({"idUser": idUser, "nomUser": nom, "prenomUser": prenom, "mailUser":mail});
-                        _getUsers();
-                    });
-            });
+                .done(function () {
+                    bootbox.alert("Suppression ok.");
+                    modal.hide();
+                    userList.remove({"idUser": idUser, "nomUser": nom, "prenomUser": prenom, "mailUser":mail});
+                    _getUsers();
+                    //_loaderOff();
+                })
+                .always(function(){
+                    //_loaderOff();
+                });
+        });
         });
 
         btnSubmitUser.click(function() {
@@ -127,7 +148,8 @@ var User2 = (function() {
                 return "";
             }
 
-            $.ajax({
+            //_loaderOn();
+            Ajax.now({
                 //csrf: true,
                 url : _url + "&action=" + _action +  ((_action === 'update') ? '&idUser=' + idUser : ''),
                 type: 'POST',
@@ -138,24 +160,28 @@ var User2 = (function() {
                     mailUser: mail
                 }
             })
-                .done(function(data) {
-                    switch(_action) {
-                        case "update":
-                            var li = $('.fillSource');
-                            li.find('.nom').text(nom);
-                            li.find('.prenom').text(prenom);
-                            li.find('.mail').text(mail);
-                            bootbox.alert("Mise à jour ok.");
-                            modal.hide();
-                            //_getUsers();
-                            break;
-                        case "create":
-                            bootbox.alert("Enregistrement ok.");
-                            modal.hide();
-                            _getUsers();
-                            break;
-                    }
-                });
+            .done(function(data) {
+                switch(_action) {
+                    case "update":
+                        var li = $('.fillSource');
+                        li.find('.nom').text(nom);
+                        li.find('.prenom').text(prenom);
+                        li.find('.mail').text(mail);
+                        bootbox.alert("Mise à jour ok.");
+                        modal.hide();
+                        //_getUsers();
+                        break;
+                    case "create":
+                        bootbox.alert("Enregistrement ok.");
+                        modal.hide();
+                        _getUsers();
+                        break;
+                }
+                //_loaderOff();
+            })
+            .always(function(){
+                //_loaderOff();
+            });
         });
 
 
@@ -187,7 +213,7 @@ var User2 = (function() {
             modal.on('click', '.btnImporterCSV', function (e) {
                 e.preventDefault();
                 filecsv = $.trim($('.filecsv').val());
-                //_loaderOn();
+                ////_loaderOn();
 
                 // The event listener for the file upload
                 //document.getElementById('filecsv').addEventListener('change', upload, false);
@@ -205,6 +231,7 @@ var User2 = (function() {
                         var form_data = new FormData();
                         form_data.append("file", $("input[type='file']")[0].files[0]);
 
+                        //_loaderOn();
                         $.ajax({
                             //csrf:true,
                             url: _url + "&action=fileupload",
@@ -220,8 +247,14 @@ var User2 = (function() {
                                 bootbox.alert("Utilisateurs ajoutés avec succès");
                             }
                            // _getUsers();
-                        }).fail(function(){
+                            //_loaderOff();
+                        })
+                        .always(function(){
+                            //_loaderOff();
+                        })
+                        .fail(function(){
                             bootbox.alert("Erreur lors du traitement du Fichier");
+                            //_loaderOff();
                         });
                     }
 

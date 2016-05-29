@@ -41,7 +41,7 @@ var Mail = function() {
         $("body").addClass('modal-open');
     };
     var _getMails = function() {
-        _loaderOn();
+        ////_loaderOn();
 
         // Lancement de l'appel ajax
         $.ajax({
@@ -54,7 +54,7 @@ var Mail = function() {
             $('#listMail').html(_fichiersLi);
             //_displayAddFile();
         }).always(function(){
-            _loaderOff();
+            //_loaderOff();
         });
     };
 
@@ -132,11 +132,11 @@ var Mail = function() {
                 data: { libelleMail: libelleMail, objetMail: objetMail, corpsMail: corpsMail }
                 //,context: document.body
             }).done(function() {
-                _loaderOn();
+                //_loaderOn();
                 bootbox.alert("Mail ajouté.");
                 //$( this ).addClass( "done" );
             }).always(function() {
-                    _loaderOff();
+                    //_loaderOff();
                 }
             );
 
@@ -199,11 +199,11 @@ var Mail = function() {
                 data: {idMail: idMail, libelleMail: libelleMail, objetMail: objetMail, corpsMail: corpsMail }
                 //context: document.body
                 }).done(function() {
-                    _loaderOn();
+                    //_loaderOn();
                     bootbox.alert("Mail mis à jour.");
                     //$( this ).addClass( "done" );
                 }).always(function() {
-                        _loaderOff();
+                        //_loaderOff();
                 });
         });
     });

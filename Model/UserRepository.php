@@ -46,7 +46,7 @@ class UserRepository
 
     public function findAll()
     {
-        $stmt = "SELECT u.* FROM users u";
+        $stmt = "SELECT u.* FROM users u ORDER BY id_user DESC";
 
         $raw = $this->db->SqlArray($stmt);
         $hydrated = array();

@@ -29,7 +29,7 @@ var User = function() {
         $("body").addClass('modal-open');
     };
     var _getUsers = function() {
-        _loaderOn();
+        //_loaderOn();
 
         // Lancement de l'appel ajax
         $.ajax({
@@ -42,7 +42,7 @@ var User = function() {
             $('#listUser').html(_fichiersLi);
             //_displayAddFile();
         }).always(function(){
-            _loaderOff();
+            //_loaderOff();
         });
     };
 
@@ -124,11 +124,11 @@ var User = function() {
                 data: { nomUser: nomUser, prenomUser: prenomUser, mailUser: mailUser, telUser: telUser }
                 //,context: document.body
             }).done(function() {
-                _loaderOn();
+                //_loaderOn();
                 bootbox.alert("Utilisateur ajouté.");
                 //$( this ).addClass( "done" );
             }).always(function() {
-                    _loaderOff();
+                    //_loaderOff();
                 }
             );
 
@@ -193,11 +193,11 @@ var User = function() {
                 data: {idUser: idUser, nomUser: nomUser, prenomUser: prenomUser, mailUser: mailUser, telUser: telUser }
                 //context: document.body
                 }).done(function() {
-                    _loaderOn();
+                    //_loaderOn();
                     bootbox.alert("Utilisateur mis à jour.");
                     //$( this ).addClass( "done" );
                 }).always(function() {
-                        _loaderOff();
+                        //_loaderOff();
                 });
         });
     });
