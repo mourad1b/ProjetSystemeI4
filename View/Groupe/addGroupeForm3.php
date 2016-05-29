@@ -115,7 +115,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                <button type="button" class="btn btn-success btnSubmitGroupe buttonValide">Valider</button>
+                <button type="button" class="btn btn-success btnSubmitGroupe">Valider</button>
             </div>
         </div>
     </div>

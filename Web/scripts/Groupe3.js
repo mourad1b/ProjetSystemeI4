@@ -225,7 +225,7 @@ var Groupe3 = (function() {
 
                     case "affect":
                         bootbox.alert("Affectation ok.");
-                        modal.hide();
+                        modalAffect.hide();
                         //_loaderOff();
                         break;
                 }
