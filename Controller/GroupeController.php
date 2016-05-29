@@ -99,7 +99,8 @@ class GroupeController
 
         $id = $repos->persist($groupe); // On persiste l'objet dans la base et on récupère son id
 
-        $this->indexAction('<strong>Succès !</strong> Groupe créé.'); // Redirect to index
+        //$this->indexAction('<strong>Succès !</strong> Groupe créé.'); // Redirect to index
+        $this->displayGroupeAction(); // Redirect to index
     }
 
     public function updateGroupeAction(Groupe $groupe)
@@ -117,23 +118,6 @@ class GroupeController
     public function affecteUserGroupeAction()
     {
         $users = array();
-        $post = $_POST;
-        $files = $_FILES;
-
-        if ((isset($_FILES['file']['tmp_name'])) and ($_FILES['file']['size'] > 0)) {
-            $contents = file_get_contents($_FILES['file']['tmp_name']);
-            $name = $_FILES['file']['name'];
-            $mime = $_FILES['file']['type'];
-
-            $http = array(
-                'name'=>$name,
-                'mime' => $mime,
-                'contents'=>$contents
-            );
-
-        }else{
-
-        }
     }
 
     public function deleteGroupeAction()
