@@ -5,6 +5,7 @@ namespace nsNewsletter\Config;
 /**
  * DataBase
  */
+
 define('DB_HOST', 'mysql.montpellier.epsi.fr:5206');	// mysql.montpellier.epsi.fr:5206
 														// Port interne= 3306 externe=5206
 define('DB_NAME', 'newsletters');
