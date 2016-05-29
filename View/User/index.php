@@ -16,7 +16,7 @@ use nsNewsletter\Model\User;
     </div>
     <div class="panel panel-info">
         <?php
-        //require('../View/Mail/addUserForm.php');
+        //require('../View/Mail/addUserForm.sphp');
         ?>
     </div>
 </div>

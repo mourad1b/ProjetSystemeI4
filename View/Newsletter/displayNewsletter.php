@@ -6,7 +6,7 @@
         <div class="row">
             <div class=""> <!-- large-9 column large-centered">-->
                 <?php
-                require('../View/Newsletter/addNewsletterForm2.php');
+                require('../View/Newsletter/addNewsletterForm.php');
                 ?>
             </div>
         </div>

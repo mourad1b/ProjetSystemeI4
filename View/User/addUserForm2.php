@@ -100,3 +100,4 @@
 </div>
 
 <script src="../Web/scripts/User2.js"></script>
+<script src="../Web/scripts/Ajax.js"></script>

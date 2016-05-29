@@ -112,9 +112,10 @@
         <li>
             <a class="depliant" href="#">Administration &#9660;</a>
             <ul class="sous-menu">
-                <li><a href="index.php?page=newsletters" class="radius">Gestion Templates</a></li>
-                <li><a href="index.php?page=mails" class="radius">Mails</a></li>
-                <li><a href="index.php?page=users" class="radius">Utilisateurs</a></li>
+                <li><a href="index.php?page=newsletters" class="radius">Gérer Newsletters</a></li>
+                <li><a href="index.php?page=templatesManage" class="radius">Gérer Templates</a></li>
+                <li><a href="index.php?page=groupes" class="radius">Gérer Groupes</a></li>
+                <li><a href="index.php?page=users" class="radius">Gérer Utilisateurs</a></li>
             </ul>
         </li>
         <?php //endif; ?>

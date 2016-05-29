@@ -82,7 +82,7 @@ class CampagneController
                 'idCampagne' => $campagne->getId(),
                 'libelle' => $campagne->getLibelle(),
                 'objet' => $campagne->getObjet(),
-                'idTemplate' => $campagne->getIdNewsletter(),
+                'idNewsletter' => $campagne->getIdNewsletter(),
                 'idGroupe' => $campagne->getIdGroupe(),
                 'destinataire' => $campagne->getMailUser(),
             );
@@ -107,7 +107,7 @@ class CampagneController
         $libelle = $params['libelleCampagne'];
         $objet = $params['objetCampagne'];
         $destinataire = $params['destinataire'];
-        $idTemplate = $params['idTemplate'];
+        $idNewsletter = $params['idNewsletter'];
         $idGroupe = $params['idGroupe'];
 
         $groupeusers = array();
@@ -118,7 +118,7 @@ class CampagneController
         // erreur
         if(!empty($idTemplate)) {
             $repoNews = new NewsletterRepository();
-            $news = $repoNews->find($idTemplate);
+            $news = $repoNews->find($idNewsletter);
             $newsletterContent = $news->getTexte();
         }
         if(!empty($idGroupe)) {
@@ -149,7 +149,7 @@ class CampagneController
     public function addCampagneAction()
     {
         $repos = new CampagneRepository();
-        $campagne = new Campagne('', $_POST['libelleCampagne'], $_POST['objetCampagne'], $_POST['idTemplate'], $_POST['idGroupe'], $_POST['destinataire']);
+        $campagne = new Campagne('', $_POST['libelleCampagne'], $_POST['objetCampagne'], $_POST['idNewsletter'], $_POST['idGroupe'], $_POST['destinataire']);
 
         $id = $repos->persist($campagne); // On persiste l'objet dans la base et on récupère son id
 
@@ -168,6 +168,7 @@ class CampagneController
 
     public function deleteCampagneAction()
     {
+        //@todo delete campagne cascade remove id newsletter
         $repos = new CampagneRepository();
         $campagne = new Campagne($_POST['idCampagne'], $_POST['libelleCampagne'], $_POST['objetCampagne'], $_POST['idTemplate'], $_POST['idGroupe'], $_POST['destinataire']);
 

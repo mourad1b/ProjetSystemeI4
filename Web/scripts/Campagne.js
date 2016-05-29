@@ -6,7 +6,7 @@ var Campagne = (function() {
         + '<button id="btnDeleteCampagne" class="btnDeleteCampagne btn btn-info btn-xs">Supprimer</button></div></li>'
     };
 
-    var _campagnes, campagneList, li, idCampagne, libelle, objet, destinataire, idTemplate, idGroupe;
+    var _campagnes, campagneList, li, idCampagne, libelle, objet, destinataire, idNewsletter, idGroupe;
     var _url = "../Web/index.php?page=campagnes";
 
     var _action;
@@ -29,6 +29,7 @@ var Campagne = (function() {
     };
 
     function _getCampagnes() {
+        //_loaderOn();
        $.ajax({
                 url : _url + "&action=list",
                 type: 'POST'
@@ -37,30 +38,41 @@ var Campagne = (function() {
                 //data = [{"id":"2","libelle":"BEN","prenom":"Mourad","mail":"mourad_ben@test.com"}, {"id":"3","nom":"Loue","prenom":"Arnauld","mail":"Ar.loue@test.net"},{"id":"5","nom":"toto","prenom":"titi","mail":"toto.titi@test-auth.fr"}];
                 _campagnes = jQuery.parseJSON(data);
                 if(_action =="create"){
+                    console.log("_action : "+_action);
                     $.each( _campagnes, function( key, value ) {
-                        if(key == (_campagnes.length-1)){
-                            campagneList.add({idCampagne: value.idCampagne, libelle: value.libelle, objet: value.objet, idTemplate: value.idTemplate, idGroupe: value.idGroupe, destinataire: value.destinataire});
+                        if(1+key == _campagnes.length){
+                            campagneList.add({idCampagne: value.idCampagne, libelle: value.libelle, objet: value.objet, idNewsletter: value.idNewsletter, idGroupe: value.idGroupe, destinataire: value.destinataire});
                         }
                     });
                 }
                 initList();
+                //_loaderOff();
+            })
+            .always(function(){
+                //_loaderOff();
             });
     };
 
-    var _templates = null;
+    var _newsletters = null;
     var _groupes = null;
-    function  _getTemplatesAndGroupes () {
+    function  _getNewslettersAndGroupes () {
+        //_loaderOn();
         $.ajax({
                 url : "../Web/index.php?page=newsletters" + "&action=list",
                 type: 'POST'
             })
             .done(function(data) {
-                _templates = jQuery.parseJSON(data);
-                //console.log(_templates);
+                _newsletters = jQuery.parseJSON(data);
+                //console.log(_newsletters);
 
-                $.each( _templates, function( key, value ) {
+                $.each( _newsletters, function( key, value ) {
                      $('#inputSelectTemplate').append("<option data-id='"+value.idNewsletter+"'>"+value.nom+"</option>");
                 });
+
+                //_loaderOff();
+            })
+            .always(function(){
+                //_loaderOff();
             });
 
         $.ajax({
@@ -72,6 +84,11 @@ var Campagne = (function() {
                 $.each( _groupes, function( key, value ) {
                     $('#inputSelectGroupe').append("<option data-id='"+value.idGroupe+"'>"+value.libelleGroupe+"</option>");
                 });
+
+                //_loaderOff();
+            })
+            .always(function(){
+            //_loaderOff();
             });
 
     };
@@ -114,12 +131,12 @@ var Campagne = (function() {
             _action = "update";
         });
 
-        btnList.on("click",".btnSendCampagne", function(e) {
+        /*btnList.on("click",".btnSendCampagne", function(e) {
             e.preventDefault();
             clearForm();
             IHM.validateModal();
             _action = "send";
-        });
+        });*/
 
         btnSendMailCampagne.click(function(e) {
             e.preventDefault();
@@ -149,7 +166,7 @@ var Campagne = (function() {
             });
 
             modal.on('click', '.btn-primary', function () {
-                _loaderOn();
+                //_loaderOn();
                 Ajax.now({
                         url:  _url + "&action=" + _action + '&idCampagne=' + idCampagne,
                         type: 'POST',
@@ -160,13 +177,13 @@ var Campagne = (function() {
                     })
                     .done(function () {
                         bootbox.alert("Suppression ok.");
-                        campagneList.remove({"idCampagne": idCampagne, "libelle": libelle, "objet": objet, "idTemplate": idTemplate, "idGroupe": idGroupe, "destinataire": destinataire});
+                        campagneList.remove({"idCampagne": idCampagne, "libelle": libelle, "objet": objet, "idNewsletter": idNewsletter, "idGroupe": idGroupe, "destinataire": destinataire});
                         _getCampagnes();
                         modal.hide();
-                        _loaderOff();
+                        //_loaderOff();
                     })
                     .always(function() {
-                    _loaderOff();
+                    //_loaderOff();
                     });
                     
             });
@@ -177,7 +194,7 @@ var Campagne = (function() {
             libelle = $('#inputLibelle').val();
             objet = $('#inputObjet').val();
             destinataire = $('#inputDestinataire').val();
-            idTemplate = $( "#inputSelectTemplate option:selected" ).data('id');
+            idNewsletter = $( "#inputSelectTemplate option:selected" ).data('id');
             idGroupe = $('#inputSelectGroupe option:selected').data('id');
 
             if(libelle == "") {
@@ -186,9 +203,16 @@ var Campagne = (function() {
                 IHM.validateModal();
                 return "";
             }
+            var data = {
+                idCampagne : idCampagne,
+                    libelleCampagne : libelle,
+                    objetCampagne : objet,
+                    idNewsletter : idNewsletter,
+                    idGroupe : idGroupe,
+                    destinataire : destinataire
+            }
 
-            _loaderOn();
-
+            //_loaderOn();
             Ajax.now({
                     //csrf: true,
                     url : _url + "&action=" + _action +  ((_action === 'update') ? '&idCampagne=' + idCampagne : ''),
@@ -197,13 +221,13 @@ var Campagne = (function() {
                         idCampagne : idCampagne,
                         libelleCampagne : libelle,
                         objetCampagne : objet,
-                        idTemplate : idTemplate,
+                        idNewsletter : idNewsletter,
                         idGroupe : idGroupe,
                         destinataire : destinataire
                     }
                 })
                 .done(function(data) {
-                   // _loaderOn();
+                   // //_loaderOn();
                     switch(_action) {
                         case "update":
                             var li = $('.fillSource');
@@ -224,13 +248,13 @@ var Campagne = (function() {
                         case "send":
                             bootbox.alert("Mail envoyé.");
                             modal.hide();
-                            //_loaderOff();
+                            ////_loaderOff();
                             break;
                     }
-
+                    //_loaderOff();
                  })
                 .always(function() {
-                    _loaderOff();
+                    //_loaderOff();
                  });
 
         });
@@ -261,8 +285,7 @@ var Campagne = (function() {
             //initList();
             _getCampagnes();
             _initEvents();
-
-            _getTemplatesAndGroupes();
+            _getNewslettersAndGroupes();
         }
     };
 })();

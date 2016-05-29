@@ -26,7 +26,7 @@
         <div id="modalContentCampagne" class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Campagnes - Envoi par mail</h4>
+                <h4 class="modal-title" id="myModalLabel">Gestion des Campagnes</h4>
             </div>
             <div class="loader text-center" id="loaderr" style="display: none">
                 <img src="../Web/styles/img/loading-img.gif" alt="loading">
@@ -55,12 +55,12 @@
                     </div>
                     <div class="form-group">
                         <label for="inputDestinataire" class="col-sm-2 control-label"><strong>Destinataire</strong></label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-10">
                             <input class="form-control inputDestinataire" id="inputDestinataire" name="inputDestinataire" value=""">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputTemplate" class="col-sm-2 control-label"><strong>Template<span>*</span></strong></label>
+                        <label for="inputTemplate" class="col-sm-2 control-label"><strong>Newsletter<span>*</span></strong></label>
                         <div class="col-sm-9">
                             <select class="form-control inputSelectTemplate " id="inputSelectTemplate" name="inputSelectTemplate" value="">
                                 <option></option>

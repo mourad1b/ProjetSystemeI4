@@ -36,7 +36,7 @@ class CampagneRepository
 
     public function findAll()
     {
-        $stmt = "SELECT m.* FROM campagne m";
+        $stmt = "SELECT m.* FROM campagne m ORDER BY id_campagne DESC";
 
         $raw = $this->db->SqlArray($stmt);
         $hydrated = array();
@@ -80,7 +80,12 @@ class CampagneRepository
 
     public function remove(Campagne $campagne)
     {
-        // Supprime le campagne
+        //@todo delete campagne cascade remove idnewsletter
+        // Supprime la campagne
+        $this->db->Sql("UPDATE campagne SET id_newsletter =:idNewsletter, id_groupe =:idGroupe WHERE id_campagne =:id",
+            array   ('id' => $campagne->getId(),
+                    'idNewsletter' => null,
+                    'idGroupe' => null));
         $this->db->Sql("DELETE FROM campagne WHERE id_campagne =:id",
             array('id' => $campagne->getId()));
     }

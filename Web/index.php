@@ -104,27 +104,6 @@ if (isset($_GET['page'])) {
             }
             break;
 
-        case 'mails':
-            if (isset($_GET['action'])) {
-                $urlAction = $_GET['action'];
-                if ($urlAction == "create") {
-                    $mailController->addMailAction();
-                }elseif($urlAction == "read") {
-                    $id = $_GET['idMail'];
-                    $mailController->getMailByIdAction($id);
-                }elseif($urlAction == "list") {
-                    $mailController->getMailsAction();
-                }elseif ($urlAction == "update") {
-                    $mail = new Mail($_POST['idMail'], $_POST['libelleMail'], $_POST['objetMail'], $_POST['corpsMail']);
-                    $mailController->updateMailAction($mail);
-                } elseif ($urlAction == "delete") {
-                    $mailController->deleteMailAction();
-                }
-            }else{
-                $mailController->displayMailAction();
-            }
-            break;
-
         case 'campagnes':
             if (isset($_GET['action'])) {
                 $urlAction = $_GET['action'];
@@ -137,15 +116,17 @@ if (isset($_GET['page'])) {
                 }elseif($urlAction == "list") {
                     $campagneController->getCampagnesAction();
                 }elseif ($urlAction == "update") {
-                    $campagne= new Campagne($_POST['idCampagne'], $_POST['libelleCampagne'], $_POST['objetCampagne'], $_POST['idTemplate'], $_POST['idGroupe'], $_POST['destinataire']);
+                    $campagne= new Campagne($_POST['idCampagne'], $_POST['libelleCampagne'], $_POST['objetCampagne'], $_POST['idNewsletter'], $_POST['idGroupe'], $_POST['destinataire']);
                     $campagneController->updateCampagneAction($campagne);
                 }elseif ($urlAction == "send") {
                     $params = array(
-                       'idCampagne'=>$_POST['idCampagne'], 'libelleCampagne'=>$_POST['libelleCampagne'], 'objetCampagne'=>$_POST['objetCampagne'], 'idTemplate'=>$_POST['idTemplate'], 'idGroupe'=>$_POST['idGroupe'], 'destinataire'=>$_POST['destinataire']
+                       'idCampagne'=>$_POST['idCampagne'], 'libelleCampagne'=>$_POST['libelleCampagne'], 'objetCampagne'=>$_POST['objetCampagne'], 'idNewsletter'=>$_POST['idNewsletter'], 'idGroupe'=>$_POST['idGroupe'], 'destinataire'=>$_POST['destinataire']
                     );
                     //@todo insert new campagne
-                    $campagneController->addCampagneAction();
-                    $campagneController->sendCampagneAction($params);
+                    if(!empty($params['idNewsletter']) && (!empty($params['idGroupe']) || !empty($params['destinataire']))){
+                        $campagneController->addCampagneAction();
+                        $campagneController->sendCampagneAction($params);
+                    }
                 } elseif ($urlAction == "delete") {
                     $campagneController->deleteCampagneAction();
                 }
@@ -159,6 +140,22 @@ if (isset($_GET['page'])) {
                 $urlAction = $_GET['action'];
                 if ($urlAction == "create") {
                 } elseif ($urlAction == "list") {
+                    $templateController->getTemplatesAction();
+                } elseif ($urlAction == "update") {
+                } elseif ($urlAction == "delete") {
+                }
+            }
+            else{
+                $templateController->displayTemplateAction();
+            }
+            break;
+
+        case 'templatesManage':
+            if (isset($_GET['action'])) {
+                $urlAction = $_GET['action'];
+                if ($urlAction == "create") {
+                } elseif ($urlAction == "list") {
+                    $templateController->displayTemplateManageAction();
                 } elseif ($urlAction == "update") {
                 } elseif ($urlAction == "delete") {
                 }
