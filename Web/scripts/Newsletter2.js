@@ -16,7 +16,18 @@ var Newsletter2 = (function() {
     var btnNewNewsletter = $('.btnNewNewsletter');
     var btnList = $(".list");
 
+    var _loaderOn = function() {
+        $('#loader').slideDown();
+        $('#modalContentCampagne').slideUp();
+    };
+    var _loaderOff = function() {
+        $('#loader').slideUp();
+        $('#modalContentCampagne').slideDown();
+        $("body").addClass('modal-open');
+    };
+
     function _getNewsletters() {
+        //_loaderOn();
         $.ajax({
                 url : _url + "&action=list",
                 type: 'POST'
@@ -49,6 +60,10 @@ var Newsletter2 = (function() {
                     });
                 }
                 initList();
+                //_loaderOff();
+            })
+            .always(function(){
+                //_loaderOff();
             });
     };
 
@@ -110,6 +125,7 @@ var Newsletter2 = (function() {
             });
 
             modal.on('click', '.btn-primary', function () {
+                //_loaderOn();
                 $.ajax({
                         url:  _url + "&action=" + _action + '&idNewsletter=' + idNewsletter,
                         type: 'POST',
@@ -123,6 +139,10 @@ var Newsletter2 = (function() {
                         modal.hide();
                         newsletterList.remove({"idNewsletter": idNewsletter, "nomNewsletter": nom, "contenuNewsletter": contenu, "lienNewsletter":lien});
                         _getNewsletters();
+                        //_loaderOff();
+                    })
+                    .always(function(){
+                        //_loaderOff();
                     });
             });
         });
@@ -142,6 +162,7 @@ var Newsletter2 = (function() {
                 return "";
             }
 
+            //_loaderOn();
             Ajax.now({
                     //csrf: true,
                     url : _url + "&action=" + _action +  ((_action === 'update') ? '&idNewsletter=' + idNewsletter : ''),
@@ -172,6 +193,10 @@ var Newsletter2 = (function() {
                             _getNewsletters();
                             break;
                     }
+                    //_loaderOff()
+                })
+                .always(function(){
+                    //_loaderOff();
                 });
         });
 

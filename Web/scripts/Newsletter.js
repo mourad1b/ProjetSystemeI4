@@ -1,68 +1,139 @@
-/**
- * Created by loue on 03/03/2016.
- */
 var Newsletter = (function() {
     var options = {
-        item: '<li class="row"><div class="idMail col-md-1"></div><div class="nom col-md-3"></div>' +
-        '<div class="photo col-md-3"></div><div class="lien col-md-4"></div><div class="col-md-1 text-right">' +
-        '<button id="btnUpdateMail" class="btnUpdateMail btn btn-info btn-xs" data-toggle="modal" data-target="#modal">Modifier</button>' +
-        '<button id="btnDeleteMail" class="btnDeleteMail btn btn-info btn-xs">Supprimer</button></div></li>'
+        /*item: '<li class="row"><div class="idNewsletter col-md-1"></div><div class="nom col-md-3"></div>' +
+         '<div class="contenu col-md-4"></div><div class="lien col-md-3"></div><div class="col-md-1 text-right">' +
+         '<button class="btnUpdateNewsletter btn btn-info btn-xs" data-toggle="modal" data-target="#modal">Modifier</button>' +
+         '<button id="btnDeleteNewsletter" class="btnDeleteNewsletter btn btn-info btn-xs">Supprimer</button></div></li>'
+         */
+        item: '<div class="col-lg-3 col-md-6 col-sm-6 animate-box bodyHtmlNewsletter"><a class="fh5co-card" href="#"> ' +
+        '<img src="" alt="" class="img-responsive" style="text-align: center">' +
+        '<div class="fh5co-card-body" style="height: 300px"></div> ' +
+        '<button class="btnUpdateNewsletter btn btn-info btn-xs" data-toggle="modal" data-target="#modal">Utiliser</button></a></div>'
     };
 
-    var _mails, mailList, li, idMail, nom, photo, lien, texte;
-    var _url = "../Web/index.php?page=newsletters";
+    var _newsletters, newsletterList, li, idNewsletter, nom, contenu, lien;
+    var _urlNewsletters = "../Web/index.php?page=templates";
+    var _urlNewsletters = "../Web/index.php?page=newsletters";
 
     var _action;
     var modal = $('#modal');
-    var btnSubmitMail = $('.btnSubmitMail');
-    var btnUpdateMail = $('.btnUpdateMail');
-    var btnNewNews = $('.btnNewNews');
+    var modalNewsletter =$('#modalNewsletter');
+    var btnSubmitNewsletter = $('.btnSubmitNewsletter');
+    var btnUpdateNewsletter = $('.btnUpdateNewsletter');
+    var btnNewNewsletter = $('.btnNewNewsletter');
     var btnList = $(".list");
+    var _templates;
 
-    function _getNews() {
-        //_url = _url+ "&action=list";
-        //console.log(_url);
+    var _loaderOn = function() {
+        $('#loader').slideDown();
+        $('#modalContentCampagne').slideUp();
+    };
+    var _loaderOff = function() {
+        $('#loader').slideUp();
+        $('#modalContentCampagne').slideDown();
+        $("body").addClass('modal-open');
+    };
+
+    function _getNewsletters() {
+        //_loaderOn();
         $.ajax({
-                url : _url + "&action=list",
+                url : _urlNewsletters + "&action=list",
                 type: 'POST'
             })
             .done(function(data) {
-               // data = [{"id":"2","nom":"BEN","prenom":"Mourad","mail":"mourad_ben@test.com"}, {"id":"3","nom":"Loue","prenom":"Arnauld","mail":"Ar.loue@test.net"},{"id":"5","nom":"toto","prenom":"titi","mail":"toto.titi@test-auth.fr"}];
-                _mails = jQuery.parseJSON(data);
+                //data = [{"id":"2","nom":"BEN","prenom":"Mourad","mail":"mourad_ben@test.com"}, {"id":"3","nom":"Loue","prenom":"Arnauld","mail":"Ar.loue@test.net"},{"id":"5","nom":"toto","prenom":"titi","mail":"toto.titi@test-auth.fr"}];
+                _newsletters = jQuery.parseJSON(data);
+                var ed = tinyMCE.get('inputContenu');
+                //ed.setContent(value.contenu); // contenu html
+
+                if(_action =="create"){
+                    $.each( _newsletters, function( key, value ) {
+                        if(key == (_newsletters.length-1)){
+                            //console.log(tinyMCE.activeEditor.getContent());
+                            newsletterList.add({idNewsletter: value.idNewsletter, nom: value.nom, "contenu": value.contenu, "lien":value.lien});
+                        }
+                    });
+                }
                 initList();
+            })
+            .always(function(){
+                //_loaderOff();
             });
     };
 
+    function _getNewsletters() {
+        var contenuNewsletter = null;
+        //_loaderOn();
+        $.ajax({
+                url : _urlNewsletters + "&action=list",
+                type: 'POST'
+            })
+            .done(function(data) {
+                //data = [{"id":"2","nom":"BEN","prenom":"Mourad","mail":"mourad_ben@test.com"}, {"id":"3","nom":"Loue","prenom":"Arnauld","mail":"Ar.loue@test.net"},{"id":"5","nom":"toto","prenom":"titi","mail":"toto.titi@test-auth.fr"}];
+                _newsletters = jQuery.parseJSON(data);
+                var ed = tinyMCE.get('inputContenu');
+                //ed.setContent(value.contenu); // contenu html
+                console.log(_newsletters);
+                $.each(_newsletters, function (key, value) {
+                    //if (value.idNewsletter == idNewsletter) {
+                    //console.log(value.idNewsletter);
+
+                    contenuNewsletter = '<div class="col-lg-3 col-md-6 col-sm-6 animate-box "> <a class="fh5co-card" href="#"> '
+                        + '<img src="" alt="'+ value.nom+'" class="img-responsive" style="text-align: center"> '
+                        + '<div class="fh5co-card-body bodyHtmlNewsletter"  style="height: 300px"> '
+                        + value.contenu + '</div>'
+                        + '<button class="btnUpdateNewsletter btn btn-info" data-id="'+ value.idNewsletter + '" data-toggle="modal" data-target="#modal"><span class="glyphicon glyphicon-pencil" title="Modifier" aria-hidden="true"></span></button>'
+                        + '<button class="btnDeleteNewsletter btn btn-danger" data-id="'+ value.idNewsletter + '"><span class="glyphicon glyphicon-trash" title="Supprimer" aria-hidden="true"></span></button></a></div>';
+
+                    $("#bodyHtmlContenuNewsletter").append(contenuNewsletter);
+
+                    if(_action =="create"){
+                        //console.log(ed);
+                        console.log('idNewsletter use : '+idNewsletter);
+                        // _getNewsletters();
+                    }
+
+                });
+            })
+            .always(function(){
+                //_loaderOff();
+            });
+    };
+
+
     function initList() {
-        mailList = new List('mail-list', options, _mails);
+        newsletterList = new List('newsletter-list', options, _newsletters);
     };
 
     function cleanForm() {
+        $('#inputIdNewsletter').val("");
         $('#inputNom').val("");
-        $('#inputPhoto').val("");
+        $('#inputContenu').val("");
         $('#inputLien').val("");
-        $('#inputTexte').val("");
-        $('#modalContentMail').find(".key").prop('disabled', true);
+        $('#modalContentNewsletter').find(".key").prop('disabled', true);
     };
 
     function fillForm() {
         li = $('.fillSource');
-        $('#inputIdMail').val(li.find('.idMail').text());
-        $('#inputLibelle').val(li.find('.nom').text());
-        $('#inputObjet').val(li.find('.photo').text());
-        $('#inputBody').val(li.find('.lien').text());
-        $('#modalContentMail').find(".key").prop('disabled', true);
+        $('#inputIdNewsletter').val(li.find('.idNewsletter').text());
+        $('#inputNom').val(li.find('.nom').text());
+        $('textarea#inputContenu').val(li.find('.contenu').text());
+        $('#inputLien').val(li.find('.lien').text());
+        $('#modalContentNewsletter').find(".key").prop('disabled', true);
+        var ed = tinyMCE.get('inputContenu');
+        //ed.setContent(li.find('.contenu').text()); // contenu html
     };
 
     function _initEvents() {
-        btnNewNews.click(function (e) {
+
+        btnNewNewsletter.click(function (e) {
             e.preventDefault();
             cleanForm();
             IHM.validateModal();
             _action = "create";
         });
 
-        btnList.on("click",".btnUpdateMail", function(e) {
+        btnList.on("click",".btnUpdateNewsletter", function(e) {
             e.preventDefault();
             $("li.fillSource").removeClass('fillSource');
             $(this).closest("li.row").addClass('fillSource');
@@ -71,7 +142,7 @@ var Newsletter = (function() {
             _action = "update";
         });
 
-        btnList.on("click",".btnDeleteMail", function(e) {
+        btnList.on("click",".btnDeleteNewsletter", function(e) {
             e.preventDefault();
             //var contentPanelId = $(e.target)[0].id;
             //console.log(contentPanelId);
@@ -79,11 +150,9 @@ var Newsletter = (function() {
             $(this).closest("li.row").addClass('fillSource');
             li = $('.fillSource');
             _action = "delete";
-            idMail = li.find('.idMail').text();
-            /*nom = li.find('.nom').text();
-             photo = li.find('.photo').text();
-             lien = li.find('.lien').text();
-             */
+            //idNewsletter = li.find('.idNewsletter').text();
+            idNewsletter = $(this).data('id');
+            console.log(idNewsletter);
             var modal = bootbox.confirm({
                 //title: "Suppression du mail "+nomSelectUser,
                 message: "Êtes-vous sûr ?",
@@ -93,29 +162,59 @@ var Newsletter = (function() {
             });
 
             modal.on('click', '.btn-primary', function () {
+                //_loaderOn();
                 $.ajax({
-                        url:  _url + "&action=" + _action + '&idMail=' + idMail,
+                        url:  _urlNewsletters + "&action=" + _action + '&idNewsletter=' + idNewsletter,
                         type: 'POST',
                         data : {
-                            idMail: idMail
+                            idNewsletter: idNewsletter
                         }
                         //context: document.body
                     })
                     .done(function () {
-                        //mailList.add({"idMail": idMail, "libelleMail": nom, "objetMail": photo, "corpsMail":lien});
-                        //mailList.add();
                         bootbox.alert("Suppression ok.");
-                        //modal.hide();
+                        modal.hide();
+                        //newsletterList.remove({"idNewsletter": idNewsletter, "nomNewsletter": nom, "contenuNewsletter": contenu, "lienNewsletter":lien});
+                        $("#bodyHtmlContenuNewsletter").append("");
+                        //_getNewsletters();
+                        //_loaderOff();
+                    })
+                    .always(function(){
+                        //_loaderOff();
                     });
             });
         });
+        
+        btnList.on("click",".btnUpdateNewsletter", function(e) {
+            e.preventDefault();
+            idNewsletter = $(this).data('id');
+            $("li.fillSource").removeClass('fillSource');
+            $(this).closest("li.row").addClass('fillSource');
+            fillForm();
 
-        btnSubmitMail.click(function() {
-            //idMail = $('#inputNom').val();
-            nom = $.trim($('#inputNom').val());
-            photo = $.trim($('#inputPhoto').val());
+            console.log(idNewsletter)
+            $.each( _newsletters, function( key, value ) {
+                if(value.idNewsletter == idNewsletter){
+                    $('#inputIdNewsletter').val(value.idNewsletter);
+                    $('#inputNom').val(value.nom);
+                    $('textarea#inputContenu').val(value.contenu);
+                    var ed = tinyMCE.get('inputContenu');
+                    ed.setContent(value.contenu); // contenu html
+                }
+            });
+
+            IHM.validateModal();
+            _action = "create";
+        });
+
+        btnSubmitNewsletter.click(function() {
+            tinyMCE.triggerSave(); //  pour la creation de template
+
+            nom = $('#inputNom').val();
+            contenu = $("textarea#inputContenu").val();
             lien = $.trim($('#inputLien').val());
-            texte = $.trim($('#inputTexte').val());
+            tinyMCE.triggerSave();  //  pour la modification du template
+
             if(nom == "") {
                 bootbox.alert('Nom est obligatoire !');
                 //cleanForm();
@@ -123,16 +222,16 @@ var Newsletter = (function() {
                 return "";
             }
 
-            $.ajax({
+            //_loaderOn();
+            Ajax.now({
                     //csrf: true,
-                    url : _url + "&action=" + _action +  ((_action === 'update') ? '&idMail=' + idMail : ''),
+                    url : _urlNewsletters + "&action=" + _action +  ((_action === 'create') ? '&idNewsletter=' + idNewsletter : ''),
                     type: 'POST',
                     data : {
-                        idMail: idMail,
+                        idNewsletter: idNewsletter,
                         nomNewsletter: nom,
-                        photoNewsletter: photo,
-                        lienNewsletter: lien,
-                        texteNewsletter: texte
+                        contenuNewsletter: contenu,
+                        lienNewsletter: lien
                     }
                 })
                 .done(function(data) {
@@ -140,25 +239,74 @@ var Newsletter = (function() {
                         case "update":
                             var li = $('.fillSource');
                             li.find('.nom').text(nom);
-                            li.find('.photo').text(photo);
+                            li.find('.contenu').text(contenu);
                             li.find('.lien').text(lien);
-                            li.find('.texte').text(texte);
+
+                            $('#inputNom').text(nom);
+                            $("textarea#inputContenu").text(contenu);
+
+                            tinyMCE.triggerSave();  //  pour la modification du template
+                            //_getNewsletters();
                             bootbox.alert("Mise à jour ok.");
                             modal.hide();
                             break;
+
                         case "create":
-                            //mailList.add({"idMail": idMail, "nomNewsletter": nom, "photoNewsletter": photo, "lienNewsletter":lien, "texteNewsletter": texte});
                             bootbox.alert("Enregistrement ok.");
                             modal.hide();
+                            //_getNewsletters();
                             break;
                     }
+                })
+                .always(function(){
+                    //_loaderOff();
+                });
+        });
+
+    };
+
+
+
+    function _editmodal() {
+        var bodyHtmlNewsletter = $('.bodyHtmlNewsletter');
+        bodyHtmlNewsletter.click(function (e) {
+            var idNewsletter = $('.btnUpdateIdNewsletter').data('id');
+            //$('#dataNewsletter').data('id');
+            //_getNewsletters();
+
+            //_loaderOn();
+            $.ajax({
+                    url: "../Web/index.php?page=newsletters" + "&action=list",
+                    type: 'POST'
+                })
+                .done(function (data) {
+                    _templates = jQuery.parseJSON(data);
+                    /*$.each(_templates, function (key, value) {
+                     console.log(value.idNewsletter);
+                     if (value.idNewsletter == idNewsletter) {
+                     console.log("clic : " +value.idNewsletter);
+
+                     }
+                     });
+                     */
+                })
+                .always(function(){
+                    //_loaderOff();
                 });
         });
     };
+
+
     return {
         init : function() {
-            _getNews();
+            _getNewsletters();
+            //_getNewsletters();
             _initEvents();
+            //_editmodal();
+        },
+
+        editmodal: function() {
+            _editmodal();
         }
     };
 })();

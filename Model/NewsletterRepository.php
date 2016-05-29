@@ -1,6 +1,6 @@
 <?php
 /**
- * NewsletterRepository.php
+ * Repository.php
  */
 
 namespace nsNewsletter\Model;
@@ -37,7 +37,7 @@ class NewsletterRepository
 
     public function findAll()
     {
-        $stmt = "SELECT n.* FROM newsletter n";
+        $stmt = "SELECT n.* FROM newsletter n ORDER BY id_newsletter DESC";
 
         $raw = $this->db->SqlArray($stmt);
         $hydrated = array();
@@ -74,7 +74,19 @@ class NewsletterRepository
 
     public function remove(Newsletter $news)
     {
-        // Supprime le mail
+        //@todo supprimer la newsletter CAscade idnewsletter dans Campagne
+
+        $repoCampagnes = new CampagneRepository();
+        $campagnes =$repoCampagnes->findAll();
+        foreach($campagnes as $campagne){
+            if($campagne->getIdNewsletter() == $news->getId()){
+                $this->db->Sql("UPDATE campagne SET id_newsletter =:idNewsletter WHERE id_campagne =:id",
+                    array ( 'id' => $campagne->getId(),
+                            'idNewsletter' => null) );
+            }
+        }
+
+        // Supprime la newsletter
         $this->db->Sql("DELETE FROM newsletter WHERE id_newsletter =:id",
             array('id' => $news->getId()));
     }
