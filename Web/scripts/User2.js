@@ -223,7 +223,7 @@ var User2 = (function() {
                    var ext = $("input#filecsv").val().split(".").pop().toLowerCase();
 
                     if($.inArray(ext, ["csv"]) == -1) {
-                        bootbox.alert('Télécharger un fichier CSV.');
+                        bootbox.alert('Veuillez ajouter un fichier CSV.');
                         return false;
                     }
 

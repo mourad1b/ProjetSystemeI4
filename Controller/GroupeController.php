@@ -9,6 +9,7 @@ use nsNewsletter\Model\Campagne;
 use nsNewsletter\Model\CampagneRepository;
 use nsNewsletter\Model\Groupe;
 use nsNewsletter\Model\GroupeRepository;
+use nsNewsletter\Model\GroupeUserRepository;
 use nsNewsletter\Model\UserRepository;
 
 
@@ -94,13 +95,13 @@ class GroupeController
     public function addGroupeAction()
     {
         $repos = new GroupeRepository();
-
         $groupe = new Groupe('', $_POST['libelleGroupe'], '');
 
-        $id = $repos->persist($groupe); // On persiste l'objet dans la base et on récupère son id
 
+        $id = $repos->persist($groupe); // On persiste l'objet dans la base et on récupère son id
+        return $id;
         //$this->indexAction('<strong>Succès !</strong> Groupe créé.'); // Redirect to index
-        $this->displayGroupeAction(); // Redirect to index
+        //$this->displayGroupeAction(); // Redirect to index
     }
 
     public function updateGroupeAction(Groupe $groupe)
@@ -109,15 +110,6 @@ class GroupeController
         $id = $repos->update($groupe); // On persiste l'objet dans la base et on récupère son id
 
         $this->indexAction('<strong>Succès !</strong> Groupe mis à jour.'); // Redirect to index
-    }
-
-    /**
-     * Affetter des utilisateurs à un groupe choisi
-     * Importer les utilisateurs via un fichier .CSV
-     */
-    public function affecteUserGroupeAction()
-    {
-        $users = array();
     }
 
     public function deleteGroupeAction()

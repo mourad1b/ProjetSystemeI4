@@ -44,14 +44,20 @@ class User
      */
     private $telephone;
 
+    /**
+     * @var
+     */
     private $countUser;
 
     /**
      * @var
      */
-    private $id_groupe;
+    private $etat;
 
-    private $groupe_libelle;
+    /**
+     * @var
+     */
+    private $accuse;
 
     /**
      * @param $id_user
@@ -61,15 +67,15 @@ class User
      * @param $telephone
      * @param $groupe_libelle
      */
-    function __construct($id_user, $nom, $prenom, $mail, $telephone, $id_groupe, $groupe_libelle)
+    function __construct($id_user, $nom, $prenom, $mail, $telephone, $etat, $accuse)
     {
         $this->id_user = $id_user;
         $this->setNom($nom);
         $this->setPrenom($prenom);
         $this->setMail($mail);
         $this->telephone = $telephone;
-        $this->id_groupe = $id_groupe;
-        $this->getGroupeLibelle($groupe_libelle);
+        $this->etat = $etat;
+        $this->accuse = $accuse;
     }
 
 
@@ -168,36 +174,33 @@ class User
     /**
      * @return mixed
      */
-    public function getIdGroupe()
+    public function getIdEtat()
     {
-        return $this->id_groupe;
+        return $this->etat;
     }
 
     /**
-     * @param mixed $id_groupe
+     * @param mixed $etat
      */
-    public function setIdGroupe($id_groupe)
+    public function setIdEtat($etat)
     {
-        $this->id_groupe = $id_groupe;
+        $this->etat = $etat;
     }
 
     /**
      * @return mixed
      */
-    public function getGroupeLibelle()
+    public function getAccuse()
     {
-        return $this->groupe_libelle;
+        return $this->accuse;
     }
 
     /**
-     * @param mixed $groupe_libelle
+     * @param mixed $accuse
      */
-    public function setGroupeLibelle($groupe_libelle)
+    public function setGroupeLibelle($accuse)
     {
-        if (preg_match('#<script(.*?)>(.*?)</script>#is', $groupe_libelle)) {
-            exit('Hack de la validation du formulaire côté client : Injection JS');
-        }
-        $this->groupe_libelle = strip_tags($groupe_libelle);
+        $this->accuse = $accuse;
     }
 
 }

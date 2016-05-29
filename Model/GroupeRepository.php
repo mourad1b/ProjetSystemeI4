@@ -86,8 +86,7 @@ class GroupeRepository
                 "INSERT INTO groupe (libelle) VALUES(:libelle)",
                 array('libelle' => $groupe->getLibelle())
             );
-            $id = $this->db->lastInsertId();
-            $result = $id;
+            $result = $this->db->lastInsertId();
         }
         return $result;
     }
