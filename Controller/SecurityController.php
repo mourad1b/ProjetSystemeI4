@@ -137,21 +137,21 @@ class SecurityController
     public function displayLogoutAction()
     {
         require_once('../View/header.php');
-        require_once('../View/Security/logout.php');
+        //require_once('../View/Security/logout.php');
+        //require_once('../View/Groupe/index.php');
         require_once('../View/footer.php');
 
 
         // Begin the session
-        /*if(session_id() === ""){
-            session_start();
-        }*/
-// Unset all of the session variables.
-        session_unset();
+        if(session_id() !== ""){
+            //session_start();
 
-// Destroy the session.
-        session_destroy();
+            session_unset(); // Unset all of the session variables.
+            session_destroy();// Destroy the session.
+        }
 
-        $this->indexAction('<strong>Déconnecté !</strong>'); // Redirect to index
+        $groupeController = new GroupeController();
+        $groupeController->indexAction('<strong>Déconnecté !</strong>'); // Redirect to index
     }
 
 

@@ -6,9 +6,9 @@ Sinon formulaire d'Authentification  -->
 
 <?php
 // Begin the session
-if(!session_start()){
+/*if(!session_start()){
     session_start();
-}
+}*/
 // Unset all of the session variables.
 session_unset();
 

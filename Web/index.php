@@ -207,6 +207,26 @@ if (isset($_GET['page'])) {
             break;
 
         case 'logout':
+            /*if(session_id() !== ""){
+                //session_start();
+
+                session_unset(); // Unset all of the session variables.
+                session_destroy();// Destroy the session.
+            }
+
+            //header('Location: index.php');
+            $x = 'http://url.com/search/?location=london&page_number=1';
+
+            $parsed = parse_url($x);
+            $query = $parsed['query'];
+
+            parse_str($query, $params);
+
+            unset($params['page_number']);
+            $string = http_build_query($params);
+            var_dump($string);
+
+            */
             $securityController->displayLogoutAction();
             //$groupeController->indexAction();
             break;
@@ -224,11 +244,12 @@ if (isset($_GET['page'])) {
     if(isset($_SESSION['formLogin_token'])){
         session_start();
         //var_dump("formLogin_token  : " );
-        //var_dump($_SESSION['formLogin_token']);
+        var_dump($_SESSION['formLogin_token']);
         $securityController->displayLoginAction();
     }else{
         // On affiche la page d'accueil
         $groupeController->indexAction();
+
     }
 }
 
