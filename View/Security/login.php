@@ -7,11 +7,11 @@ Sinon formulaire d'Authentification  -->
 <?php
 /*** begin our session ***/
 if(session_id() ===""){
-    //var_dump('login not start session: ');
-    session_start();
-}/*else{
+    var_dump('login not start session: ');
+    //session_start();
+}else{
     var_dump('login already started session : ');
-}*/
+}
 
 /*** set a form token ***/
 $formLogin_token = md5( uniqid('auth', true) );
