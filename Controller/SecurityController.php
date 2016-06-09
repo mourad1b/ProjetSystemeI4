@@ -61,7 +61,7 @@ class SecurityController
         if(session_id() === ""){
             session_start();
             //var_dump("handle  : " );
-            //var_dump($_POST['formLogin_token']);
+            //var_dump($_POST['login']);
         }
 
         /*if(is_array($where)){
@@ -72,12 +72,12 @@ class SecurityController
         //session_start();
 
         /*** first check that both the username, password and form token have been sent ***/
-        if(!isset( $_POST['_username'], $_POST['_password'], $_POST['formLogin_token']))
+        if(!isset( $_POST['_username'], $_POST['_password'], $_POST['login']))
         {
             $message = 'Veuillez un identifiant et un mot de passe valides';
         }
         /*** check the form token is valid ***/
-        elseif( $_POST['formLogin_token'] != $_POST['formLogin_token'])
+        elseif( $_POST['login'] != $_POST['login'])
         {
             $message = 'Soummission non valide';
         }
@@ -122,7 +122,7 @@ class SecurityController
                 var_dump($userLogged);
 
                 /*** unset the form token session variable ***/
-                unset($_SESSION['formLogin_token']);
+                unset($_SESSION['login']);
 
                 /*** if all is done, say thanks ***/
                 $message = 'Félicitations, vous êtes correctement authentifié';

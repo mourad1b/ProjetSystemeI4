@@ -85,7 +85,7 @@
         </div>
     </div>
 
-    <?php if(isset($_POST['formLogin_token'])):
+    <?php // if(isset($_POST['login'])):
         //@todo authentification ?>
         <div id="header_right">
             <p>Bienvenue, <b id="userWelcome" data-idUser=""><?php //echo $_POST['_username']; ?></b></p>
@@ -93,11 +93,12 @@
             <p><a href="index.php?page=options">Options</a> | <a
                     href="index.php?page=logout">Déconnexion</a></p>
         </div>
-    <?php else: ?>
-        <div id="header_right">
+    <?php //else: ?>
+        <!--<div id="header_right">
             <p><a href="index.php?page=Login">Connexion</a></p>
         </div>
-    <?php endif ?>
+        -->
+    <?php //endif ?>
 </div> <!--- header -->
 
 <div id="menu">
@@ -111,7 +112,7 @@
         <li><a href="index.php?page=campagnes" class="radius">Campagnes</a></li>
         <li><a href="index.php?page=templates" class="radius">Templates</a></li>
 
-        <?php if(isset($_POST['formLogin_token'])):
+        <?php //if(isset($_POST['login'])):
         //@todo authentification ?>
         <li>
             <a class="depliant" href="#">Administration &#9660;</a>
@@ -122,7 +123,7 @@
                 <li><a href="index.php?page=users" class="radius">Gérer Utilisateurs</a></li>
             </ul>
         </li>
-        <?php endif; ?>
+        <?php //endif; ?>
     </ul>
 </div>
 <br>
