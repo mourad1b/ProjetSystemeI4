@@ -24,11 +24,12 @@ var User2 = (function() {
     var _loaderOn = function() {
         $('#loader').slideDown();
         $('#modalContentCampagne').slideUp();
+        $("body").addClass('modal-open');
     };
     var _loaderOff = function() {
         $('#loader').slideUp();
         $('#modalContentCampagne').slideDown();
-        $("body").addClass('modal-open');
+        $("body").removeClass('modal-open');
     };
 
 

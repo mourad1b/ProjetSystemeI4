@@ -16,6 +16,17 @@ var Mail2 = (function() {
     var btnNewMail = $('.btnNewMail');
     var btnList = $(".list");
 
+    var _loaderOn = function() {
+        $('#loader').slideDown();
+        $('#modalContentCampagne').slideUp();
+        $("body").addClass('modal-open');
+    };
+    var _loaderOff = function() {
+        $('#loader').slideUp();
+        $('#modalContentCampagne').slideDown();
+        $("body").removeClass('modal-open');
+    };
+
     function _getMails() {
         $.ajax({
             url : _url + "&action=list",

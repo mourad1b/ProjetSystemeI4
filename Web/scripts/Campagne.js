@@ -21,15 +21,16 @@ var Campagne = (function() {
     var _loaderOn = function() {
         $('#loader').slideDown();
         $('#modalContentCampagne').slideUp();
+        $("body").addClass('modal-open');
     };
     var _loaderOff = function() {
         $('#loader').slideUp();
         $('#modalContentCampagne').slideDown();
-        $("body").addClass('modal-open');
+        $("body").removeClass('modal-open');
     };
 
     function _getCampagnes() {
-        //_loaderOn();
+        _loaderOn();
        $.ajax({
                 url : _url + "&action=list",
                 type: 'POST'
@@ -40,16 +41,16 @@ var Campagne = (function() {
                 if(_action =="create"){
                     console.log(_campagnes);
                     $.each( _campagnes, function( key, value ) {
-                        if(key == _campagnes.length){
+                        if(key == 0){
                             campagneList.add({idCampagne: value.idCampagne, libelle: value.libelle, objet: value.objet, idNewsletter: value.idNewsletter, idGroupe: value.idGroupe, destinataire: value.destinataire});
                         }
                     });
                 }
                 initList();
-                //_loaderOff();
+                _loaderOff();
             })
             .always(function(){
-                //_loaderOff();
+                _loaderOff();
             });
     };
 
@@ -133,7 +134,7 @@ var Campagne = (function() {
 
         btnList.on("click",".btnSendCampagne", function(e) {
             e.preventDefault();
-            clearForm();
+            cleanForm();
             IHM.validateModal();
             _action = "send";
         });
@@ -166,7 +167,7 @@ var Campagne = (function() {
             });
 
             modal.on('click', '.btn-primary', function () {
-                //_loaderOn();
+                _loaderOn();
                 Ajax.now({
                         url:  _url + "&action=" + _action + '&idCampagne=' + idCampagne,
                         type: 'POST',
@@ -180,10 +181,10 @@ var Campagne = (function() {
                         campagneList.remove({"idCampagne": idCampagne, "libelle": libelle, "objet": objet, "idNewsletter": idNewsletter, "idGroupe": idGroupe, "destinataire": destinataire});
                         _getCampagnes();
                         modal.hide();
-                        //_loaderOff();
+                        _loaderOff();
                     })
                     .always(function() {
-                    //_loaderOff();
+                        _loaderOff();
                     });
                     
             });
@@ -210,9 +211,9 @@ var Campagne = (function() {
                     idNewsletter : idNewsletter,
                     idGroupe : idGroupe,
                     destinataire : destinataire
-            }
+            };
 
-            //_loaderOn();
+            _loaderOn();
             Ajax.now({
                     //csrf: true,
                     url : _url + "&action=" + _action +  ((_action === 'update') ? '&idCampagne=' + idCampagne : ''),
@@ -227,7 +228,6 @@ var Campagne = (function() {
                     }
                 })
                 .done(function(data) {
-                   // //_loaderOn();
                     switch(_action) {
                         case "update":
                             var li = $('.fillSource');
@@ -251,10 +251,11 @@ var Campagne = (function() {
                             ////_loaderOff();
                             break;
                     }
-                    //_loaderOff();
+                    _loaderOff();
+
                  })
                 .always(function() {
-                    //_loaderOff();
+                    _loaderOff();
                  });
 
         });

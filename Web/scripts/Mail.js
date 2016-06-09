@@ -34,11 +34,12 @@ var Mail = function() {
     var _loaderOn = function() {
         $('#loader').slideDown();
         $('#panelFormListMail').slideUp();
+        $("body").addClass('modal-open');
     };
     var _loaderOff = function() {
         $('#loader').slideUp();
         $('#panelFormListMail').slideDown();
-        $("body").addClass('modal-open');
+        $("body").removeClass('modal-open');
     };
     var _getMails = function() {
         ////_loaderOn();

@@ -22,11 +22,12 @@ var Groupe3 = (function() {
     var _loaderOn = function() {
         $('#loader').slideDown();
         $('#modalContentGroupe').slideUp();
+        $("body").addClass('modal-open');
     };
     var _loaderOff = function() {
         $('#loader').slideUp();
         $('#modalContentGroupe').slideDown();
-        $("body").addClass('modal-open');
+        $("body").removeClass('modal-open');
     };
 
     function _getGroupes() {

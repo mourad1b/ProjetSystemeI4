@@ -35,12 +35,13 @@ var Groupe2 = (function() {
         $('#loader').slideDown();
         //$('#panelFormListGroupe').slideUp();
         $('#modalContentGroupe').slideUp();
+        $("body").addClass('modal-open');
     };
     var _loaderOff = function() {
         $('#loader').slideUp();
         //$('#panelFormListGroupe').slideDown();
         $('#modalContentGroupe').slideDown();
-        $("body").addClass('modal-open');
+        $("body").removeClass('modal-open');
     };
 
     var _getGroupes = function() {

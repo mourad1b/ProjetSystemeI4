@@ -43,9 +43,9 @@ $groupeUserController = new GroupeUserController();
 
 
 //@todo décommenter pour l'authentification
- /* if (isset($_POST['formLogin_token'])){
+ /* if (isset($_POST['login'])){
     //var_dump("index traitement form : " );
-    //var_dump($_POST['formLogin_token']);
+    //var_dump($_POST['login']);
     $securityController->handleFormLoginAction(); // Traite le formulaire et redirige vers la page d'accueil
 }*/
 /*
@@ -239,12 +239,12 @@ if (isset($_GET['page'])) {
    /* if(session_id()===""){
         session_start();
         //var_dump("index  : " );
-        //var_dump($_SESSION['formLogin_token']);
+        //var_dump($_SESSION['login']);
     }*/
-    if(isset($_SESSION['formLogin_token'])){
+    if(isset($_SESSION['login'])){
         session_start();
-        //var_dump("formLogin_token  : " );
-        //var_dump($_SESSION['formLogin_token']);
+        //var_dump("login  : " );
+        //var_dump($_SESSION['login']);
         $securityController->displayLoginAction();
     }else{
         // On affiche la page d'accueil

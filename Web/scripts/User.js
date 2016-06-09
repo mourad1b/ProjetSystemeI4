@@ -22,11 +22,12 @@ var User = function() {
     var _loaderOn = function() {
         $('#loader').slideDown();
         $('#panelFormListUser').slideUp();
+        $("body").addClass('modal-open');
     };
     var _loaderOff = function() {
         $('#loader').slideUp();
         $('#panelFormListUser').slideDown();
-        $("body").addClass('modal-open');
+        $("body").removeClass('modal-open');
     };
     var _getUsers = function() {
         //_loaderOn();
