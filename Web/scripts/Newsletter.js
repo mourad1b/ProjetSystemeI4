@@ -35,8 +35,8 @@ var Newsletter = (function() {
         $("body").removeClass('modal-open');
     };
 
-    function _getNewsletters() {
-        //_loaderOn();
+   /* function _getNewsletters() {
+        _loaderOn();
         $.ajax({
                 url : _urlNewsletters + "&action=list",
                 type: 'POST'
@@ -56,15 +56,16 @@ var Newsletter = (function() {
                     });
                 }
                 initList();
+                _loaderOff();
             })
             .always(function(){
-                //_loaderOff();
+                _loaderOff();
             });
-    };
+    };*/
 
     function _getNewsletters() {
         var contenuNewsletter = null;
-        //_loaderOn();
+        _loaderOn();
         $.ajax({
                 url : _urlNewsletters + "&action=list",
                 type: 'POST'
@@ -74,11 +75,9 @@ var Newsletter = (function() {
                 _newsletters = jQuery.parseJSON(data);
                 var ed = tinyMCE.get('inputContenu');
                 //ed.setContent(value.contenu); // contenu html
-                console.log(_newsletters);
-                $.each(_newsletters, function (key, value) {
-                    //if (value.idNewsletter == idNewsletter) {
-                    //console.log(value.idNewsletter);
+                //console.log(_newsletters);
 
+                $.each(_newsletters, function (key, value) {
                     contenuNewsletter = '<div class="col-lg-3 col-md-6 col-sm-6 animate-box "> <a class="fh5co-card" href="#"> '
                         + '<img src="" alt="'+ value.nom+'" class="img-responsive" style="text-align: center"> '
                         + '<div class="fh5co-card-body bodyHtmlNewsletter"  style="height: 300px"> '
@@ -86,18 +85,20 @@ var Newsletter = (function() {
                         + '<button class="btnUpdateNewsletter btn btn-info" data-id="'+ value.idNewsletter + '" data-toggle="modal" data-target="#modal"><span class="glyphicon glyphicon-pencil" title="Modifier" aria-hidden="true"></span></button>'
                         + '<button class="btnDeleteNewsletter btn btn-danger" data-id="'+ value.idNewsletter + '"><span class="glyphicon glyphicon-trash" title="Supprimer" aria-hidden="true"></span></button></a></div>';
 
-                    $("#bodyHtmlContenuNewsletter").append(contenuNewsletter);
+                    if(_action !=="create" && _action !== "update" && _action !== "delete"){
 
-                    if(_action =="create"){
-                        //console.log(ed);
-                        console.log('idNewsletter use : '+idNewsletter);
-                        // _getNewsletters();
+                        $("#bodyHtmlContenuNewsletter").append(contenuNewsletter);
+                    }
+                    if((_action =="create") && key == 0){
+                        $("#bodyHtmlContenuNewsletter").append(contenuNewsletter);
                     }
 
                 });
+
+                _loaderOff();
             })
             .always(function(){
-                //_loaderOff();
+                _loaderOff();
             });
     };
 
@@ -134,7 +135,7 @@ var Newsletter = (function() {
             _action = "create";
         });
 
-        btnList.on("click",".btnUpdateNewsletter", function(e) {
+        /*btnList.on("click",".btnUpdateNewsletter", function(e) {
             e.preventDefault();
             $("li.fillSource").removeClass('fillSource');
             $(this).closest("li.row").addClass('fillSource');
@@ -142,6 +143,7 @@ var Newsletter = (function() {
             IHM.validateModal();
             _action = "update";
         });
+        */
 
         btnList.on("click",".btnDeleteNewsletter", function(e) {
             e.preventDefault();
@@ -153,7 +155,8 @@ var Newsletter = (function() {
             _action = "delete";
             //idNewsletter = li.find('.idNewsletter').text();
             idNewsletter = $(this).data('id');
-            console.log(idNewsletter);
+
+            //console.log(idNewsletter);
             var modal = bootbox.confirm({
                 //title: "Suppression du mail "+nomSelectUser,
                 message: "Êtes-vous sûr ?",
@@ -163,7 +166,13 @@ var Newsletter = (function() {
             });
 
             modal.on('click', '.btn-primary', function () {
-                //_loaderOn();
+
+                // $listItem.parent().parent().parent().prop('className')
+
+                var $listItem= $(e.target);         // liste des DIV template
+                var dataId = $listItem.data('id');  // id template
+
+                _loaderOn();
                 $.ajax({
                         url:  _urlNewsletters + "&action=" + _action + '&idNewsletter=' + idNewsletter,
                         type: 'POST',
@@ -175,25 +184,28 @@ var Newsletter = (function() {
                     .done(function () {
                         bootbox.alert("Suppression ok.");
                         modal.hide();
-                        //newsletterList.remove({"idNewsletter": idNewsletter, "nomNewsletter": nom, "contenuNewsletter": contenu, "lienNewsletter":lien});
-                        $("#bodyHtmlContenuNewsletter").append("");
-                        //_getNewsletters();
-                        //_loaderOff();
+
+                        if(idNewsletter == dataId){
+                            $listItem.parent().parent().remove();
+                        }
+
+                        _getNewsletters();
+                        _loaderOff();
                     })
                     .always(function(){
-                        //_loaderOff();
+                        _loaderOff();
                     });
             });
         });
-        
+
+        var $listItem;
+        var dataId ;
         btnList.on("click",".btnUpdateNewsletter", function(e) {
             e.preventDefault();
             idNewsletter = $(this).data('id');
             $("li.fillSource").removeClass('fillSource');
             $(this).closest("li.row").addClass('fillSource');
             fillForm();
-
-            console.log(idNewsletter)
             $.each( _newsletters, function( key, value ) {
                 if(value.idNewsletter == idNewsletter){
                     $('#inputIdNewsletter').val(value.idNewsletter);
@@ -204,8 +216,12 @@ var Newsletter = (function() {
                 }
             });
 
+            $listItem = $(e.target);         // liste des DIV template
+            dataId = $listItem.data('id');  // id template
+
+
             IHM.validateModal();
-            _action = "create";
+            _action = "update";
         });
 
         btnSubmitNewsletter.click(function() {
@@ -223,7 +239,13 @@ var Newsletter = (function() {
                 return "";
             }
 
-            //_loaderOn();
+            //var $listItem= $(e.target);         // liste des DIV template
+            //var dataId = $listItem.data('id');  // id template
+
+            console.log(dataId + ' ' + idNewsletter);
+            console.log($listItem.parent());
+
+            _loaderOn();
             Ajax.now({
                     //csrf: true,
                     url : _urlNewsletters + "&action=" + _action +  ((_action === 'create') ? '&idNewsletter=' + idNewsletter : ''),
@@ -246,21 +268,26 @@ var Newsletter = (function() {
                             $('#inputNom').text(nom);
                             $("textarea#inputContenu").text(contenu);
 
-                            tinyMCE.triggerSave();  //  pour la modification du template
-                            //_getNewsletters();
+                            //tinyMCE.triggerSave();  //  pour la modification du template
+
+
+
                             bootbox.alert("Mise à jour ok.");
                             modal.hide();
+
+                            _getNewsletters();
                             break;
 
                         case "create":
                             bootbox.alert("Enregistrement ok.");
                             modal.hide();
-                            //_getNewsletters();
+                            _getNewsletters();
                             break;
                     }
+                    _loaderOff();
                 })
                 .always(function(){
-                    //_loaderOff();
+                    _loaderOff();
                 });
         });
 
@@ -275,7 +302,7 @@ var Newsletter = (function() {
             //$('#dataNewsletter').data('id');
             //_getNewsletters();
 
-            //_loaderOn();
+            _loaderOn();
             $.ajax({
                     url: "../Web/index.php?page=newsletters" + "&action=list",
                     type: 'POST'
@@ -290,9 +317,10 @@ var Newsletter = (function() {
                      }
                      });
                      */
+                    _loaderOff();
                 })
                 .always(function(){
-                    //_loaderOff();
+                    _loaderOff();
                 });
         });
     };

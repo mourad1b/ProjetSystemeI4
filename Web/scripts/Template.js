@@ -36,7 +36,7 @@ var Template = (function() {
     };
 
     function _getNewsletters() {
-        //_loaderOn();
+        _loaderOn();
         $.ajax({
                 url : _urlNewsletters + "&action=list",
                 type: 'POST'
@@ -55,15 +55,16 @@ var Template = (function() {
                     });
                 }
                 initList();
+                _loaderOff();
             })
             .always(function(){
-                //_loaderOff();
+                _loaderOff();
             });
     };
 
     function _getTemplates() {
         var contenuTemplate = null;
-        //_loaderOn();
+        _loaderOn();
         $.ajax({
                 url : _urlTemplates + "&action=list",
                 type: 'POST'
@@ -91,11 +92,11 @@ var Template = (function() {
                             console.log('idTemplate use : '+idTemplate);
                            // _getNewsletters();
                     }
-
+                    _loaderOff();
                 });
             })
             .always(function(){
-                //_loaderOff();
+                _loaderOff();
             });
     };
 
@@ -161,7 +162,7 @@ var Template = (function() {
                 return "";
             }
 
-            //_loaderOn();
+            _loaderOn();
             Ajax.now({
                     //csrf: true,
                     url : _urlNewsletters + "&action=" + _action +  ((_action === 'create') ? '&idNewsletter=' + idTemplate : ''),
@@ -196,9 +197,10 @@ var Template = (function() {
                             _getNewsletters();
                             break;
                     }
+                    _loaderOff();
                 })
                 .always(function(){
-                    //_loaderOff();
+                    _loaderOff();
                 });
         });
 
@@ -213,7 +215,7 @@ var Template = (function() {
             //$('#dataTemplate').data('id');
             //_getTemplates();
 
-            //_loaderOn();
+            _loaderOn();
             $.ajax({
                     url: "../Web/index.php?page=newsletters" + "&action=list",
                     type: 'POST'
@@ -228,9 +230,10 @@ var Template = (function() {
                      }
                      });
                      */
+                    _loaderOff();
                 })
                 .always(function(){
-                    //_loaderOff();
+                    _loaderOff();
                 });
         });
     };

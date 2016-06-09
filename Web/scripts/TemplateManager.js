@@ -28,7 +28,7 @@ var TemplateManager = (function() {
     };
 
     function _getNewsletters() {
-        //_loaderOn();
+        _loaderOn();
         Ajax.now({
                 url : _url + "&action=list",
                 type: 'POST'
@@ -61,10 +61,10 @@ var TemplateManager = (function() {
                 });
             }
             initList();
-            //_loaderOff();
+            _loaderOff();
         })
         .always(function(){
-            //_loaderOff();
+            _loaderOff();
         });
     };
 
@@ -126,7 +126,7 @@ var TemplateManager = (function() {
             });
 
             modal.on('click', '.btn-primary', function () {
-                //_loaderOn();
+                _loaderOn();
                 Ajax.now({
                         url:  _url + "&action=" + _action + '&idNewsletter=' + idNewsletter,
                         type: 'POST',
@@ -140,10 +140,10 @@ var TemplateManager = (function() {
                         modal.hide();
                         newsletterList.remove({"idNewsletter": idNewsletter, "nomNewsletter": nom, "contenuNewsletter": contenu, "lienNewsletter":lien});
                         _getNewsletters();
-                        //_loaderOff();
+                        _loaderOff();
                     })
                     .always(function(){
-                        //_loaderOff();
+                        _loaderOff();
                     });
             });
         });
@@ -163,7 +163,7 @@ var TemplateManager = (function() {
                 return "";
             }
 
-            //_loaderOn();
+            _loaderOn();
             Ajax.now({
                     //csrf: true,
                     url : _url + "&action=" + _action +  ((_action === 'update') ? '&idNewsletter=' + idNewsletter : ''),
@@ -194,10 +194,10 @@ var TemplateManager = (function() {
                             _getNewsletters();
                             break;
                     }
-                    //_loaderOff();
+                    _loaderOff();
                 })
                 .always(function(){
-                    //_loaderOff();
+                    _loaderOff();
                 });
         });
 

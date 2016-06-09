@@ -45,7 +45,7 @@ var Groupe2 = (function() {
     };
 
     var _getGroupes = function() {
-        //_loaderOn();
+        _loaderOn();
         // Lancement de l'appel ajax
         $.ajax({
             //csrf:true,
@@ -57,9 +57,11 @@ var Groupe2 = (function() {
                 if(_groupesLi != 0){
                     initList();
                 }
-            }).always(function(){
-                //_loaderOff();
-            });
+                _loaderOff();
+        })
+        .always(function(){
+            _loaderOff();
+        });
     };
 
     function initList() {
@@ -110,7 +112,7 @@ var Groupe2 = (function() {
 
                 modal.on('click', '.btn-primary', function () {
                     console.log('btnDeleteGroupe '+idGroupe);
-                    ////_loaderOn();
+                    _loaderOn();
                     $.ajax({
                         url: _url + "&action=delete&idGroupe=" + idGroupe,
                         type: 'POST',
@@ -119,8 +121,11 @@ var Groupe2 = (function() {
                         }
                         //context: document.body
                     }).done(function () {
-                        ////_loaderOff();
                         bootbox.alert("Groupe supprimé.");
+                        _loaderOff();
+                    })
+                    .always(function(){
+                        _loaderOff();
                     });
                 });
             });
@@ -166,6 +171,7 @@ var Groupe2 = (function() {
                         return "";
                     }
 
+                    _loaderOn();
                     $.ajax({
                         method: "POST",
                         url: _url + "&action=create",
@@ -176,6 +182,10 @@ var Groupe2 = (function() {
                         //$( this ).addClass( "done" );
                         // //_loaderOff();
                         bootbox.alert("Groupe ajouté.");
+                        _loaderOff();
+                    })
+                    .always(function(){
+                        _loaderOff();
                     });
                 });
             });
@@ -225,9 +235,8 @@ var Groupe2 = (function() {
                         IHM.validateModal();
                         return "";
                     }
-                    ////_loaderOn();
 
-                    console.log(idGroupe + "  " +libelleGroupe);
+                    _loaderOn();
                    $.ajax({
                        url: _url + "&action=update&idGroupe=" + idGroupe,
                        type: "POST",
@@ -239,7 +248,10 @@ var Groupe2 = (function() {
                         ////_loaderOff();
                         bootbox.alert("Groupe mis à jour.");
                         //$( this ).addClass( "done" );
-                    });
+                    })
+                   .always(function(){
+                       _loaderOff();
+                   });
 
                 });
             });
@@ -253,7 +265,6 @@ var Groupe2 = (function() {
 
                 idGroupe = $(this).parent().parent().find('.idGroupe').text();
 
-                console.log(idGroupe);
 
                 var modal = bootbox.dialog({
                     title: "Affecter des utilisateurs au groupe n° "+idGroupe,
@@ -287,6 +298,7 @@ var Groupe2 = (function() {
                     }
 
 
+                    _loaderOn();
                     $.ajax({
                         method: "POST",
                         url: _url + "&action=affect&idGroupe=" + idGroupe,
@@ -298,6 +310,10 @@ var Groupe2 = (function() {
                         //$( this ).addClass( "done" );
                         // //_loaderOff();
                         bootbox.alert("Utilisateurs affectés au groupe.");
+                        _loaderOff();
+                    })
+                    .always(function(){
+                        _loaderOff();
                     });
 
 

@@ -34,7 +34,7 @@ var User2 = (function() {
 
 
     function _getUsers() {
-        //_loaderOn();
+        _loaderOn();
         $.ajax({
             url : _url + "&action=list",
             type: 'POST'
@@ -50,10 +50,10 @@ var User2 = (function() {
                     });
                 }
                 initList();
-                //_loaderOff();
+                _loaderOff();
             })
             .always(function(){
-                //_loaderOff();
+                _loaderOff();
             });
     };
 
@@ -114,7 +114,7 @@ var User2 = (function() {
             });
 
             modal.on('click', '.btn-primary', function () {
-                //_loaderOn();
+                _loaderOn();
                 Ajax.now({
                     url:  _url + "&action=" + _action + '&idUser=' + idUser,
                     type: 'POST',
@@ -128,10 +128,10 @@ var User2 = (function() {
                     modal.hide();
                     userList.remove({"idUser": idUser, "nomUser": nom, "prenomUser": prenom, "mailUser":mail});
                     _getUsers();
-                    //_loaderOff();
+                    _loaderOff();
                 })
                 .always(function(){
-                    //_loaderOff();
+                    _loaderOff();
                 });
         });
         });
@@ -149,7 +149,7 @@ var User2 = (function() {
                 return "";
             }
 
-            //_loaderOn();
+            _loaderOn();
             Ajax.now({
                 //csrf: true,
                 url : _url + "&action=" + _action +  ((_action === 'update') ? '&idUser=' + idUser : ''),
@@ -178,10 +178,10 @@ var User2 = (function() {
                         _getUsers();
                         break;
                 }
-                //_loaderOff();
+                _loaderOff();
             })
             .always(function(){
-                //_loaderOff();
+                _loaderOff();
             });
         });
 
@@ -232,7 +232,7 @@ var User2 = (function() {
                         var form_data = new FormData();
                         form_data.append("file", $("input[type='file']")[0].files[0]);
 
-                        //_loaderOn();
+                        _loaderOn();
                         $.ajax({
                             //csrf:true,
                             url: _url + "&action=importerCSV",
@@ -248,14 +248,14 @@ var User2 = (function() {
                                 bootbox.alert("Utilisateurs ajoutés avec succès");
                             }
                            // _getUsers();
-                            //_loaderOff();
+                            _loaderOff();
                         })
                         .always(function(){
-                            //_loaderOff();
+                            _loaderOff();
                         })
                         .fail(function(){
                             bootbox.alert("Erreur lors du traitement du Fichier");
-                            //_loaderOff();
+                            _loaderOff();
                         });
                     }
 

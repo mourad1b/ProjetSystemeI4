@@ -57,7 +57,7 @@ var Campagne = (function() {
     var _newsletters = null;
     var _groupes = null;
     function  _getNewslettersAndGroupes () {
-        //_loaderOn();
+        _loaderOn();
         $.ajax({
                 url : "../Web/index.php?page=newsletters" + "&action=list",
                 type: 'POST'
@@ -70,12 +70,13 @@ var Campagne = (function() {
                      $('#inputSelectTemplate').append("<option data-id='"+value.idNewsletter+"'>"+value.nom+"</option>");
                 });
 
-                //_loaderOff();
+                _loaderOff();
             })
             .always(function(){
-                //_loaderOff();
+                _loaderOff();
             });
 
+        _loaderOn();
         $.ajax({
                 url : "../Web/index.php?page=groupes" + "&action=list",
                 type: 'POST'
@@ -86,10 +87,10 @@ var Campagne = (function() {
                     $('#inputSelectGroupe').append("<option data-id='"+value.idGroupe+"'>"+value.libelleGroupe+"</option>");
                 });
 
-                //_loaderOff();
+                _loaderOff();
             })
             .always(function(){
-            //_loaderOff();
+                _loaderOff();
             });
 
     };

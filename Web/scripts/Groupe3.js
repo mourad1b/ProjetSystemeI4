@@ -31,7 +31,7 @@ var Groupe3 = (function() {
     };
 
     function _getGroupes() {
-        //_loaderOn();
+        _loaderOn();
         $.ajax({
                 url : _url + "&action=list",
                 type: 'POST'
@@ -52,16 +52,16 @@ var Groupe3 = (function() {
                     });
                 }
                 initList();
-                //_loaderOff();
+                _loaderOff();
             })
             .always(function(){
-                //_loaderOff();
+                _loaderOff();
             });
     };
 
     var _users = null;
     function  _getUsersForAffectToGroupes () {
-        //_loaderOn();
+        _loaderOn();
         $.ajax({
                 url : "../Web/index.php?page=users" + "&action=list",
                 type: 'POST'
@@ -75,10 +75,10 @@ var Groupe3 = (function() {
                 });
                 */
 
-                //_loaderOff();
+                _loaderOff();
             })
             .always(function(){
-                //_loaderOff();
+                _loaderOff();
             });
     };
 
@@ -147,7 +147,7 @@ var Groupe3 = (function() {
             });
 
             modal.on('click', '.btn-primary', function () {
-                //_loaderOn();
+                _loaderOn();
                 Ajax.now({
                         url:  _url + "&action=" + _action + '&idGroupe=' + idGroupe,
                         type: 'POST',
@@ -160,10 +160,10 @@ var Groupe3 = (function() {
                     groupeList.remove({"idGroupe": idGroupe, "libelleGroupe": libelleGroupe});
                     _getGroupes();
                     modal.hide();
-                    //_loaderOff();
+                    _loaderOff();
                 })
                 .always(function() {
-                    //_loaderOff();
+                    _loaderOff();
                 });
             });
         });
@@ -193,7 +193,7 @@ var Groupe3 = (function() {
             }
 
 
-            //_loaderOn();
+            _loaderOn();
             Ajax.now({
                     //csrf: true,
                     url : _url + "&action=" + _action +  ((_action === 'update') || (_action === 'affect') ? '&idGroupe=' + idGroupe : ''),
@@ -206,7 +206,6 @@ var Groupe3 = (function() {
                     }
             })
             .done(function(data) {
-                // //_loaderOn();
                 switch(_action) {
                     case "update":
                         var li = $('.fillSource');
@@ -230,10 +229,10 @@ var Groupe3 = (function() {
                         //_loaderOff();
                         break;
                 }
-                //_loaderOff();
+                _loaderOff();
             })
             .always(function() {
-                //_loaderOff();
+                _loaderOff();
             });
         });
     };
