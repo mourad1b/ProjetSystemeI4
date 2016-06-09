@@ -244,7 +244,7 @@ if (isset($_GET['page'])) {
     if(isset($_SESSION['formLogin_token'])){
         session_start();
         //var_dump("formLogin_token  : " );
-        var_dump($_SESSION['formLogin_token']);
+        //var_dump($_SESSION['formLogin_token']);
         $securityController->displayLoginAction();
     }else{
         // On affiche la page d'accueil

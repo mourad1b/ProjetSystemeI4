@@ -7,10 +7,10 @@ Sinon formulaire d'Authentification  -->
 <?php
 /*** begin our session ***/
 if(session_id() ===""){
-    var_dump('login not start session: ');
+    //var_dump('login not start session: ');
     //session_start();
 }else{
-    var_dump('login already started session : ');
+    //var_dump('login already started session : ');
 }
 
 /*** set a form token ***/
@@ -36,6 +36,9 @@ $_SESSION['formLogin_token'] = $formLogin_token;
         <input type="checkbox" id="remember_me" name="_remember_me" value="on">
         <label for="remember_me">Se souvenir de moi</label>
         <br>
-        <input type="submit" id="_submit" name="_submit" value="Connexion">
+        <input type="submit" id="_submit_auth" name="_submit_auth" value="Connexion">
     </form>
 </div>
+
+
+<script src="../Web/scripts/Security.js"></script>
