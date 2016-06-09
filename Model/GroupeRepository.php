@@ -102,7 +102,11 @@ class GroupeRepository
 
     public function remove(Groupe $groupe)
     {
-        // Supprime le mail
+        //@todo delete groupe cascade remove groupe-user
+        // Supprime la groupe du groupe_user
+        $this->db->Sql("DELETE FROM groupe_user WHERE id_groupe =:idGroupe",
+            array   ('idGroupe' => $groupe->getId()));
+        // Supprime le groupe
         $this->db->Sql("DELETE FROM groupe WHERE id_groupe =:id",
             array('id' => $groupe->getId()));
     }
