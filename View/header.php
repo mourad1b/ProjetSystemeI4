@@ -12,7 +12,11 @@
     <link rel="stylesheet" href="../Web/styles/css/style.css">
     <link rel="stylesheet" href="../Web/styles/css/main.css">
     <link rel="stylesheet" href="../Web/styles/css/list.css">
+    <!--
     <link rel="stylesheet" href="../Web/select/multiple-select.css" />
+    -->
+    <link rel="stylesheet" href="../Web/select/select2.css" />
+
 
      <!--for auth-->
     <!--<link rel="stylesheet" href="../Web/styles/css/auth/app_reset_1.css">
@@ -57,7 +61,12 @@
 <script src="../Web/js/script.js"></script>
 <script src="../Web/js/bootstrap.min.js"></script>
 <script src="../Web/js/bootbox.min.js"></script>
+
+
+<script src="../Web/select/select2.js"></script>
+<!--
 <script src="../Web/select/multiple-select.js"></script>
+-->
 
 <!-- Includ Scripts JS -->
 <script src="../Web/scripts/IHM.js"></script>

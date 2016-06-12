@@ -131,7 +131,7 @@ if (isset($_GET['page'])) {
                     $campagneController->updateCampagneAction($campagne);
                 }elseif ($urlAction == "send") {
                     $params = array(
-                       'idCampagne'=>$_POST['idCampagne'], 'libelleCampagne'=>$_POST['libelleCampagne'], 'objetCampagne'=>$_POST['objetCampagne'], 'idNewsletter'=>$_POST['idNewsletter'], 'idGroupe'=>$_POST['idGroupe'], 'destinataire'=>$_POST['destinataire']
+                       'idCampagneSelected'=>$_POST['idCampagneSelected'], 'libelleCampagne'=>$_POST['libelleCampagne'], 'objetCampagne'=>$_POST['objetCampagne'], 'idNewsletter'=>$_POST['idNewsletter'], 'idGroupe'=>$_POST['idGroupe'], 'destinataire'=>$_POST['destinataire']
                     );
                     //@todo insert new campagne
                     if(!empty($params['idNewsletter']) && (!empty($params['idGroupe']) || !empty($params['destinataire']))){

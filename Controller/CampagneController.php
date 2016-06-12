@@ -10,7 +10,6 @@ use nsNewsletter\Model\CampagneRepository;
 use nsNewsletter\Model\NewsletterRepository;
 use nsNewsletter\Model\GroupeUserRepository;
 use nsNewsletter\Model\UserRepository;
-use nsNewsletter\Controller\MailSenderController;
 
 
 class CampagneController
@@ -103,7 +102,7 @@ class CampagneController
     public function sendCampagneAction($params)
     {
 
-        $idCampagne = $params['idCampagne'];
+        $idCampagne = $params['idSelectedCampagne'];
         $libelle = $params['libelleCampagne'];
         $objet = $params['objetCampagne'];
         $destinataire = $params['destinataire'];
@@ -149,7 +148,14 @@ class CampagneController
     public function addCampagneAction()
     {
         $repos = new CampagneRepository();
-        $campagne = new Campagne('', $_POST['libelleCampagne'], $_POST['objetCampagne'], $_POST['idNewsletter'], $_POST['idGroupe'], $_POST['destinataire']);
+        if(!empty($_POST['idSelectedCampagne'])){
+            $libelleCampagne = $repos->find($_POST['idSelectedCampagne'])->getLibelle().'Send';
+            $campagne = new Campagne('', $libelleCampagne, $_POST['objetCampagne'], $_POST['idNewsletter'], $_POST['idGroupe'], $_POST['destinataire']);
+        }else{
+            //$campagne= new Campagne($_POST['idCampagne'], $_POST['libelleCampagne'], $_POST['objetCampagne'], $_POST['idNewsletter'], $_POST['idGroupe'], $_POST['destinataire']);
+            $campagne = new Campagne('', $_POST['libelleCampagne'], $_POST['objetCampagne'], $_POST['idNewsletter'], $_POST['idGroupe'], $_POST['destinataire']);
+        }
+
 
         $id = $repos->persist($campagne); // On persiste l'objet dans la base et on récupère son id
 
@@ -159,6 +165,15 @@ class CampagneController
     public function updateCampagneAction(Campagne $campagne)
     {
         $repos = new CampagneRepository();
+        /*if(!empty($_POST['idSelectedCampagne'])){
+            $libelleCampagne = $repos->find($_POST['idSelectedCampagne']);
+            $campagne = new Campagne($_POST['idSelectedCampagne'], $libelleCampagne->getLibelle(), $_POST['objetCampagne'], $_POST['idNewsletter'], $_POST['idGroupe'], $_POST['destinataire']);
+        }else{
+
+        }*/
+            //$campagne= new Campagne($_POST['idCampagne'], $_POST['libelleCampagne'], $_POST['objetCampagne'], $_POST['idNewsletter'], $_POST['idGroupe'], $_POST['destinataire']);
+        //}
+
         $id = $repos->update($campagne);
 
         // campagne($campagne->getCampagne(), "Confirmation de création", "Votre utilisateur a correctement été enregistrée !\nConsultez l'ensemble des campagnes via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\nSupprimez un campagne via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\n\nVous recevrez un campagne en cas de nouveau campagne.");

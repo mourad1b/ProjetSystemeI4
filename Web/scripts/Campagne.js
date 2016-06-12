@@ -269,6 +269,7 @@ var Campagne = (function() {
             console.log("destinataire " +destinataire);
             console.log("idGroupe " +idGroupe);
 
+
             if(_action == "send"){
                 if((( idGroupe == undefined && destinataire == ""))) {
 
@@ -291,6 +292,7 @@ var Campagne = (function() {
                 idGroupe : idGroupe,
                 destinataire : destinataire
             };
+
 
             _loaderOn();
             Ajax.now({
