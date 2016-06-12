@@ -41,10 +41,30 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="inputSelectCampagne" class="col-sm-2 control-label"><strong>Campagne<span>*</span></strong></label>
+                        <div class="col-sm-9">
+                            <select class="form-control inputSelectCampagne modalRequired" id="inputSelectCampagne" name="inputSelectCampagne" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()" onchange="IHM.validateModal()">
+                                <option></option>
+                            </select>
+                            <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="inputLibelle" class="col-sm-2 control-label"><strong>Libellé<span>*</span></strong></label>
                         <div class="col-sm-9">
-                            <input id="inputLibelle" class="form-control inputLibelle modalRequired" name="inputLibelle" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">
+                            <input id="inputLibelle" class="form-control inputLibelle" name="inputLibelle" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()" onchange="IHM.validateModal()">
                             <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputTemplate" class="col-sm-2 control-label"><strong>Newsletter<span>*</span></strong></label>
+                        <div class="col-sm-9">
+                            <select class="form-control inputSelectTemplate modalRequired" id="inputSelectTemplate" name="inputSelectTemplate" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()" onchange="IHM.validateModal()">
+                                <option></option>
+                            </select>
+                            <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
+
                         </div>
                     </div>
                     <div class="form-group">
@@ -53,32 +73,23 @@
                             <input id="inputObjet" class="form-control inputObjet" name="inputObjet" value="">
                         </div>
                     </div>
+                    <span title="pour l'envoi d'une campagne par email, il est obligatoire de renseigner soit un mail destinataire et/ou choisir un groupe dans la liste" class="hasTooltip tooltipInfo" data-placement="right"><strong></strong> *<span class="label label-info"> ?</span></span></label>
                     <div class="form-group">
                         <label for="inputDestinataire" class="col-sm-2 control-label"><strong>Destinataire</strong></label>
                         <div class="col-sm-9">
-                            <input class="form-control inputDestinataire" id="inputDestinataire" name="inputDestinataire" value=""">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputTemplate" class="col-sm-2 control-label"><strong>Newsletter<span>*</span></strong></label>
-                        <div class="col-sm-9">
-                            <select class="form-control inputSelectTemplate " id="inputSelectTemplate" name="inputSelectTemplate" value="">
-                                <option></option>
-                            </select>
-                            <!--modalRequired onchange="IHM.validateModal()">
-                            <span class="glyphicon glyphicon-warning-sign form-control-feedback " title="Champ obligatoire" data-placement="left" style="display:none;"></span>
-                            -->
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputGroupe" class="col-sm-2 control-label"><strong>Groupe<span>*</span></strong></label>
-                        <div class="col-sm-9">
-                            <select class="form-control inputSelectGroupe" id="inputSelectGroupe" name="inputSelectGroupe">
-                                <option></option>
-                            </select>
-                            <!--modalRequired onchange="IHM.validateModal()">
+                            <input class="form-control inputDestinataire" id="inputDestinataire" name="inputDestinataire" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()" onchange="IHM.validateModal()">
                             <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
-                            -->
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputGroupe" class="col-sm-2 control-label"><strong>Groupe</strong></label>
+                        <div class="col-sm-9">
+                            <select class="form-control inputSelectGroupe" id="inputSelectGroupe" name="inputSelectGroupe" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()" onchange="IHM.validateModal()">
+                                <option></option>
+                            </select>
+                            <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
+
                         </div>
                     </div>
                 </form>

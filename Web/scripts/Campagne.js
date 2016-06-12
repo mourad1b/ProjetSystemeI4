@@ -3,10 +3,10 @@ var Campagne = (function() {
         item: '<li class="row"><div class="idCampagne col-md-3"></div><div class="libelle col-md-6"></div>'
         //+ '<div class="contenu col-md-4"></div><div class="lien col-md-3"></div><div class="col-md-1 text-right">'
         + '<button class="btnUpdateCampagne btn btn-info btn-xs" data-toggle="modal" data-target="#modal">Modifier</button>'
-        + '<button id="btnDeleteCampagne" class="btnDeleteCampagne btn btn-info btn-xs">Supprimer</button></div></li>'
+        + '<button id="btnDeleteCampagne" class="btnDeleteCampagne btn btn-danger btn-xs">Supprimer</button></div></li>'
     };
 
-    var _campagnes, campagneList, li, idCampagne, libelle, objet, destinataire, idNewsletter, idGroupe;
+    var _campagnes, campagneList, li, idCampagne, idSelectedCampagne, libelle, objet, destinataire, idNewsletter, idGroupe;
     var _url = "../Web/index.php?page=campagnes";
 
     var _action;
@@ -38,9 +38,13 @@ var Campagne = (function() {
             .done(function(data) {
                 //data = [{"id":"2","libelle":"BEN","prenom":"Mourad","mail":"mourad_ben@test.com"}, {"id":"3","nom":"Loue","prenom":"Arnauld","mail":"Ar.loue@test.net"},{"id":"5","nom":"toto","prenom":"titi","mail":"toto.titi@test-auth.fr"}];
                 _campagnes = jQuery.parseJSON(data);
+                $.each( _campagnes, function( key, value ) {
+                    $('#inputSelectCampagne').append("<option data-id='"+value.idCampagne+"'>"+value.libelle+"</option>");
+                });
+
                 if(_action =="create"){
-                    console.log(_campagnes);
                     $.each( _campagnes, function( key, value ) {
+                        console.log(_campagnes);
                         if(key == 0){
                             campagneList.add({idCampagne: value.idCampagne, libelle: value.libelle, objet: value.objet, idNewsletter: value.idNewsletter, idGroupe: value.idGroupe, destinataire: value.destinataire});
                         }
@@ -117,9 +121,25 @@ var Campagne = (function() {
     };
 
     function _initEvents() {
+
         btnNewCampagne.click(function (e) {
             e.preventDefault();
             cleanForm();
+
+            $('span.tooltipInfo').hide();
+            $('#inputObjet').parent().parent().hide();
+            $('#inputSelectCampagne').parent().parent().hide();
+            $('#inputDestinataire').parent().parent().hide();
+            $('#inputSelectTemplate').parent().parent().hide();
+            $('#inputSelectGroupe').parent().parent().hide();
+
+            $('#inputLibelle').parent().parent().show();
+            $('#inputLibelle').addClass('modalRequired');
+            $('#inputSelectCampagne').removeClass('modalRequired');
+            $('#inputDestinataire').removeClass('modalRequired');
+            $('#inputSelectTemplate').removeClass('modalRequired');
+            $('#inputSelectGroupe').removeClass('modalRequired');
+
             IHM.validateModal();
             _action = "create";
         });
@@ -129,8 +149,25 @@ var Campagne = (function() {
             $("li.fillSource").removeClass('fillSource');
             $(this).closest("li.row").addClass('fillSource');
             fillForm();
+
+            $('span.tooltipInfo').hide();
+            $('#inputObjet').parent().parent().hide();
+            $('#inputLibelle').parent().parent().show();
+            $('#inputLibelle').addClass('modalRequired');
+            $('#inputSelectCampagne').parent().parent().hide();
+            $('#inputDestinataire').parent().parent().hide();
+            $('#inputSelectTemplate').parent().parent().hide();
+            $('#inputSelectGroupe').parent().parent().hide();
+
+            $('#inputSelectCampagne').removeClass('modalRequired');
+            $('#inputDestinataire').removeClass('modalRequired');
+            $('#inputSelectTemplate').removeClass('modalRequired');
+            $('#inputSelectGroupe').removeClass('modalRequired');
+
+
             IHM.validateModal();
             _action = "update";
+
         });
 
         btnList.on("click",".btnSendCampagne", function(e) {
@@ -142,11 +179,26 @@ var Campagne = (function() {
 
         btnSendMailCampagne.click(function(e) {
             e.preventDefault();
+
+
+            $('span.tooltipInfo').show();
+            $('#inputObjet').parent().parent().show();
+            $('#inputSelectCampagne').parent().parent().show();
+            $('#inputSelectCampagne').addClass('modalRequired');
+            $('#inputLibelle').parent().parent().hide();
+            $('#inputLibelle').removeClass('modalRequired');
+            $('#inputDestinataire').parent().parent().show();
+            $('#inputSelectTemplate').parent().parent().show();
+            $('#inputSelectTemplate').addClass('modalRequired');
+            $('#inputSelectGroupe').parent().parent().show();
+
             $("li.fillSource").removeClass('fillSource');
             $(this).closest("li.row").addClass('fillSource');
             fillForm();
+
             IHM.validateModal();
             _action = "send";
+
         });
 
         btnList.on("click",".btnDeleteCampagne", function(e) {
@@ -191,27 +243,53 @@ var Campagne = (function() {
             });
         });
 
+
         btnSubmitCampagne.click(function() {
             idCampagne = $('#inputIdCampagne').val();
-            libelle = $('#inputLibelle').val();
+            idSelectedCampagne = $('#inputSelectCampagne option:selected').data('id');
+            libelle = $.trim($('#inputLibelle').val());
             objet = $('#inputObjet').val();
-            destinataire = $('#inputDestinataire').val();
+            destinataire = $.trim($('#inputDestinataire').val());
             idNewsletter = $( "#inputSelectTemplate option:selected" ).data('id');
             idGroupe = $('#inputSelectGroupe option:selected').data('id');
 
-            if(libelle == "") {
+            if((_action == "create" || _action == "update") && libelle == "") {
                 bootbox.alert('Libelle est obligatoire !');
                 //cleanForm();
                 IHM.validateModal();
                 return "";
             }
+
+
+            console.log(_action);
+            console.log("idCampagne " +idCampagne);
+            console.log("libelle " +libelle);
+            console.log("idSelectedCampagne " +idSelectedCampagne);
+            console.log("idNewsletter " +idNewsletter);
+            console.log("destinataire " +destinataire);
+            console.log("idGroupe " +idGroupe);
+
+            if(_action == "send"){
+                if((( idGroupe == undefined && destinataire == ""))) {
+
+                    //$( "#inputSelectTemplate" ).addClass('modalRequired');  // newsletter Required
+                    // $('#inputSelectGroupe').addClass('modalRequired');
+
+                    bootbox.alert('Veuillez choisir un groupe ou renseigner un mail destinataire !');
+                    //cleanForm();
+                    IHM.validateModal();
+                    return "";
+                }
+            }
+
+
             var data = {
                 idCampagne : idCampagne,
-                    libelleCampagne : libelle,
-                    objetCampagne : objet,
-                    idNewsletter : idNewsletter,
-                    idGroupe : idGroupe,
-                    destinataire : destinataire
+                libelleCampagne : libelle,
+                objetCampagne : objet,
+                idNewsletter : idNewsletter,
+                idGroupe : idGroupe,
+                destinataire : destinataire
             };
 
             _loaderOn();
@@ -221,6 +299,7 @@ var Campagne = (function() {
                     type: 'POST',
                     data : {
                         idCampagne : idCampagne,
+                        idSelectedCampagne : idSelectedCampagne,
                         libelleCampagne : libelle,
                         objetCampagne : objet,
                         idNewsletter : idNewsletter,
@@ -249,7 +328,8 @@ var Campagne = (function() {
                         case "send":
                             bootbox.alert("Mail envoyé.");
                             modal.hide();
-                            ////_loaderOff();
+                            //_loaderOff();
+
                             break;
                     }
                     _loaderOff();
