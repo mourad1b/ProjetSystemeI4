@@ -12,7 +12,7 @@
             <button class="sort btn btn-default" data-sort="prenom">Tri par Prénom</button>
             <button class="sort btn btn-default" data-sort="mail">Tri par Mail</button>
             <button id="btnNewUser" class="btn btn-warning btnNewUser" data-toggle="modal" data-target="#modal">Nouveau</button>
-            <button id="btnImporterUsers" class="btn btn-primary btnImporterUsers">Importer CSV</button>
+            <button id="btnImporterUsers" class="btn btn-primary btnImporterUsers" data-toggle="modal" data-target="#modal">Importer CSV</button>
             <ul class="menu list-unstyled">
                 <li class="row">
                     <div class="idUser col-md-1">Id</div>
@@ -65,11 +65,20 @@
                     <div class="form-group">
                         <label for="inputMail" class="col-sm-2 control-label"><strong>E-mail<span>*</span></strong></label>
                         <div class="col-sm-9">
-                            <input class="form-control inputMail modalRequired" id="inputMail" name="inputMail" value=""  onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()">
+                            <input class="form-control inputMail" id="inputMail" name="inputMail" value=""  onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()" onchange="IHM.validateModal()">
                             <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
                         </div>
                     </div>
 
+
+                    <div class="form-group">
+                        <span class="help-block">Charger un fichier CSV * <br>(respecter le formalisme suivant : <strong>nom; prenom; mail</strong>)</span>
+                        <label for="inputFile" class="col-sm-2 control-label"><strong>Fichier<span>*</span></strong></label>
+                        <div class="col-sm-9">
+                            <input  type="file" class="form-control inputFile" id="inputFile" name="inputFile" value=""  onchange="IHM.validateModal()">
+                            <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -80,24 +89,20 @@
     </div>
 </div>
 
-<div class="panel panel-info panelImporterUsers">
-    <!--<div class="panel-heading">
-        <h3 class="panel-title">Ajout des utilisateurs</h3>
-    </div>
-    -->
+<!--<div class="panel panel-info panelImporterUsers">
     <div class="panel-body">
         <form class="form-horizontal addFile" id="addFile"  enctype="multipart/form-data">
             <div class="form-group">
                 <span class="help-block">Charger un fichier CSV * <br>(respecter le formalisme suivant : <strong>nom; prenom; mail; telephone</strong>)</span>
                 <label for="filecsv" class="col-sm-3 control-label"></label>
                 <div class="col-sm-12">
-                    <input type="file" class="form-control filecsv" id="filecsv" name="filecsv" size="60" onload="IHM.validateModal()">
+                    <input type="file" class="form-control filecsv" id="filecsv" name="filecsv" onload="IHM.validateModal()">
                     <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
                 </div>
             </div>
         </form>
     </div>
 </div>
-
+-->
 <script src="../Web/scripts/User2.js"></script>
 <script src="../Web/scripts/Ajax.js"></script>

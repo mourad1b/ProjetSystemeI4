@@ -3,10 +3,10 @@ var User2 = (function() {
         item: '<li class="row"><div class="idUser col-md-1"></div><div class="nom col-md-3"></div>' +
         '<div class="prenom col-md-3"></div><div class="mail col-md-4"></div><div class="col-md-1 text-right">' +
         '<button class="btnUpdateUser btn btn-info btn-xs" data-toggle="modal" data-target="#modal">Modifier</button>' +
-        '<button id="btnDeleteUser" class="btnDeleteUser btn btn-info btn-xs">Supprimer</button></div></li>'
+        '<button id="btnDeleteUser" class="btnDeleteUser btn btn-danger btn-xs">Supprimer</button></div></li>'
     };
 
-    var _users, userList, li, idUser, nom, prenom, mail;
+    var _users, userList, li, idUser, nom, prenom, mail, imputFile;
     var _url = "../Web/index.php?page=users";
 
     var _action;
@@ -17,10 +17,9 @@ var User2 = (function() {
     var btnImporterUsers = $('.btnImporterUsers');
     var btnList = $(".list");
 
-    var panelImporterUsers = $('.panelImporterUsers');
-
+    /*var panelImporterUsers = $('.panelImporterUsers');
     panelImporterUsers.hide();
-
+        */
     var _loaderOn = function() {
         $('#loader').slideDown();
         $('#modalContentCampagne').slideUp();
@@ -79,12 +78,41 @@ var User2 = (function() {
     };
 
     function _initEvents() {
+
         btnNewUser.click(function (e) {
             e.preventDefault();
             cleanForm();
+
+            $('#inputFile').parent().parent().hide();
+            $('#inputMail').parent().parent().show();
+            $('#inputFile').removeClass('modalRequired');
+
+            $('#inputMail').addClass('modalRequired');
+            $('#inputNom').parent().parent().show();
+            $('#inputPrenom').parent().parent().show();
+
             IHM.validateModal();
             _action = "create";
 
+        });
+
+        btnImporterUsers.click(function (e) {
+            e.preventDefault();
+
+            $('#inputFile').parent().parent().show();
+            $('#inputFile').addClass('modalRequired');
+
+            $('#inputIdUser').parent().parent().hide();
+            $('#inputNom').parent().parent().hide();
+            $('#inputPrenom').parent().parent().hide();
+            $('#inputMail').parent().parent().hide();
+
+            $('#inputNom').removeClass('modalRequired');
+            $('#inputPrenom').removeClass('modalRequired');
+            $('#inputMail').removeClass('modalRequired');
+
+            IHM.validateModal();
+            _action = "importerCSV";
         });
 
         btnList.on("click",".btnUpdateUser", function(e) {
@@ -92,6 +120,16 @@ var User2 = (function() {
             $("li.fillSource").removeClass('fillSource');
             $(this).closest("li.row").addClass('fillSource');
             fillForm();
+
+            $('#inputMail').parent().parent().show();
+            $('#inputFile').removeClass('modalRequired');
+
+            $('#inputIdUser').parent().parent().show();
+            $('#inputMail').addClass('modalRequired');
+            $('#inputFile').parent().parent().hide();
+            $('#inputNom').parent().parent().show();
+            $('#inputPrenom').parent().parent().show();
+
             IHM.validateModal();
             _action = "update";
         });
@@ -138,31 +176,88 @@ var User2 = (function() {
 
         btnSubmitUser.click(function() {
             idUser = $('#inputIdUser').val();
-            nom = $('#inputNom').val();
-            prenom = $('#inputPrenom').val();
+            nom = $.trim($('#inputNom').val());
+            prenom = $.trim($('#inputPrenom').val());
             mail = $.trim($('#inputMail').val());
 
-            if(mail == "") {
+            imputFile = $.trim($('#imputFile').val());
+            var ext = $("input#inputFile").val().split(".").pop().toLowerCase();
+
+            if (_action == "importerCSV" && ($.inArray(ext, ["csv"]) == -1)) {
+                bootbox.alert('Veuillez ajouter un fichier CSV.');
+                //IHM.validateModal();
+                return "";
+            }
+
+            if (_action == "create" && mail == "") {
                 bootbox.alert('Mail est obligatoire !');
                 //cleanForm();
                 IHM.validateModal();
                 return "";
             }
 
-            _loaderOn();
-            Ajax.now({
-                //csrf: true,
-                url : _url + "&action=" + _action +  ((_action === 'update') ? '&idUser=' + idUser : ''),
-                type: 'POST',
-                data : {
-                    idUser: idUser,
-                    nomUser: nom,
-                    prenomUser: prenom,
-                    mailUser: mail
+
+            console.log(_users);
+            $.each( _users, function( key, value ) {
+                if (value.mail == mail) {
+                    bootbox.alert('Certains utilisateurs existent déjà : '+mail);
+                    IHM.validateModal();
+                    return "";
                 }
-            })
-            .done(function(data) {
-                switch(_action) {
+            });
+
+           if(_action == "importerCSV") {
+               var allText = $("input[type='file']")[0].files[0];
+
+               /*if($("input[type='file']")[0].files.length > 0) {
+                   */
+               var form_data = new FormData();
+               form_data.append("file", $("input[type='file']")[0].files[0]);
+
+               //@todo lire le csv pour voir s'il ya des utilisateurs mail déjà existants
+
+               _loaderOn();
+               $.ajax({
+                   //csrf:true,
+                   url: _url + "&action=importerCSV",
+                   processData: false, // Important pour l'upload
+                   contentType: false, // Important pour l'upload
+                   data: form_data,
+                   type: "POST"
+               }).done(function ( jqXHR , textStatus) {
+                       var upload = $('.addFile').find('.uploadButton');
+                       upload.addClass('disabled');
+                       if (textStatus == "success") {
+                           $('.btn-file :file').parents('.input-group').find(':text').val('');
+                           bootbox.alert("Utilisateurs ajoutés avec succès");
+                           modal.hide();
+                       }
+                       // _getUsers();
+                       _loaderOff();
+                   })
+                   .always(function(){
+                       _loaderOff();
+                   })
+                   .fail(function(){
+                       bootbox.alert("Erreur lors du traitement du Fichier");
+                       _loaderOff();
+                   });
+              // }
+            }else{
+                _loaderOn();
+                Ajax.now({
+                //csrf: true,
+                url: _url + "&action=" + _action + ((_action === 'update') ? '&idUser=' + idUser : ''),
+                type: 'POST',
+                data: {
+                idUser: idUser,
+                nomUser: nom,
+                prenomUser: prenom,
+                mailUser: mail
+                }
+                })
+                .done(function (data) {
+                    switch (_action) {
                     case "update":
                         var li = $('.fillSource');
                         li.find('.nom').text(nom);
@@ -178,20 +273,23 @@ var User2 = (function() {
                         _getUsers();
                         break;
                 }
-                _loaderOff();
-            })
-            .always(function(){
-                _loaderOff();
+                    _loaderOff();
+                })
+                .always(function () {
+                    _loaderOff();
+                });
+
+            }
+
             });
-        });
 
 
-        btnImporterUsers.click(function (e) {
+        /*btnImporterUsers.click(function (e) {
             e.preventDefault();
             IHM.validateModal();
             _action = "importerCSV";
 
-            var modal = bootbox.dialog({
+            /*var modal = bootbox.dialog({
                 title: "Importer des utilisateurs",
                 message: panelImporterUsers.show(),
                 buttons: [{
@@ -209,24 +307,30 @@ var User2 = (function() {
                 onEscape: function () {
                     //modal.modal("hide");
                 }
-            });
+            });*/
 
-            modal.on('click', '.btnImporterCSV', function (e) {
+            /*modal.on('click', '.btnImporterCSV', function (e) {
                 e.preventDefault();
-                filecsv = $.trim($('.filecsv').val());
+                imputFile = $.trim($('.imputFile').val());
                 ////_loaderOn();
 
                 // The event listener for the file upload
-                //document.getElementById('filecsv').addEventListener('change', upload, false);
+                //document.getElementById('imputFile').addEventListener('change', upload, false);
 
 
-               // $("#filecsv").change(function(e) {
-                   var ext = $("input#filecsv").val().split(".").pop().toLowerCase();
+               // $("#imputFile").change(function(e) {
+                   var ext = $("input#inputFile").val().split(".").pop().toLowerCase();
 
                     if($.inArray(ext, ["csv"]) == -1) {
                         bootbox.alert('Veuillez ajouter un fichier CSV.');
-                        return false;
+                        //IHM.validateModal();
+                        return "";
                     }
+
+
+                //var fileUpload = document.getElementById("inputFile");
+               // var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv)$/;
+
 
                     if($("input[type='file']")[0].files.length > 0) {
                         var form_data = new FormData();
@@ -259,45 +363,9 @@ var User2 = (function() {
                         });
                     }
 
-                /*
-                var fileUpload = document.getElementById("filecsv");
-                var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv)$/;
-
-                var file_data= null;
-                if (regex.test(fileUpload.value.toLowerCase())) {
-                    var reader = new FileReader();
-                    if (typeof (FileReader) != "undefined") {
-                        reader.onload = function (e) {
-                            var table = document.createElement("table");
-                            var rows = e.target.result.split("\n");
-                            for (var i = 0; i < rows.length; i++) {
-                                var row = table.insertRow(-1);
-                                var cells = rows[i].split(",");
-                                for (var j = 0; j < cells.length; j++) {
-                                    var cell = row.insertCell(-1);
-                                    cell.innerHTML = cells[j];
-                                }
-                            }
-                            var dvCSV = document.getElementById("resultcsv");
-                            dvCSV.innerHTML = "";
-                            dvCSV.appendChild(table);
-
-                        }
-                        reader.readAsText(fileUpload.files[0]);
-                        file_data = $("#filecsv").prop("files")[0];
-                        console.log(file_data);
-                        file_data = fileUpload.files[0];
-
-                    } else {
-                        bootbox.alert("Ce navigateur ne supporte pas HTML5.");
-                        return false;
-                    }
-                }
-                */
-
             });
         });
-
+*/
 
     };
 
