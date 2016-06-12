@@ -27,12 +27,12 @@ var Template = (function() {
     var _loaderOn = function() {
         $('#loader').slideDown();
         $('#modalContentCampagne').slideUp();
-        $("body").addClass('modal-open');
+        $("body").addClass('bb-js modal-open');
     };
     var _loaderOff = function() {
         $('#loader').slideUp();
         $('#modalContentCampagne').slideDown();
-        $("body").removeClass('modal-open');
+        $("body").removeClass('bb-js modal-open');
     };
 
     function _getNewsletters() {
@@ -83,7 +83,7 @@ var Template = (function() {
                             + '<img src="" alt="'+ value.nom+'" class="img-responsive" style="text-align: center"> '
                             + '<div class="fh5co-card-body bodyHtmlTemplate"  style="height: 300px"> '
                             + value.contenu + '</div>'
-                            + '<button class="btnUseTemplate btn btn-default" data-id="'+ value.idTemplate + '" data-toggle="modal" data-target="#modal">Utiliser ce modèle</button></a></div>';
+                            + '<button class="btnUseTemplate btn btn-info btn-xs" data-id="'+ value.idTemplate + '" data-toggle="modal" data-target="#modal">Choisir ce modèle</button></a></div>';
 
                         $("#bodyHtmlContenuTemplate").append(contenuTemplate);
 
@@ -192,7 +192,19 @@ var Template = (function() {
                             break;
 
                         case "create":
-                            bootbox.alert("Enregistrement ok.");
+                            bootbox.dialog({
+                                title: "Enregistrement ok",
+                                message: "Votre modèle est enregistré. Vous avez la possibilité de le rééditer dans le menu Newsletters (admin) ou l'envoyer par mail dans le menu Campagnes",
+                                buttons: {
+                                    success: {
+                                        label: "Ok",
+                                        className: "btn-primary",
+                                        callback: function () {
+                                            //Example.show("great success");
+                                        }
+                                    }
+                                }
+                            });
                             modal.hide();
                             _getNewsletters();
                             break;
