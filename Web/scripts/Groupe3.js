@@ -3,7 +3,7 @@ var Groupe3 = (function() {
         item: '<li class="row"><div class="idGroupe col-md-2"></div><div class="libelleGroupe col-md-5"></div>'
         + '<div class="nbUsers col-md-2"></div>'
         + '<button class="btnUpdateGroupe btn btn-info btn-xs" data-toggle="modal" data-target="#modal">Modifier</button>'
-        + '<button id="btnDeleteGroupe" class="btnDeleteGroupe btn btn-info btn-xs">Supprimer</button></div></li>'
+        + '<button id="btnDeleteGroupe" class="btnDeleteGroupe btn btn-danger btn-xs">Supprimer</button></div></li>'
     };
 
     var _groupes, groupeList, li, idGroupe, libelleGroupe, idGroupe;
