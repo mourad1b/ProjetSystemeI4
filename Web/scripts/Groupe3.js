@@ -11,7 +11,6 @@ var Groupe3 = (function() {
 
     var _action;
     var modal = $('#modal');
-    var modalAffect = $('#modalAffect');
     var btnSubmitGroupe = $('.btnSubmitGroupe');
     var btnSubmitAffectGroupe = $('.btnSubmitAffectGroupe');
     var btnUpdateGroupe = $('.btnUpdateGroupe');
@@ -39,10 +38,11 @@ var Groupe3 = (function() {
             .done(function(data) {
                 //data = [{"id":"2","libelle":"BEN","prenom":"Mourad","mail":"mourad_ben@test.com"}, {"id":"3","nom":"Loue","prenom":"Arnauld","mail":"Ar.loue@test.net"},{"id":"5","nom":"toto","prenom":"titi","mail":"toto.titi@test-auth.fr"}];
                 _groupes = jQuery.parseJSON(data);
-                /*$.each( _groupes, function( key, value ) {
-                    var option = "<option value='"+value.idGroupe+"' data-id='"+value.idGroupe+"'>"+value.libelleGroupe+"</option>";
-                    $('select#inputSelectGroupes').append(option);
-                });*/
+
+                console.log(_groupes);
+                $.each( _groupes, function( key, value ) {
+                    $('#inputSelectGroupeAffect').append("<option value='"+value.idGroupe+"' data-id='"+value.idGroupe+"'>"+value.libelleGroupe+"</option>");
+                });
 
                 if(_action =="create"){
                     $.each( _groupes, function( key, value ) {
@@ -68,12 +68,9 @@ var Groupe3 = (function() {
             })
             .done(function(data) {
                 _users = jQuery.parseJSON(data);
-                /*$.each( _users, function( key, value ) {
-                    //$('#inputSelectUsers').append("<option>TEST</option>");
-                    var option = "<option value='"+value.idUser+"' data-id='"+value.idUser+"'>"+value.mail+"</option>";
-                    $('#inputSelectUsers').append(option);
+                $.each( _users, function( key, value ) {
+                    $('#inputSelectUsersAffect').append("<option value='"+value.idUser+"' data-id='"+value.idUser+"'>"+value.mail+"</option>");
                 });
-                */
 
                 _loaderOff();
             })
@@ -107,6 +104,11 @@ var Groupe3 = (function() {
         btnNewGroupe.click(function (e) {
             e.preventDefault();
             cleanForm();
+
+            $('#inputLibelle').parent().parent().show();
+            $('#inputLibelle').addClass('modalRequired');
+            $('#inputSelectGroupeAffect').parent().parent().hide();
+
             IHM.validateModal();
             _action = "create";
         });
@@ -116,6 +118,11 @@ var Groupe3 = (function() {
             $("li.fillSource").removeClass('fillSource');
             $(this).closest("li.row").addClass('fillSource');
             fillForm();
+
+            $('#inputLibelle').parent().parent().show();
+            $('#inputLibelle').addClass('modalRequired');
+            $('#inputSelectGroupeAffect').parent().parent().hide();
+
             IHM.validateModal();
             _action = "update";
         });
@@ -125,7 +132,14 @@ var Groupe3 = (function() {
             $("li.fillSource").removeClass('fillSource');
             $(this).closest("li.row").addClass('fillSource');
             fillForm();
-            //IHM.validateModal();
+
+            $('#inputLibelle').parent().parent().hide();
+            $('#inputLibelle').removeClass('modalRequired');
+            $('#inputSelectGroupeAffect').parent().parent().show();
+            $('#inputSelectGroupeAffect').addClass('modalRequired');
+            $('#inputSelectGroupeAffect').parent().parent().show();
+
+            IHM.validateModal();
             _action = "affect";
         });
 
@@ -158,8 +172,8 @@ var Groupe3 = (function() {
                 .done(function () {
                     bootbox.alert("Suppression ok.");
                     groupeList.remove({"idGroupe": idGroupe, "libelleGroupe": libelleGroupe});
-                    _getGroupes();
                     modal.hide();
+                    _getGroupes();
                     _loaderOff();
                 })
                 .always(function() {
@@ -168,30 +182,33 @@ var Groupe3 = (function() {
             });
         });
 
+
         btnSubmitGroupe.click(function() {
             idGroupe = $('#inputIdGroupe').val();
-            libelleGroupe = $('#inputLibelle').val();
+            libelleGroupe = $.trim($('#inputLibelle').val());
 
             var idUsers = [];
-            var idGroupeAffect = $('#inputSelectGroupeAffect :selected').data('id');
+            var idGroupeAffect = $('#inputSelectGroupeAffect option:selected').data('id');
 
-            $('#inputSelectUsersAffect :selected').each(function(i, selected){
+            $('#inputSelectUsersAffect option:selected').each(function(i, selected){
                 idUsers[i] = $(selected).data('id');
             });
 
             if(_action=="create" && libelleGroupe == "") {
                 bootbox.alert('Libelle est obligatoire !');
                 //cleanForm();
-                //IHM.validateModal();
-                return "";
-            }
-            if(_action=="affect" && (idUsers.length == 0 || idGroupeAffect == "")) {
-                bootbox.alert('Sélection Groupe et Utilisateur obligatoire !');
-                //cleanForm();
-                //IHM.validateModal();
+                IHM.validateModal();
                 return "";
             }
 
+            if(_action=="affect" && (idUsers.length == 0 || idGroupeAffect == "")) {
+                bootbox.alert('Sélection Groupe et Utilisateur obligatoire !');
+                //cleanForm();
+                IHM.validateModal();
+                return "";
+            }
+
+            console.log(idUsers);
 
             _loaderOn();
             Ajax.now({
@@ -225,7 +242,7 @@ var Groupe3 = (function() {
 
                     case "affect":
                         bootbox.alert("Affectation ok.");
-                        modalAffect.hide();
+                        modal.hide();
                         //_loaderOff();
                         break;
                 }
@@ -234,7 +251,7 @@ var Groupe3 = (function() {
             .always(function() {
                 _loaderOff();
             });
-        });
+                    });
     };
 
     return {
