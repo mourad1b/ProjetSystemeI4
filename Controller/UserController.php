@@ -86,18 +86,18 @@ class UserController
         $repos = new UserRepository();
         $id = $repos->update($user); // On persiste l'objet dans la base et on récupère son id
 
-        $to_email = $user->getMail();
+        /*$to_email = $user->getMail();
         $from_email = $user->getMail();
         //$subject = "Confirmation de création";
         //$message =  "Votre utilisateur a correctement été enregistrée !\nConsultez l'ensemble des mails via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\nSupprimez un mail via ce lien :\n" . PATH_TO_FRONT_CONTROLLER . "\n\nVous recevrez un mail en cas de nouveau mail.";
         $subject = "Un petit coucou";
         $message =  "Coucou, Un petit coucou depuis mon appli ;-)";
-
+        */
         /*$mail = new MailSenderController();
         $mail->send($to_email, $subject, $message, array());
         */
 
-        $this->indexAction('<strong>Succès !</strong> Utilisateur mis à jour.'); // Redirect to index
+        //$this->indexAction('<strong>Succès !</strong> Utilisateur mis à jour.'); // Redirect to index
     }
 
     public function deleteUserAction()

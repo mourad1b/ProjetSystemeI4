@@ -108,6 +108,7 @@ var Groupe3 = (function() {
             $('#inputLibelle').parent().parent().show();
             $('#inputLibelle').addClass('modalRequired');
             $('#inputSelectGroupeAffect').parent().parent().hide();
+            //$('#inputSelectUsersAffect').parent().parent().hide();
 
             IHM.validateModal();
             _action = "create";
@@ -122,6 +123,7 @@ var Groupe3 = (function() {
             $('#inputLibelle').parent().parent().show();
             $('#inputLibelle').addClass('modalRequired');
             $('#inputSelectGroupeAffect').parent().parent().hide();
+            //$('#inputSelectUsersAffect').parent().parent().hide();
 
             IHM.validateModal();
             _action = "update";
@@ -138,6 +140,7 @@ var Groupe3 = (function() {
             $('#inputSelectGroupeAffect').parent().parent().show();
             $('#inputSelectGroupeAffect').addClass('modalRequired');
             $('#inputSelectGroupeAffect').parent().parent().show();
+            //$('#inputSelectUsersAffect').parent().parent().show();
 
             IHM.validateModal();
             _action = "affect";
@@ -196,14 +199,14 @@ var Groupe3 = (function() {
 
             if(_action=="create" && libelleGroupe == "") {
                 bootbox.alert('Libelle est obligatoire !');
-                //cleanForm();
+                cleanForm();
                 IHM.validateModal();
                 return "";
             }
 
             if(_action=="affect" && (idUsers.length == 0 || idGroupeAffect == "")) {
                 bootbox.alert('Sélection Groupe et Utilisateur obligatoire !');
-                //cleanForm();
+                cleanForm();
                 IHM.validateModal();
                 return "";
             }
@@ -216,7 +219,7 @@ var Groupe3 = (function() {
                     url : _url + "&action=" + _action +  ((_action === 'update') || (_action === 'affect') ? '&idGroupe=' + idGroupe : ''),
                     type: 'POST',
                     data : {
-                        idGroupe : idGroupe,
+                        idGroupe : idGroupeAffect,
                         idGroupeAffect : idGroupeAffect,
                         libelleGroupe : libelleGroupe,
                         idUsers : idUsers

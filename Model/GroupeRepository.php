@@ -94,10 +94,11 @@ class GroupeRepository
 
     public function update(Groupe $groupe)
     {
-        $this->db->Sql("UPDATE groupe SET libelle =:libelle WHERE id_groupe =:id",
+        $this->db->Sql("UPDATE groupe SET libelle=:libelle WHERE id_groupe=:id",
             array(
                 'id' => $groupe->getId(),
                 'libelle' => $groupe->getLibelle()));
+
     }
 
     public function remove(Groupe $groupe)

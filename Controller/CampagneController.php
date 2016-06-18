@@ -149,7 +149,7 @@ class CampagneController
     {
         $repos = new CampagneRepository();
         if(!empty($_POST['idSelectedCampagne'])){
-            $libelleCampagne = $repos->find($_POST['idSelectedCampagne'])->getLibelle().'Send';
+            $libelleCampagne = $repos->find($_POST['idSelectedCampagne'])->getLibelle();
             $campagne = new Campagne('', $libelleCampagne, $_POST['objetCampagne'], $_POST['idNewsletter'], $_POST['idGroupe'], $_POST['destinataire']);
         }else{
             //$campagne= new Campagne($_POST['idCampagne'], $_POST['libelleCampagne'], $_POST['objetCampagne'], $_POST['idNewsletter'], $_POST['idGroupe'], $_POST['destinataire']);

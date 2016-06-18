@@ -90,7 +90,7 @@
             <h3>Gestion des Newsletters</h3>
         </div>
         <div id="header_left2">
-            <h2><!--EPSI--></h2>
+            <h2>EPSI</h2>
         </div>
     </div>
 

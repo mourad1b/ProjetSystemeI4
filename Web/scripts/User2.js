@@ -197,9 +197,9 @@ var User2 = (function() {
             }
 
 
-            console.log(_users);
+
             $.each( _users, function( key, value ) {
-                if (value.mail == mail) {
+                if ((_action == "create" || _action == "importerCSV") && (value.mail == mail)) {
                     bootbox.alert('Certains utilisateurs existent déjà : '+mail);
                     IHM.validateModal();
                     return "";
