@@ -158,11 +158,18 @@ class UserRepository
      */
     public function removeUserCascade(User $user)
     {
-        // Suprime les candidatures liées
-        $this->db->Sql("DELETE FROM users WHERE id_user = :id",
-            array('id' => $user->getId()));
+        //@todo supprimer user Cascade user dans GroupeUser
 
-        // Supprime l'emploi
+        $repoGU = new GroupeUserRepository();
+        $groupeUsers =$repoGU->findAll();
+        foreach($groupeUsers as $groupeUser){
+            if($groupeUser->getIdUser() == $user->getId()){
+                $this->db->Sql("DELETE FROM groupe_user WHERE id_user = :idUser",
+                    array ( 'idUser' => $user->getId()));
+            }
+        }
+
+        // Supprime user dans user
         $this->db->Sql("DELETE FROM users WHERE id_user = :id",
             array('id' => $user->getId()));
     }

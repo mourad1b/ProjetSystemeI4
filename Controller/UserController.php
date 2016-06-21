@@ -104,7 +104,9 @@ class UserController
     {
         $repos = new UserRepository();
         $user = new User($_POST['idUser'], $_POST['nomUser'], $_POST['prenomUser'], $_POST['mailUser'], '', '','');
-        $repos->remove($user);
+        //$repos->remove($user);
+        //revove cascade Groupe User
+        $repos->removeUserCascade($user);
 
         $this->indexAction('<strong>Succès !</strong> User supprimé.'); // Redirect to index
     }
