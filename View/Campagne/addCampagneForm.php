@@ -60,11 +60,19 @@
                     <div class="form-group">
                         <label for="inputTemplate" class="col-sm-2 control-label"><strong>Newsletter<span>*</span></strong></label>
                         <div class="col-sm-9">
-                            <select class="form-control inputSelectTemplate modalRequired" id="inputSelectTemplate" name="inputSelectTemplate" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()" onchange="IHM.validateModal()">
+                            <select class="form-control inputSelectTemplate modalRequired" id="inputSelectTemplate" name="inputSelectTemplate" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()" onchange="Campagne.updatePreview()"> <!--  -->
                                 <option></option>
                             </select>
                             <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
 
+                        </div>
+                    </div>
+                    <div id="previewDiv" class="form-group">
+                        <div class="col-sm-10 text-center"><div class="alert alert-info"></div></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-9 text-right">
+                            <button type="button" class="previewNewsletter btn btn-sm btn-default">Aperçu newsletter</button>
                         </div>
                     </div>
                     <div class="form-group">
@@ -77,7 +85,7 @@
                     <div class="form-group">
                         <label for="inputDestinataire" class="col-sm-2 control-label"><strong>Destinataire</strong></label>
                         <div class="col-sm-9">
-                            <input class="form-control inputDestinataire" id="inputDestinataire" name="inputDestinataire" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()" onchange="IHM.validateModal()">
+                            <input class="form-control inputDestinataire" id="inputDestinataire" name="inputDestinataire" value="" onkeypress="IHM.validateModal()" onkeyup="IHM.validateModal()" onchange="IHM.validateModal()" onChange="Campagne.updatePreview()">
                             <span class="glyphicon glyphicon-warning-sign form-control-feedback hasTooltip" title="Champ obligatoire" data-placement="left" style="display:none;"></span>
                         </div>
                     </div>

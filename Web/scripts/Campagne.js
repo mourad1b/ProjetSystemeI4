@@ -15,6 +15,7 @@ var Campagne = (function() {
     var btnUpdateCampagne = $('.btnUpdateCampagne');
     var btnNewCampagne = $('.btnNewCampagne');
     var btnList = $(".list");
+    var btnPreviewNewsletter = $('.previewNewsletter');
     var btnDisplayCampagne = $('.hrefDisplayCampagne');
     var btnSendMailCampagne = $('.btnSendMailCampagne');
 
@@ -175,12 +176,14 @@ var Campagne = (function() {
             cleanForm();
             IHM.validateModal();
             _action = "send";
+
         });
 
         btnSendMailCampagne.click(function(e) {
             e.preventDefault();
 
 
+            // modal formulaire envoi campagne par mail
             $('span.tooltipInfo').show();
             $('#inputObjet').parent().parent().show();
             $('#inputSelectCampagne').parent().parent().show();
@@ -192,6 +195,42 @@ var Campagne = (function() {
             $('#inputSelectTemplate').addClass('modalRequired');
             $('#inputSelectGroupe').parent().parent().show();
 
+            // form apercu newsletter
+            //$('.previewNewsletter').attr("style", "visibility: hidden");
+            $('#previewDiv').hide();
+            $('.previewNewsletter').parent().parent().hide();
+
+            modal.on("change", "#inputSelectTemplate", function() {
+
+                if($( "#inputSelectTemplate option:selected" ).data('id') != undefined) {
+                    $('.previewNewsletter').parent().parent().show();
+
+                    $('.previewNewsletter').on("click", function() {
+
+                        $('#previewDiv').show();
+                        $('.previewNewsletter').text('Fermer l\'aperçu');
+                        $('.previewNewsletter').on("click", function(){
+                            $('#previewDiv').hide();
+                            $('.previewNewsletter').text('Aperçu newsletter');
+                            Campagne.updatePreview();
+                        });
+                        /*if ($('#previewDiv').is(':visible')) {
+                            $('#previewDiv').slideUp();
+                            $('.previewNewsletter').text('Fermer l\'aperçu');
+                        }
+                        else {
+                            $('#previewDiv').slideDown();
+                            $('.previewNewsletter').text('Aperçu newsletter');
+                        }*/
+                    });
+                }else{
+                    $('#previewDiv').hide();
+                    $('.previewNewsletter').parent().parent().hide();
+                }
+
+            });
+
+            //
             $("li.fillSource").removeClass('fillSource');
             $(this).closest("li.row").addClass('fillSource');
             fillForm();
@@ -243,14 +282,13 @@ var Campagne = (function() {
             });
         });
 
-
         btnSubmitCampagne.click(function() {
             idCampagne = $('#inputIdCampagne').val();
             idSelectedCampagne = $('#inputSelectCampagne option:selected').data('id');
             libelle = $.trim($('#inputLibelle').val());
             objet = $('#inputObjet').val();
             destinataire = $.trim($('#inputDestinataire').val());
-            idNewsletter = $( "#inputSelectTemplate option:selected" ).data('id');
+            idNewsletter = $("#inputSelectTemplate option:selected" ).data('id');
             idGroupe = $('#inputSelectGroupe option:selected').data('id');
 
             if((_action == "create" || _action == "update") && libelle == "") {
@@ -260,39 +298,14 @@ var Campagne = (function() {
                 return "";
             }
 
-
-            console.log(_action);
-            console.log("idCampagne " +idCampagne);
-            console.log("libelle " +libelle);
-            console.log("idSelectedCampagne " +idSelectedCampagne);
-            console.log("idNewsletter " +idNewsletter);
-            console.log("destinataire " +destinataire);
-            console.log("idGroupe " +idGroupe);
-
-
             if(_action == "send"){
                 if((( idGroupe == undefined && destinataire == ""))) {
-
-                    //$( "#inputSelectTemplate" ).addClass('modalRequired');  // newsletter Required
-                    // $('#inputSelectGroupe').addClass('modalRequired');
-
                     bootbox.alert('Veuillez choisir un groupe ou renseigner un mail destinataire !');
                     //cleanForm();
                     IHM.validateModal();
                     return "";
                 }
-            }
-
-
-            var data = {
-                idCampagne : idCampagne,
-                libelleCampagne : libelle,
-                objetCampagne : objet,
-                idNewsletter : idNewsletter,
-                idGroupe : idGroupe,
-                destinataire : destinataire
-            };
-
+            } // contrôle des actions utilisateurs avant l'appel Ajax
 
             _loaderOn();
             Ajax.now({
@@ -307,7 +320,7 @@ var Campagne = (function() {
                         idNewsletter : idNewsletter,
                         idGroupe : idGroupe,
                         destinataire : destinataire
-                    }
+                    } // données concernant la campagnes
                 })
                 .done(function(data) {
                     switch(_action) {
@@ -316,9 +329,6 @@ var Campagne = (function() {
                             li.find('.libelle').text(libelle);
                             bootbox.alert("Mise à jour ok.");
                             modal.hide();
-
-                            //tinyMCE.triggerSave();  //  pour la modification du template
-                            //_getCampagnes();
                             break;
 
                         case "create":
@@ -331,17 +341,15 @@ var Campagne = (function() {
                             bootbox.alert("Mail envoyé.");
                             modal.hide();
                             //_loaderOff();
-
                             break;
                     }
                     _loaderOff();
-
                  })
                 .always(function() {
                     _loaderOff();
                  });
-
         });
+
 
         btnDisplayCampagne.click(function() {
             idCampagne = $('.hrefDisplayCampagne').data('id');
@@ -364,13 +372,54 @@ var Campagne = (function() {
         });
     };
 
+    var _updatePreview = function() {
+        var mustBeDisabled = false;
+        var newsletter = null;
+        for(var i in _newsletters) {
+
+            if(_newsletters[i].idNewsletter == $( "#inputSelectTemplate option:selected" ).data('id')) {
+                newsletter = _newsletters[i];
+
+                break;
+            }
+        }
+
+        if(newsletter) {
+            //$('#destinataireMail').val(newsletters.contenu);
+            $('#previewDiv').find('.alert').html(newsletter.contenu);
+
+           //console.log($('#destinataireMail'), model.destinataires);
+           // console.log($('#destinataireMail').val());
+
+            /*if($('#inputSelectTemplate').val() != '') {
+                $('#inputSelectTemplate').attr('disabled', 'disabled');
+            }*/
+        } else {
+            mustBeDisabled = true;
+            //$('#inputSelectTemplate').val('').removeAttr('disabled');
+            $('#previewDiv').slideUp();
+            $('.previewNewsletter').text('Aperçu newsletter');
+        }
+
+        if (mustBeDisabled) {
+            $('.previewNewsletter').attr('disabled', 'disabled').text('Aperçu newsletter');
+        }
+        else{
+            $('.previewNewsletter').removeAttr('disabled');
+        }
+
+        IHM.validateModal();
+    }
+
     return {
         init : function() {
             //initList();
             _getCampagnes();
             _initEvents();
             _getNewslettersAndGroupes();
-        }
+        },
+
+        updatePreview : _updatePreview
     };
 })();
 $(document).ready(Campagne.init());
