@@ -19,6 +19,9 @@ var Campagne = (function() {
     var btnDisplayCampagne = $('.hrefDisplayCampagne');
     var btnSendMailCampagne = $('.btnSendMailCampagne');
 
+    $('#previewDiv').hide();
+    $('.previewNewsletter').parent().parent().hide();
+
     var _loaderOn = function() {
         $('#loader').slideDown();
         $('#modalContentCampagne').slideUp();
@@ -197,8 +200,6 @@ var Campagne = (function() {
 
             // form apercu newsletter
             //$('.previewNewsletter').attr("style", "visibility: hidden");
-            $('#previewDiv').hide();
-            $('.previewNewsletter').parent().parent().hide();
 
             modal.on("change", "#inputSelectTemplate", function() {
 
